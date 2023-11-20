@@ -1,3 +1,6 @@
+// Modified from:
+// https://blog.csdn.net/qq_60678811/article/details/124762176
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
