@@ -7,6 +7,7 @@
 #define DIVISION_BY_ZERO 1
 #define INVALID_EQUATION 2
 #define INVALID_EXPRESSION 3
+#define TOO_LARGE_NUMBER 4
 
 // Stack structure
 #define stackDepth 80
@@ -56,6 +57,8 @@ float popF(stackPtr head);
  
 // Function to calculate an expression
 Pair CalcExpression(char* Expression);
+
+Pair CalcBinaryExpression(char* Expression);
 
 // Function to solve an equation
 Pair2 SolveEquation(char* str);
