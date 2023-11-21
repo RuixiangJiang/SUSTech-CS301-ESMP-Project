@@ -9,7 +9,11 @@
   
   Learn more through the code in `utils.c` .
 
-  ```c
+<img src="https://s2.loli.net/2023/11/22/ofV9Iah4S5bUiEj.jpg" alt="QQ20231122043549.jpg" style="zoom: 25%;" />
+
+
+
+```c
   void draw_initial_screen(uint8_t* username) {
     LCD_Clear(WHITE);
     POINT_COLOR = BLACK;
@@ -22,6 +26,4 @@
     LCD_ShowPicture(90, 150, 60, 60, (uint16_t *) gImage_calc);
     LCD_ShowPicture(170, 150, 60, 59, (uint16_t *) gImage_pic);
 }
-  ```
-
-![QQ20231122043549.jpg](https://s2.loli.net/2023/11/22/ofV9Iah4S5bUiEj.jpg)
+```
