@@ -31,3 +31,11 @@ int main() {
     }
     return 0;
 }
+/*
+use include "calc.h" to import the code
+given char str[], use calcPair ans = CalcOrSolve(str) to get the answer
+ans.inputType = 1 means calc-expression, = 2 means solv-equation
+if inputType = 1, the value of expression is stored in ans.p1.result
+if inputType = 2, the roots of equation are stored in ans.p2.root(refer to calc.h to check what struct Root is)
+refer to calc.h to check what the errorcode is
+*/
