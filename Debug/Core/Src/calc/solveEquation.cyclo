@@ -1,5 +1,4 @@
-../Core/Src/calc/solveEquation.c:11:6:solveLinearEquation	2
-../Core/Src/calc/solveEquation.c:19:6:solveQuadraticEquation	2
-../Core/Src/calc/solveEquation.c:31:6:parseEquation	18
-../Core/Src/calc/solveEquation.c:91:6:solveEquation	3
-../Core/Src/calc/solveEquation.c:108:5:main	1
+../Core/Src/calc/solveEquation.c:11:7:solveLinearEquation	2
+../Core/Src/calc/solveEquation.c:19:7:solveQuadraticEquation	4
+../Core/Src/calc/solveEquation.c:31:6:parseEquation	23
+../Core/Src/calc/solveEquation.c:117:7:SolveEquation	3

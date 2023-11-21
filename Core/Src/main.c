@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lcd.h"
+#include "utils.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,6 +94,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  draw_initial_screen((uint8_t *) "Zhang Sheng");
   while (1)
   {
     /* USER CODE END WHILE */

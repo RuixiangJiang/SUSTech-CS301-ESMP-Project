@@ -1,0 +1,460 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "Project.elf"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_options",
+			"add_st_target_properties",
+			"target_compile_options",
+			"target_compile_definitions",
+			"target_include_directories",
+			"target_sources"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt",
+			"cmake/st-project.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 7,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 56,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 30,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 6,
+				"parent" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 16,
+				"parent" : 2
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 65,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-g3"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcpu=cortex-m3"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "DEBUG"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "STM32F103xE"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "USE_HAL_DRIVER"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/mayst/Desktop/ESMP-Project/Core/Inc"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/mayst/Desktop/ESMP-Project/Drivers/STM32F1xx_HAL_Driver/Inc"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/mayst/Desktop/ESMP-Project/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/mayst/Desktop/ESMP-Project/Drivers/CMSIS/Device/ST/STM32F1xx/Include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/mayst/Desktop/ESMP-Project/Drivers/CMSIS/Include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-g3"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcpu=cortex-m3"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "DEBUG"
+				}
+			],
+			"language" : "ASM",
+			"sourceIndexes" : 
+			[
+				10
+			]
+		}
+	],
+	"id" : "Project::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-mcpu=cortex-m3",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-T",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "C:/Users/mayst/Desktop/ESMP-Project/STM32F103RCTX_FLASH.ld",
+				"role" : "flags"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "Project",
+	"nameOnDisk" : "Project.elf",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				10
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/gpio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/lcd.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/main.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/stm32f1xx_hal_msp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/stm32f1xx_it.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/syscalls.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/sysmem.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/system_stm32f1xx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/usart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 1,
+			"path" : "Core/Startup/startup_stm32f103rctx.s",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "calc/binaryExpression.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "calc/calc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "calc/calcExpression.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "calc/solveEquation.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 7,
+			"compileGroupIndex" : 0,
+			"path" : "calc/stack.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

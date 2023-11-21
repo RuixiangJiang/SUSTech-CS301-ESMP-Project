@@ -3006,3 +3006,16 @@ void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 	}
 }
 
+
+void LCD_ShowPicture(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned short *pic) {
+	uint16_t m,h;
+	uint16_t *data=(uint16_t *)pic;
+	for(h=0+y;h<row+y;h++) //60
+	{
+		for(m=0+x;m<column+x;m++) //180
+		{
+		LCD_Fast_DrawPoint(m,h,*data++);
+		}
+	}
+}
+

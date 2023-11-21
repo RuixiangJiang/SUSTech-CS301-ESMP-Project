@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CALC_H
+#define __CALC_H 	   
 
 #define isNumber(c) ((c) >= '0' && (c) <= '9')
 
@@ -64,3 +65,5 @@ Pair CalcBinaryExpression(char* Expression);
 Pair2 SolveEquation(char* str);
 
 calcPair CalcOrSolve(char *str);
+
+#endif

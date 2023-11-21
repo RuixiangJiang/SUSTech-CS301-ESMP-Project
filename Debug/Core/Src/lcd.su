@@ -30,3 +30,4 @@
 ../Core/Src/lcd.c:2939:6:LCD_ShowNum	48	static
 ../Core/Src/lcd.c:2965:6:LCD_ShowxNum	48	static
 ../Core/Src/lcd.c:2990:6:LCD_ShowString	40	static
+../Core/Src/lcd.c:3010:6:LCD_ShowPicture	32	static
