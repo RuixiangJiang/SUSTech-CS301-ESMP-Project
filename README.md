@@ -6,9 +6,7 @@
   (a) Due to compilation issues, all files unrelated to the stm32 project were moved to the `Project > calc` directory.
 
   (b) The initial screen is as shown in the figure (if you need to add components in the future, you can add their logo on a new line), using a button as the home key and a button for calibrating the resistive touch screen.
-
-  ![](https://cdn.luogu.com.cn/upload/image_hosting/7mbs4uga.png)
-
+  
   Learn more through the code in `utils.c` .
 
   ```c
@@ -25,3 +23,5 @@
     LCD_ShowPicture(170, 150, 60, 59, (uint16_t *) gImage_pic);
 }
   ```
+
+![QQ20231122043549.jpg](https://s2.loli.net/2023/11/22/ofV9Iah4S5bUiEj.jpg)
