@@ -2,6 +2,7 @@
     "files.associations": {
         "string.h": "c",
         "calc.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "math.h": "c"
     }
 }
