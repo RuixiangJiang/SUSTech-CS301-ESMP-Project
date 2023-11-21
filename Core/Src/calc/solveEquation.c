@@ -37,6 +37,18 @@ void parseEquation(char *equation, float *a, float *b, float *c, int *errorcode)
     *b = 0;
     *c = 0;
 
+    char unknown = '0';
+
+    for (int j = 0; j < strlen(equation); j++){
+        if (equation[j] >= 'a' && equation[j] <= 'z'){
+            if (unknown == '0') unknown = equation[j];
+            else if (unknown != equation[j]){
+                errorcode = INVALID_EQUATION;
+                return;
+            }
+        }
+    }
+
     float coefficient = 1.0;
     int sign = 1;
     while (i < strlen(equation)) {
@@ -62,7 +74,7 @@ void parseEquation(char *equation, float *a, float *b, float *c, int *errorcode)
             sign = 1;
             // printf("coefficient = %f\n",coefficient);
             i = j;
-            if (equation[i] != 'x'){
+            if (equation[i] != unknown){
                 *c += LeftOfEqual * coefficient;
                 // printf("%d * %f\n",LeftOfEqual,coefficient);
                 // printf("update c to %f\n",*c);
@@ -71,7 +83,7 @@ void parseEquation(char *equation, float *a, float *b, float *c, int *errorcode)
         }
 
         // Check if there is a variable (x)
-        else if (equation[i] == 'x') {
+        else if (equation[i] == unknown) {
             // Move to the next character after 'x'
             i++;
             // Check if there is an exponent (^)
