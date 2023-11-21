@@ -7,7 +7,7 @@
 
   (b) The initial screen is as shown in the figure (if you need to add components in the future, you can add their logo on a new line), using a button as the home key and a button for calibrating the resistive touch screen.
 
-  ![](https://www.luogu.com.cn/image?_t=1700599020726)
+  ![](https://cdn.luogu.com.cn/upload/image_hosting/7mbs4uga.png)
 
   Learn more through the code in `utils.c` .
 
