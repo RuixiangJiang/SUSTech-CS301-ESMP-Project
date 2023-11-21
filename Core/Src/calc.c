@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "calc.h"
 
 // Stack structure
 typedef struct {
