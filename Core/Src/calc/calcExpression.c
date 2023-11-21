@@ -116,8 +116,6 @@ Pair CalcExpression(char* str) {
                     pushC(head, temp);
                     break;
                 default:
-                    free(head);
-                    return (Pair){INVALID_EXPRESSION, 0};
                     break;
             }
         }

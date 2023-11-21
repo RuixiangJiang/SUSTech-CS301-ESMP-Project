@@ -102,11 +102,10 @@ void parseEquation(char *equation, float *a, float *b, float *c, int *errorcode)
 }
 
 // Updated function to solve equations
-Pair2 solveEquation(char *str) {
+Pair2 SolveEquation(char *str) {
     float a, b, c;
     int errorcode = 0;
     parseEquation(str, &a, &b, &c, &errorcode);
-    printf("%f %f %f\n",a,b,c);
 
     if (a != 0) {
         // It's a quadratic equation
@@ -119,11 +118,11 @@ Pair2 solveEquation(char *str) {
     }
 }
 
-int main(){
-    char tempExpression[100];
-    printf("Enter the equaltion: ");
-    fgets(tempExpression, sizeof(tempExpression), stdin);
-    Pair2 ans = solveEquation(tempExpression);
-    printf("The result = %.2f and %.2f(num = %d), the errcode is %d\n", 
-        ans.root.root1, ans.root.root2, ans.root.rootNum, ans.errorCode);
-}
+// int main(){
+//     char tempExpression[100];
+//     printf("Enter the equaltion: ");
+//     fgets(tempExpression, sizeof(tempExpression), stdin);
+//     Pair2 ans = SolveEquation(tempExpression);
+//     printf("The result = %.2f and %.2f(num = %d), the errcode is %d\n", 
+//         ans.root.root1, ans.root.root2, ans.root.rootNum, ans.errorCode);
+// }

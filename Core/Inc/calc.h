@@ -33,6 +33,12 @@ typedef struct {
     Root root;
 } Pair2;
 
+typedef struct {
+    int inputType;
+    Pair p1;
+    Pair2 p2;
+} calcPair;
+
 // Function to initialize the stack
 stackPtr InitStack();
 
@@ -52,4 +58,6 @@ float popF(stackPtr head);
 Pair CalcExpression(char* Expression);
 
 // Function to solve an equation
-Pair SolveEquation(char* Expression);
+Pair2 SolveEquation(char* str);
+
+calcPair CalcOrSolve(char *str);

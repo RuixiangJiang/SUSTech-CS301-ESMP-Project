@@ -7,19 +7,27 @@
 #include <math.h>
 #include "../../Inc/calc.h"
 
-Pair CalcOrSolve(char *str){
+calcPair CalcOrSolve(char *str){
     if (strstr(str, "=") != NULL) {
-        return SolveEquation(str);
+        return (calcPair){2, (Pair){0, 0}, SolveEquation(str)};
     }
     else {
-        return CalcExpression(str);
+        return (calcPair){1, CalcExpression(str), (Pair2){0, (Root){0, 0, 0}}};
     }
 }
 int main() {
-    char tempExpression[100];
-    printf("Enter the expression: ");
-    fgets(tempExpression, sizeof(tempExpression), stdin);
-
-    printf("The result = %.2f, the errcode is %d\n", CalcExpression(tempExpression).result, CalcExpression(tempExpression).errorCode);
+    char temp[100];
+    printf("Enter the string: ");
+    fgets(temp, sizeof(temp), stdin);
+    calcPair ans = CalcOrSolve(temp);
+    if (ans.inputType==1) printf("calc\n"); else printf("solve\n");
+    if (ans.inputType == 1){
+        printf("The answer is %.2f, the errcode is %d\n", ans.p1.result,ans.p1.errorCode);
+    }
+    else{
+        printf("the errorcode is %d\n",ans.p2.errorCode);
+        printf("There are %d roots\n",ans.p2.root.rootNum);
+        printf("root1 = %f, root2 = %f\n", ans.p2.root.root1, ans.p2.root.root2);
+    }
     return 0;
 }
