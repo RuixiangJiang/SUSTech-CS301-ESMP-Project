@@ -2,12 +2,36 @@
 
 #define isNumber(c) ((c) >= '0' && (c) <= '9')
 
+// Error types
+#define NO_ERROR 0
+#define DIVISION_BY_ZERO 1
+#define INVALID_EQUATION 2
+#define INVALID_EXPRESSION 3
+
 // Stack structure
+#define stackDepth 80
 typedef struct {
-    char dataC[20];
-    float dataF[20];
+    char dataC[stackDepth];
+    float dataF[stackDepth];
     int topC, topF;
 } * stackPtr, stack;
+
+// Pair structure
+typedef struct {
+    int errorCode;
+    float result;
+} Pair;
+
+typedef struct {
+    int rootNum;
+    float root1;
+    float root2;
+} Root;
+
+typedef struct {
+    int errorCode;
+    Root root;
+} Pair2;
 
 // Function to initialize the stack
 stackPtr InitStack();
@@ -23,6 +47,9 @@ void pushF(stackPtr head, float c);
 
 // Function to pop a float from the stack
 float popF(stackPtr head);
+ 
+// Function to calculate an expression
+Pair CalcExpression(char* Expression);
 
-// Function to test the calculator
-float CalcExpression(char* Expression);
+// Function to solve an equation
+Pair SolveEquation(char* Expression);

@@ -1,5 +1,5 @@
-../Core/Src/calc/stack.c:8:10:InitStack	1
-../Core/Src/calc/stack.c:16:6:pushC	2
-../Core/Src/calc/stack.c:26:6:popC	1
-../Core/Src/calc/stack.c:33:6:pushF	2
-../Core/Src/calc/stack.c:43:7:popF	1
+../Core/Src/calc/stack.c:7:10:InitStack	1
+../Core/Src/calc/stack.c:14:6:pushC	2
+../Core/Src/calc/stack.c:22:6:popC	1
+../Core/Src/calc/stack.c:26:6:pushF	2
+../Core/Src/calc/stack.c:34:7:popF	1

@@ -8,19 +8,29 @@ C_SRCS += \
 ../Core/Src/calc/calc.c \
 ../Core/Src/calc/calcExpression.c \
 ../Core/Src/calc/solveEquation.c \
-../Core/Src/calc/stack.c 
+../Core/Src/calc/stack.c \
+../Core/Src/calc/test.c 
+
+O_SRCS += \
+../Core/Src/calc/calc.o \
+../Core/Src/calc/calcExpression.o \
+../Core/Src/calc/solveEquation.o \
+../Core/Src/calc/stack.o \
+../Core/Src/calc/test.o 
 
 OBJS += \
 ./Core/Src/calc/calc.o \
 ./Core/Src/calc/calcExpression.o \
 ./Core/Src/calc/solveEquation.o \
-./Core/Src/calc/stack.o 
+./Core/Src/calc/stack.o \
+./Core/Src/calc/test.o 
 
 C_DEPS += \
 ./Core/Src/calc/calc.d \
 ./Core/Src/calc/calcExpression.d \
 ./Core/Src/calc/solveEquation.d \
-./Core/Src/calc/stack.d 
+./Core/Src/calc/stack.d \
+./Core/Src/calc/test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -30,7 +40,7 @@ Core/Src/calc/%.o Core/Src/calc/%.su Core/Src/calc/%.cyclo: ../Core/Src/calc/%.c
 clean: clean-Core-2f-Src-2f-calc
 
 clean-Core-2f-Src-2f-calc:
-	-$(RM) ./Core/Src/calc/calc.cyclo ./Core/Src/calc/calc.d ./Core/Src/calc/calc.o ./Core/Src/calc/calc.su ./Core/Src/calc/calcExpression.cyclo ./Core/Src/calc/calcExpression.d ./Core/Src/calc/calcExpression.o ./Core/Src/calc/calcExpression.su ./Core/Src/calc/solveEquation.cyclo ./Core/Src/calc/solveEquation.d ./Core/Src/calc/solveEquation.o ./Core/Src/calc/solveEquation.su ./Core/Src/calc/stack.cyclo ./Core/Src/calc/stack.d ./Core/Src/calc/stack.o ./Core/Src/calc/stack.su
+	-$(RM) ./Core/Src/calc/calc.cyclo ./Core/Src/calc/calc.d ./Core/Src/calc/calc.o ./Core/Src/calc/calc.su ./Core/Src/calc/calcExpression.cyclo ./Core/Src/calc/calcExpression.d ./Core/Src/calc/calcExpression.o ./Core/Src/calc/calcExpression.su ./Core/Src/calc/solveEquation.cyclo ./Core/Src/calc/solveEquation.d ./Core/Src/calc/solveEquation.o ./Core/Src/calc/solveEquation.su ./Core/Src/calc/stack.cyclo ./Core/Src/calc/stack.d ./Core/Src/calc/stack.o ./Core/Src/calc/stack.su ./Core/Src/calc/test.cyclo ./Core/Src/calc/test.d ./Core/Src/calc/test.o ./Core/Src/calc/test.su
 
 .PHONY: clean-Core-2f-Src-2f-calc
 

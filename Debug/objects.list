@@ -2,6 +2,7 @@
 "./Core/Src/calc/calcExpression.o"
 "./Core/Src/calc/solveEquation.o"
 "./Core/Src/calc/stack.o"
+"./Core/Src/calc/test.o"
 "./Core/Src/gpio.o"
 "./Core/Src/lcd.o"
 "./Core/Src/main.o"

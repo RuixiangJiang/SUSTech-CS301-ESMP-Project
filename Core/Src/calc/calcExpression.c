@@ -4,9 +4,17 @@
 #include <math.h>
 #include "../../Inc/calc.h"
 
+#define RetError {\
+        int returnType = cal_loc(head);\
+        if (returnType){\
+            free(head);\
+            return (Pair){returnType, 0.0};\
+        }\
+    }
+
 // Function to perform calculations based on operators
-void cal_loc(stackPtr head) {
-    if (head->dataC[head->topC] == '(') return;
+int cal_loc(stackPtr head) {
+    if (head->dataC[head->topC] == '(') return NO_ERROR;
     float a = popF(head);
     float b = popF(head);
     char c = popC(head);
@@ -19,6 +27,10 @@ void cal_loc(stackPtr head) {
             res = a * b;
             break;
         case '/':
+            if (a == 0){
+                printf("Error: Division by zero.\n");
+                return DIVISION_BY_ZERO;
+            }
             res = b / a;
             break;
         case '+':
@@ -29,10 +41,16 @@ void cal_loc(stackPtr head) {
             break;
     }
     pushF(head, res);
+    return NO_ERROR;
 }
 
 // Function to calculate the result of an expression
 float calculate(stackPtr head, char *str) {
+}
+
+Pair CalcExpression(char* str) {
+    stackPtr head = InitStack(head);
+    pushC(head, '(');
     for (int i = 0; i <= strlen(str); i++) {
         char temp;
         if (i < strlen(str)) {
@@ -68,8 +86,8 @@ float calculate(stackPtr head, char *str) {
             }
             i = j - 1;
             pushF(head, sum);
-            if ((head->dataC[head->topC] == '*' || head->dataC[head->topC] == '/') && str[i + 1] != '^') cal_loc(head);
-            if (head->dataC[head->topC] == '^') cal_loc(head);
+            if ((head->dataC[head->topC] == '*' || head->dataC[head->topC] == '/') && str[i + 1] != '^') RetError
+            if (head->dataC[head->topC] == '^') RetError
         }
         else {
             switch (temp) {
@@ -77,10 +95,10 @@ float calculate(stackPtr head, char *str) {
                     pushC(head, temp);
                     break;
                 case ')':
-                    while (head->dataC[head->topC] != '(') cal_loc(head);
+                    while (head->dataC[head->topC] != '(') RetError
                     popC(head);
-                    if (head->dataC[head->topC] == '^') cal_loc(head);
-                    if (head->dataC[head->topC] == '*' && str[i + 1] != '^') cal_loc(head);
+                    if (head->dataC[head->topC] == '^') RetError
+                    if (head->dataC[head->topC] == '*' && str[i + 1] != '^') RetError
                     break;
                 case '^':
                     pushC(head, temp);
@@ -97,14 +115,12 @@ float calculate(stackPtr head, char *str) {
                 case '-':
                     pushC(head, temp);
                     break;
+                default:
+                    free(head);
+                    return (Pair){INVALID_EXPRESSION, 0};
+                    break;
             }
         }
     }
-    return popF(head);
-}
-
-float CalcExpression(char* Expression) {
-    stackPtr head = InitStack(head);
-    pushC(head, '(');
-    return calculate(head, Expression);
+    return (Pair){NO_ERROR, popF(head)};
 }
