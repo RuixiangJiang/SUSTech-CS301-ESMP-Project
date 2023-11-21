@@ -14,6 +14,7 @@
 
 
 ```c
+  // some code in utils.c
   void draw_initial_screen(uint8_t* username) {
     LCD_Clear(WHITE);
     POINT_COLOR = BLACK;
