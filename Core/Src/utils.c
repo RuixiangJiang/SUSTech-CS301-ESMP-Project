@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include "stdint.h"
 #include "rtc.h"
+#include "usart.h"
 
 extern enum SCREEN_STATE screen_state;
 
@@ -1338,7 +1339,7 @@ const unsigned char gImage_pic[7080] = { /* 0X00,0X10,0X3C,0X00,0X3B,0X00,0X01,0
 
 const char *getDayOfWeekString(uint8_t dow)
 {
-  const char *days[] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+  const char *days[] = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
   return days[dow];
 }
 
@@ -1347,21 +1348,8 @@ void draw_initial_screen(uint8_t* username) {
 
     LCD_Clear(WHITE);
     POINT_COLOR = BLACK;
-
-    RTC_TimeTypeDef sTime;
-    RTC_DateTypeDef sDate;
-
-    HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-
-    char now_time[20];
-    sprintf(now_time, "%02d:%02d:%02d", sTime.Hours, sTime.Minutes, sTime.Seconds);
-    char now_data[20];
-    sprintf(now_data, "%04d/%02d/%02d %s", sDate.Year + 2000, sDate.Month, sDate.Date, getDayOfWeekString(sDate.WeekDay));
-
-    LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
-    LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
-
+    update_time();
+    
     char buffer[1024];
 
     sprintf(buffer, "user: [%s]", username);
@@ -1376,22 +1364,147 @@ void draw_initial_screen(uint8_t* username) {
 
 }
 
+const uint32_t mon_table[12]={31,28,31,30,31,30,31,31,30,31,30,31};//月份日期表
+struct CALENDAR { 
+    uint16_t w_year;
+    uint16_t  w_month;
+    uint16_t  w_date;
+    uint16_t  week;		 
+    uint16_t  hour;
+    uint16_t  min;
+    uint16_t  sec;
+} calendar;						//公历日历结构体
+
+uint8_t Is_Leap_Year(uint16_t year)//平年,闰年判断
+{			  
+    if(year%4==0) //必须能被4整除
+    { 
+        if(year%100==0) 
+        { 
+            if(year%400==0)return 1;//如果以00结尾,还要能被400整除	   
+            else return 0;   
+        }else return 1;   
+    }else return 0;	
+}
+
+uint8_t RTC_Get()
+{
+	static uint16_t  daycnt=0;
+	uint32_t  timecount=0; 
+	uint32_t  temp=0;
+	uint16_t  temp1=0;
+ 	timecount=RTC->CNTH;//得到计数器中的值(秒钟数)
+	timecount<<=16;
+	timecount+=RTC->CNTL; 
+
+ 	temp=timecount/86400;   //得到天数(秒钟数对应的)
+    calendar.week= temp % 7;
+
+
+	if(daycnt!=temp)//超过一天了
+	{	  
+		daycnt=temp;
+		temp1=1970;	//从1970年开始
+		while(temp>=365)
+		{				 
+			if(Is_Leap_Year(temp1))//是闰年
+			{
+				if(temp>=366)temp-=366;//闰年的秒钟数
+				else break;  
+			}
+			else temp-=365;	  //平年 
+			temp1++;  
+		}   
+		calendar.w_year=temp1;//得到年份
+		temp1=0;
+		while(temp>=28)//超过了一个月
+		{
+			if(Is_Leap_Year(calendar.w_year)&&temp1==1)//当年是不是闰年/2月份
+			{
+				if(temp>=29)temp-=29;//闰年的秒钟数
+				else break; 
+			}
+			else 
+			{
+				if(temp>=mon_table[temp1])temp-=mon_table[temp1];//平年
+				else break;
+			}
+			temp1++;  
+		}
+		calendar.w_month=temp1+1;	//得到月份
+		calendar.w_date=temp+1;  	//得到日期 
+	}
+
+    temp=timecount%86400;     		//得到秒钟数
+    calendar.hour=temp/3600;     	//小时
+    calendar.min=(temp%3600)/60; 	//分钟
+    calendar.sec=(temp%3600)%60; 	//秒钟
+    
+
+
+	return 0;
+}	 
+
+
+
+uint8_t RTC_Set(uint16_t  syear,uint8_t  smon,uint8_t  sday,uint8_t  hour,uint8_t  min, uint8_t  sec)
+{
+	uint16_t  t;
+	uint32_t  seccount=0;
+	
+	if(syear<1970||syear>2099)return 1;	     //实例是以1970年作为基准
+	for(t=1970;t<syear;t++)	//把所有年份的秒钟相加
+	{
+		if(Is_Leap_Year(t))seccount+=31622400;//闰年的秒钟数
+		else seccount+=31536000;			  //平年的秒钟数
+	}
+	smon-=1;
+	for(t=0;t<smon;t++)	   //把前面月份的秒钟数相加
+	{
+		seccount+=(uint32_t)mon_table[t]*86400;//月份秒钟数相加
+		if(Is_Leap_Year(syear)&&t==1)seccount+=86400;//闰年2月份增加一天的秒钟数	   
+	}
+	seccount+=(uint32_t)(sday-1)*86400;//把前面日期的秒钟数相加 
+	seccount+=(uint32_t)hour*3600;//小时秒钟数
+    seccount+=(uint32_t)min*60;	 //分钟秒钟数
+	seccount+=sec;//最后的秒钟加上去
+
+    RCC->APB1ENR|=1<<28;//使能电源时钟
+    RCC->APB1ENR|=1<<27;//使能备份时钟
+	PWR->CR|=1<<8;    //取消备份区写保护
+	//上面三步是必须的!
+	RTC->CRL|=1<<4;   //允许配置 
+	RTC->CNTL=seccount&0xffff;
+	RTC->CNTH=seccount>>16;
+	RTC->CRL&=~(1<<4);//配置更新
+	while(!(RTC->CRL&(1<<5)));//等待RTC寄存器操作完成 
+
+	RTC_Get();//设置完之后更新一下数据 	
+    
+	return 0;	    
+}
+
+
 
 void update_time() {
     if (screen_state != INITIAL) return;
     POINT_COLOR = BLACK;
 
+    // RTC_TimeTypeDef sTime;
+    // RTC_DateTypeDef sDate;
 
-    RTC_TimeTypeDef sTime;
-    RTC_DateTypeDef sDate;
-
-    HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-
+    RTC_Get();
     char now_time[20];
-    sprintf(now_time, "%02d:%02d:%02d", sTime.Hours, sTime.Minutes, sTime.Seconds);
+    sprintf(now_time, "%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
     char now_data[20];
-    sprintf(now_data, "%04d/%02d/%02d %s", sDate.Year + 2000, sDate.Month, sDate.Date, getDayOfWeekString(sDate.WeekDay));
+    sprintf(now_data, "%04d/%02d/%02d %s", calendar.w_year, calendar.w_month, calendar.w_date, getDayOfWeekString(calendar.week));
+
+    // HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+    // HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+    // char now_time[20];
+    // sprintf(now_time, "%02d:%02d:%02d", sTime.Hours, sTime.Minutes, sTime.Seconds);
+    // char now_data[20];
+    // sprintf(now_data, "%04d/%02d/%02d %s", sDate.Year + 2000, sDate.Month, sDate.Date, getDayOfWeekString(sDate.WeekDay));
 
     LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
     LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);

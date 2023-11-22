@@ -30,3 +30,5 @@
 ```
 
 ***TODO (Due: 2023/11/24)***: (a) Generate corresponding configuration files for each user to achieve 'plug and play' (b) Implement touch screen press to jump, press button home key to return. (c) Realize the complete function of calculator assembly (30% work of the project) 
+
+- [20233/11/22] Jiacheng Luo: 

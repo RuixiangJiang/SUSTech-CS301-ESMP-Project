@@ -101,7 +101,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  draw_initial_screen((uint8_t *) "Zhang Sheng");
+  draw_initial_screen((uint8_t *) "Zhang San");
 
   while (1)
   {

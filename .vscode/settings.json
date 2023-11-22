@@ -4,6 +4,7 @@
         "calc.h": "c",
         "stdlib.h": "c",
         "math.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "usart.h": "c"
     }
 }

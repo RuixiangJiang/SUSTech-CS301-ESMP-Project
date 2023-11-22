@@ -21,7 +21,7 @@
 #include "rtc.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "utils.h"
 /* USER CODE END 0 */
 
 RTC_HandleTypeDef hrtc;
@@ -40,6 +40,7 @@ void MX_RTC_Init(void)
   /* USER CODE BEGIN RTC_Init 1 */
   __HAL_RCC_BKP_CLK_ENABLE();  //开启后备区域时钟
   __HAL_RCC_PWR_CLK_ENABLE();  //开启电源时钟
+  HAL_PWR_EnableBkUpAccess();  //开启后备区域访问
   /* USER CODE END RTC_Init 1 */
 
   /** Initialize RTC Only
@@ -54,7 +55,7 @@ void MX_RTC_Init(void)
 
   /* USER CODE BEGIN Check_RTC_BKUP */
 
-  if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR1) != 0xABAB) {
+  if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR1) != 0x1670) {
 
    
   /* USER CODE END Check_RTC_BKUP */
@@ -80,12 +81,12 @@ void MX_RTC_Init(void)
   }
   
   /* USER CODE BEGIN RTC_Init 2 */
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, 0xABAB);
+  
+  RTC_Set(2022, 11, 22, 12, 32, 59);  //设置时间
+  __HAL_RTC_SECOND_ENABLE_IT(&hrtc,RTC_IT_SEC);         //开启RTC时钟秒中断
+  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, 0x1670);
+
   } else {
-      if (HAL_RTC_SetDate(&hrtc, &DateToUpdate, RTC_FORMAT_BIN) != HAL_OK)
-      {
-        Error_Handler();
-      }
       __HAL_RTC_SECOND_ENABLE_IT(&hrtc,RTC_IT_SEC);         //开启RTC时钟秒中断
   }
   /* USER CODE END RTC_Init 2 */
@@ -134,5 +135,10 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+void HAL_RTCEx_RTCEventCallback(RTC_HandleTypeDef *hrtc)
+{
+  update_time();
+}
 
 /* USER CODE END 1 */
