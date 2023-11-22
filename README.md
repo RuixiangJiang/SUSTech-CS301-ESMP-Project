@@ -28,6 +28,23 @@
 }
 ```
 
+```c
+// for each 1s, we will update the time info (some code in the utils.c)
+void update_time() {
+	// the screen is 320 (height) * 240 (width)
+	RTC_Get();
+	if (screen_state == INITIAL) {
+		POINT_COLOR = BLACK;
+		char now_time[20], now_data[20];
+		sprintf(now_time, "%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
+		sprintf(now_data, "%04d/%02d/%02d %s", calendar.w_year, calendar.w_month, calendar.w_date, getDayOfWeekString(calendar.week));
+		LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
+		LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
+	}
+}
+
+```
+
 ***TODO (Due: 2023/11/24)***: (a) Generate corresponding configuration files for each user to achieve 'plug and play' (b) Implement touch screen press to jump, press button home key to return. (c) Realize the complete function of calculator assembly (30% work of the project) 
 
 - [2023/11/22] Jiacheng Luo: (a) you can find configs below `// config for the users` in  `main.c`, and use your own information to build the project. (b) after run on the stm32 board, you can click the three logos, if you try, you will find that the screen will point to the corresponding part.   
