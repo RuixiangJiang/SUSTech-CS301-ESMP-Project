@@ -3,6 +3,9 @@
 #include "string.h"
 #include "stdio.h"
 #include "stdint.h"
+#include "rtc.h"
+
+extern enum SCREEN_STATE screen_state;
 
 const unsigned char gImage_calc[7200] = { /* 0X00,0X10,0X3C,0X00,0X3C,0X00,0X01,0X1B, */
 0XFF,0XFF,0XDF,0XFF,0XBA,0XD6,0X65,0X29,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
@@ -1333,12 +1336,31 @@ const unsigned char gImage_pic[7080] = { /* 0X00,0X10,0X3C,0X00,0X3B,0X00,0X01,0
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,};
 
 
+const char *getDayOfWeekString(uint8_t dow)
+{
+  const char *days[] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+  return days[dow];
+}
+
+
 void draw_initial_screen(uint8_t* username) {
 
     LCD_Clear(WHITE);
     POINT_COLOR = BLACK;
-    LCD_ShowString((240 - 8 * 12) / 2, 50, 200, 24, 24, (uint8_t*) "23:59:59");
-    LCD_ShowString((240 - 14 * 8) / 2, 85, 200, 16, 16, (uint8_t*) "2023/11/22 WED");
+
+    RTC_TimeTypeDef sTime;
+    RTC_DateTypeDef sDate;
+
+    HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+    HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+    char now_time[20];
+    sprintf(now_time, "%02d:%02d:%02d", sTime.Hours, sTime.Minutes, sTime.Seconds);
+    char now_data[20];
+    sprintf(now_data, "%04d/%02d/%02d %s", sDate.Year + 2000, sDate.Month, sDate.Date, getDayOfWeekString(sDate.WeekDay));
+
+    LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
+    LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
 
     char buffer[1024];
 
@@ -1352,4 +1374,25 @@ void draw_initial_screen(uint8_t* username) {
 
     LCD_ShowPicture(170, 150, 60, 59, (uint16_t *) gImage_pic);
 
+}
+
+
+void update_time() {
+    if (screen_state != INITIAL) return;
+    POINT_COLOR = BLACK;
+
+
+    RTC_TimeTypeDef sTime;
+    RTC_DateTypeDef sDate;
+
+    HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+    HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+    char now_time[20];
+    sprintf(now_time, "%02d:%02d:%02d", sTime.Hours, sTime.Minutes, sTime.Seconds);
+    char now_data[20];
+    sprintf(now_data, "%04d/%02d/%02d %s", sDate.Year + 2000, sDate.Month, sDate.Date, getDayOfWeekString(sDate.WeekDay));
+
+    LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
+    LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
 }

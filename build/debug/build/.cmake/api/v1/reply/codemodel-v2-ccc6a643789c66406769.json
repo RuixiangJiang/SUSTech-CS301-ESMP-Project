@@ -38,7 +38,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Project::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Project-Debug-d9bbb849c81c24298504.json",
+					"jsonFile" : "target-Project-Debug-49357cf13d35ea395af5.json",
 					"name" : "Project",
 					"projectIndex" : 0
 				}
@@ -48,8 +48,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/mayst/Desktop/ESMP-Project/build/debug/build",
-		"source" : "C:/Users/mayst/Desktop/ESMP-Project"
+		"build" : "C:/Users/mayst/ESMP-Project/build/debug/build",
+		"source" : "C:/Users/mayst/ESMP-Project"
 	},
 	"version" : 
 	{

@@ -1,1 +1,3 @@
-../Core/Src/utils.c:1336:6:draw_initial_screen	1
+../Core/Src/utils.c:1339:13:getDayOfWeekString	1
+../Core/Src/utils.c:1346:6:draw_initial_screen	1
+../Core/Src/utils.c:1380:6:update_time	2

@@ -179,7 +179,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/mayst/Desktop/ESMP-Project/build/debug/build"
+			"value" : "c:/Users/mayst/ESMP-Project/build/debug/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -671,7 +671,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/mayst/Desktop/ESMP-Project"
+			"value" : "C:/Users/mayst/ESMP-Project"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -683,7 +683,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/mayst/Desktop/ESMP-Project/build/debug/install"
+			"value" : "C:/Users/mayst/ESMP-Project/build/debug/install"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/mayst/Desktop/ESMP-Project/cmake/gcc-arm-none-eabi.cmake"
+			"value" : "C:/Users/mayst/ESMP-Project/cmake/gcc-arm-none-eabi.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
@@ -1191,7 +1191,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/mayst/Desktop/ESMP-Project/build/debug/build"
+			"value" : "C:/Users/mayst/ESMP-Project/build/debug/build"
 		},
 		{
 			"name" : "Project_SOURCE_DIR",
@@ -1203,7 +1203,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/mayst/Desktop/ESMP-Project"
+			"value" : "C:/Users/mayst/ESMP-Project"
 		}
 	],
 	"kind" : "cache",
