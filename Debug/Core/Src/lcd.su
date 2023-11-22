@@ -1,4 +1,3 @@
-../Core/Src/lcd.c:80:6:delay_us	16	static
 ../Core/Src/lcd.c:94:6:LCD_WR_REG	16	static
 ../Core/Src/lcd.c:105:6:LCD_WR_DATAX	16	static
 ../Core/Src/lcd.c:115:10:LCD_RD_DATA	16	static

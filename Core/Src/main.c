@@ -27,6 +27,12 @@
 /* USER CODE BEGIN Includes */
 #include "lcd.h"
 #include "utils.h"
+#include "touch.h"
+#include "string.h"
+#include "stdio.h"
+#include "sys.h"
+#include "delay.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,6 +42,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+unsigned char DATA_TO_SEND[800];
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -61,6 +68,40 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 extern UART_HandleTypeDef huart1;
 extern uint8_t rxBuffer[2000];
+
+void rtp_test(void)
+{
+
+  HAL_UART_Transmit(&huart1, (uint8_t*)"HELLO WORLD!", 12 , 0xFFFF);
+  while (1) {
+    tp_dev.scan(0);
+    if (screen_state == INITIAL) {
+      if(tp_dev.sta&TP_PRES_DOWN) {
+        HAL_UART_Transmit(&huart1, (uint8_t*)"pressed", 7 , 0xFFFF);
+        // between (10, 150) and (10 + 60, 150 + 60) is the area of the [CHAT] button
+        if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
+          HAL_UART_Transmit(&huart1, (uint8_t*)"CHAT", 4 , 0xFFFF);
+          screen_state = CHAT;
+          draw_chat_screen();
+        }
+        // between (90, 150) and (90 + 60, 150 + 60) is the area of the [CALCULATOR] button
+        else if (tp_dev.x[0] > 90 && tp_dev.x[0] < 150 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
+          HAL_UART_Transmit(&huart1, (uint8_t*)"CALCULATOR", 10 , 0xFFFF);
+          screen_state = CALC;
+          draw_calc_screen();
+        }
+        // between (170, 150) and (170 + 60, 150 + 60) is the area of the [PICTURE] button
+        else if (tp_dev.x[0] > 170 && tp_dev.x[0] < 230 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
+          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE", 7 , 0xFFFF);
+          screen_state = PIC;
+          draw_pic_screen();
+        }
+      }
+    }
+    
+  } 
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -97,12 +138,18 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, (uint8_t *)rxBuffer, 1);
   HAL_TIM_Base_Start_IT(&htim3);
+  Stm32_Clock_Init(RCC_PLL_MUL9);
+  delay_init(72);
+  // LED_Init();
+  // KEY_Init();
+  // LCD_Init();
+  tp_dev.init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   draw_initial_screen((uint8_t *) "Zhang San");
-
+  rtp_test();
   while (1)
   {
     /* USER CODE END WHILE */

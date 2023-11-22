@@ -1487,25 +1487,37 @@ uint8_t RTC_Set(uint16_t  syear,uint8_t  smon,uint8_t  sday,uint8_t  hour,uint8_
 
 
 void update_time() {
-    if (screen_state != INITIAL) return;
-    POINT_COLOR = BLACK;
+	RTC_Get();
+	if (screen_state == INITIAL) {
+		POINT_COLOR = BLACK;
+		char now_time[20];
+		sprintf(now_time, "%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
+		char now_data[20];
+		sprintf(now_data, "%04d/%02d/%02d %s", calendar.w_year, calendar.w_month, calendar.w_date, getDayOfWeekString(calendar.week));
+		LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
+		LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
+	}
 
-    // RTC_TimeTypeDef sTime;
-    // RTC_DateTypeDef sDate;
-
-    RTC_Get();
-    char now_time[20];
-    sprintf(now_time, "%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
-    char now_data[20];
-    sprintf(now_data, "%04d/%02d/%02d %s", calendar.w_year, calendar.w_month, calendar.w_date, getDayOfWeekString(calendar.week));
-
-    // HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-    // HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-    // char now_time[20];
-    // sprintf(now_time, "%02d:%02d:%02d", sTime.Hours, sTime.Minutes, sTime.Seconds);
-    // char now_data[20];
-    // sprintf(now_data, "%04d/%02d/%02d %s", sDate.Year + 2000, sDate.Month, sDate.Date, getDayOfWeekString(sDate.WeekDay));
-
-    LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
-    LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
 }
+
+void draw_chat_screen() {
+	LCD_Clear(WHITE);
+	POINT_COLOR = BLACK;
+	update_time();
+	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "chat");
+}
+
+void draw_calc_screen() {
+	LCD_Clear(WHITE);
+	POINT_COLOR = BLACK;
+	update_time();
+	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "calc");
+}
+
+void draw_pic_screen() {
+	LCD_Clear(WHITE);
+	POINT_COLOR = BLACK;
+	update_time();
+	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "pic");
+}
+
