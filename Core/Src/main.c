@@ -37,6 +37,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+// config for the user
+
+unsigned char user_name[20] = "Zhang San";
 
 /* USER CODE END PTD */
 
@@ -148,7 +151,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  draw_initial_screen((uint8_t *) "Zhang San");
+  draw_initial_screen((uint8_t *) user_name);
   rtp_test();
   while (1)
   {

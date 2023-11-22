@@ -45,6 +45,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 uint8_t rxBuffer[2000];
+extern enum SCREEN_STATE screen_state;
+extern unsigned char user_name[20];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -310,7 +312,7 @@ char str[100];
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	HAL_Delay(100);
+	HAL_Delay(50);
 	switch(GPIO_Pin){
 		case KEY0_Pin:
 			if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET){
@@ -321,7 +323,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			}
 			break;
 		case KEY_WK_Pin:
-			if (HAL_GPIO_ReadPin(KEY_WK_GPIO_Port, KEY_WK_Pin) == GPIO_PIN_RESET){
+			if (HAL_GPIO_ReadPin(KEY_WK_GPIO_Port, KEY_WK_Pin) == GPIO_PIN_SET){
+        screen_state = INITIAL;
+        draw_initial_screen((uint8_t *)user_name);
 			}
 			break;
 		default:
