@@ -9,12 +9,11 @@
   
   Learn more through the code in `utils.c` .
 
-<img src="https://s2.loli.net/2023/11/22/ofV9Iah4S5bUiEj.jpg" alt="QQ20231122043549.jpg" style="zoom: 25%;" />
-
-
+<img src="https://raw.githubusercontent.com/Maystern/picbed/main/278EE8593A315DE9F5F38BB3234D9035.jpg" alt="278EE8593A315DE9F5F38BB3234D9035" style="zoom:25%;" />
 
 ```c
-  // some code in utils.c
+  // some code in utils.c (note there are some modifications in the later version after 2023/11/21)
+  // used for learning the screen's structure
   void draw_initial_screen(uint8_t* username) {
     LCD_Clear(WHITE);
     POINT_COLOR = BLACK;
@@ -31,4 +30,22 @@
 
 ***TODO (Due: 2023/11/24)***: (a) Generate corresponding configuration files for each user to achieve 'plug and play' (b) Implement touch screen press to jump, press button home key to return. (c) Realize the complete function of calculator assembly (30% work of the project) 
 
-- [20233/11/22] Jiacheng Luo: 
+- [2023/11/22] Jiacheng Luo: (a) you can find configs below `// config for the users` in  `main.c`, and use your own information to build the project. (b) after run on the stm32 board, you can click the three logos, if you try, you will find that the screen will point to the corresponding part.   
+
+i.e.
+
+```c
+... // some code in the "main.c"
+
+/* USER CODE BEGIN PTD */
+// config for the users
+unsigned char user_name[20] = "Alice";
+struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
+uint16_t mark_seed = 0x1674; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
+/* USER CODE END PTD */
+
+...
+```
+
+***TODO (Due: 2023/11/24)***: (c) Realize the complete function of calculator assembly (30% work of the project) ***
+

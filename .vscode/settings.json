@@ -5,6 +5,7 @@
         "stdlib.h": "c",
         "math.h": "c",
         "stdint.h": "c",
-        "usart.h": "c"
+        "usart.h": "c",
+        "config.h": "c"
     }
 }

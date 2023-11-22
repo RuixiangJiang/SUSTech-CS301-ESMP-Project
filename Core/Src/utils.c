@@ -1339,7 +1339,7 @@ const unsigned char gImage_pic[7080] = { /* 0X00,0X10,0X3C,0X00,0X3B,0X00,0X01,0
 
 const char *getDayOfWeekString(uint8_t dow)
 {
-  const char *days[] = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
+  const char *days[] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
   return days[dow];
 }
 
@@ -1387,6 +1387,20 @@ uint8_t Is_Leap_Year(uint16_t year)//平年,闰年判断
     }else return 0;	
 }
 
+int calculate_week( int year , int month, int day )
+{
+	int c,y,week;
+	if (month == 1 || month == 2)
+	year--, month += 12;
+	c = year / 100;
+	y = year - c * 100;
+	week = y + y / 4 + c / 4 - 2 * c + 26 * (month + 1) / 10 + day - 1;
+	while (week < 0)
+	week += 7;
+	week %= 7;
+	return week;
+}
+
 uint8_t RTC_Get()
 {
 	static uint16_t  daycnt=0;
@@ -1398,7 +1412,6 @@ uint8_t RTC_Get()
 	timecount+=RTC->CNTL; 
 
  	temp=timecount/86400;   //得到天数(秒钟数对应的)
-    calendar.week= temp % 7;
 
 
 	if(daycnt!=temp)//超过一天了
@@ -1434,7 +1447,7 @@ uint8_t RTC_Get()
 		calendar.w_month=temp1+1;	//得到月份
 		calendar.w_date=temp+1;  	//得到日期 
 	}
-
+	calendar.week=calculate_week(calendar.w_year,calendar.w_month,calendar.w_date);
     temp=timecount%86400;     		//得到秒钟数
     calendar.hour=temp/3600;     	//小时
     calendar.min=(temp%3600)/60; 	//分钟
@@ -1487,17 +1500,16 @@ uint8_t RTC_Set(uint16_t  syear,uint8_t  smon,uint8_t  sday,uint8_t  hour,uint8_
 
 
 void update_time() {
+	// the screen is 320 (height) * 240 (width)
 	RTC_Get();
 	if (screen_state == INITIAL) {
 		POINT_COLOR = BLACK;
-		char now_time[20];
+		char now_time[20], now_data[20];
 		sprintf(now_time, "%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
-		char now_data[20];
 		sprintf(now_data, "%04d/%02d/%02d %s", calendar.w_year, calendar.w_month, calendar.w_date, getDayOfWeekString(calendar.week));
 		LCD_ShowString((240 - strlen(now_time) * 12) / 2, 50, 200, 24, 24, (uint8_t*) now_time);
 		LCD_ShowString((240 - strlen(now_data) * 8) / 2, 85, 200, 16, 16, (uint8_t*) now_data);
 	}
-
 }
 
 void draw_chat_screen() {

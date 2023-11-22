@@ -32,14 +32,17 @@
 #include "stdio.h"
 #include "sys.h"
 #include "delay.h"
+#include "config.h"
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-// config for the user
 
-unsigned char user_name[20] = "Zhang San";
+// config for the users
+unsigned char user_name[20] = "Alice";
+struct TIME_SETTING time_setting = {2023, 11, 22, 23, 59, 12};
+uint16_t mark_seed = 0x1674; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
 
 /* USER CODE END PTD */
 

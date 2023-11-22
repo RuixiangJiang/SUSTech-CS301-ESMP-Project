@@ -1,9 +1,10 @@
 ../Core/Src/utils.c:1340:13:getDayOfWeekString	56	static
 ../Core/Src/utils.c:1347:6:draw_initial_screen	1048	static
 ../Core/Src/utils.c:1378:9:Is_Leap_Year	16	static
-../Core/Src/utils.c:1390:9:RTC_Get	24	static
-../Core/Src/utils.c:1450:9:RTC_Set	32	static
-../Core/Src/utils.c:1489:6:update_time	72	static
-../Core/Src/utils.c:1503:6:draw_chat_screen	16	static
-../Core/Src/utils.c:1510:6:draw_calc_screen	16	static
-../Core/Src/utils.c:1517:6:draw_pic_screen	16	static
+../Core/Src/utils.c:1390:5:calculate_week	40	static
+../Core/Src/utils.c:1404:9:RTC_Get	24	static
+../Core/Src/utils.c:1463:9:RTC_Set	32	static
+../Core/Src/utils.c:1502:6:update_time	72	static
+../Core/Src/utils.c:1516:6:draw_chat_screen	16	static
+../Core/Src/utils.c:1523:6:draw_calc_screen	16	static
+../Core/Src/utils.c:1530:6:draw_pic_screen	16	static

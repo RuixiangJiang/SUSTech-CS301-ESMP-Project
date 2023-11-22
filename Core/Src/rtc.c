@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "utils.h"
+#include "config.h"
 /* USER CODE END 0 */
 
 RTC_HandleTypeDef hrtc;
@@ -55,7 +56,7 @@ void MX_RTC_Init(void)
 
   /* USER CODE BEGIN Check_RTC_BKUP */
 
-  if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR1) != 0x1670) {
+  if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR1) != mark_seed) {
 
    
   /* USER CODE END Check_RTC_BKUP */
@@ -81,10 +82,9 @@ void MX_RTC_Init(void)
   }
   
   /* USER CODE BEGIN RTC_Init 2 */
-  
-  RTC_Set(2022, 11, 22, 12, 32, 59);  //设置时间
+  RTC_Set(time_setting.year, time_setting.month, time_setting.day, time_setting.hour, time_setting.minute, time_setting.second);  //设置时间
   __HAL_RTC_SECOND_ENABLE_IT(&hrtc,RTC_IT_SEC);         //开启RTC时钟秒中断
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, 0x1670);
+  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, mark_seed);
 
   } else {
       __HAL_RTC_SECOND_ENABLE_IT(&hrtc,RTC_IT_SEC);         //开启RTC时钟秒中断
