@@ -1,7 +1,7 @@
 # ESMP-Project
 
 ## Update Log
-- [20233/11/22] Jiacheng Luo: Initial screen design
+- [2023/11/22] Initial screen design
   
   (a) Due to compilation issues, all files unrelated to the stm32 project were moved to the `Project > calc` directory.
 
@@ -47,7 +47,7 @@ void update_time() {
 
 ***TODO (Due: 2023/11/24)***: (a) Generate corresponding configuration files for each user to achieve 'plug and play' (b) Implement touch screen press to jump, press button home key to return. (c) Realize the complete function of calculator assembly (30% work of the project) 
 
-- [2023/11/22] Jiacheng Luo: (a) you can find configs below `// config for the users` in  `main.c`, and use your own information to build the project. (b) after run on the stm32 board, you can click the three logos, if you try, you will find that the screen will point to the corresponding part.   
+- [2023/11/22] (a) you can find configs below `// config for the users` in  `main.c`, and use your own information to build the project. (b) after run on the stm32 board, you can click the three logos, if you try, you will find that the screen will point to the corresponding part.   
 
 i.e.
 
@@ -64,5 +64,14 @@ uint16_t mark_seed = 0x1674; // used to check if the RTC is initialized (if you 
 ...
 ```
 
-***TODO (Due: 2023/11/24)***: (c) Realize the complete function of calculator assembly (30% work of the project) ***
+***TODO (Due: 2023/11/24)***: (c) Realize the complete function of calculator assembly (30% work of the project)
 
+
+- [2023/11/24]  finish the calculator component! (***Please double check it, if you have found some bugs, welcome to contact!**)
+
+![image-20231124031649201](https://raw.githubusercontent.com/Maystern/picbed/main/image-20231124031649201.png)
+
+1. Click "calculator" logo in the home screen to go into the calculator part.
+2. [left]/[right] button for sliding the equation window (if the equation is very long, you can use it moving left or right to see the whole input equation).
+3. You can use "change" button to switch the function of the calculator. ***i.e.*** decimal computation / equation solving / binary computation.
+4. In the decimal or binary computation part, once you click the "=" button, the result will be calculated, while in the equation solving part, when you input the second "=", the equation will be solved.
