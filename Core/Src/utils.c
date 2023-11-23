@@ -6291,7 +6291,7 @@ const unsigned char gImage_calc_bg_DE[79200] = { /* 0X00,0X10,0XF0,0X00,0XA5,0X0
 0XA6,0XFB,0XA6,0XFB,0XA5,0XFB,0XA6,0XFB,0XA6,0XF3,0XCF,0XEC,0X9D,0XFF,0XFE,0XFF,
 };
 
-
+uint16_t calc_equation_left, calc_equation_right;
 
 
 const char *getDayOfWeekString(uint8_t dow)
@@ -6513,6 +6513,8 @@ void draw_calc_screen() {
 	}
 	equation_len = 0;
 	has_pressed = 0;
+	calc_equation_left = 0;
+	calc_equation_right = 28;
 }
 
 void draw_pic_screen() {
@@ -6542,8 +6544,16 @@ void clear_calc_equation() {
 void clear_calc_result() {
 	LCD_ShowString(10, 40, 240, 16, 16, (uint8_t*) "                                                  ");
 }
+
 void display_calc_equation() {
-	LCD_ShowString(10, 10, 240, 16, 16, equation);
+	char display_part[30];
+	uint16_t i = calc_equation_left;
+	uint16_t j = 0;
+	while (i < calc_equation_right && equation[i] != 0) {
+		display_part[j++] = equation[i++];
+	}
+	display_part[j] = 0;
+	LCD_ShowString(10, 10, 240, 16, 16, (uint8_t*) display_part);
 }
 
 
@@ -6592,6 +6602,10 @@ void floatToString(float num, char* buffer, int decimalPlaces) {
 
 
 void work_for_calc(uint16_t i, uint16_t j) {
+	if (i < 0 || i > 4 || j < 0 || j > 4) {
+		return;
+	}
+	uint8_t is_append = 1;
 	if (i == 0 && j == 0) {
 		if (screen_state == CALC_D) {
 			screen_state = CALC_E;
@@ -6601,17 +6615,27 @@ void work_for_calc(uint16_t i, uint16_t j) {
 			screen_state = CALC_D;
 		}
 		draw_calc_screen();
+		is_append = 0;
 	} else if (i == 0 && j == 1) {
 		while (equation_len > 0) {
 			equation[--equation_len] = 0;
 		}
 		clear_calc_equation();
 		clear_calc_result();
+		calc_equation_left = 0;
+		calc_equation_right = 28;
+		is_append = 0;
 	} else if (i == 0 && j == 2) {
 		if (equation_len > 0) {
 			equation[--equation_len] = 0;
 		}
 		clear_calc_equation();
+		calc_equation_right = equation_len;
+		if (calc_equation_right < 28) {
+			calc_equation_right = 28;
+		}
+		calc_equation_left = calc_equation_right - 28;
+		is_append = 0;
 	} else if (i == 0 && j == 3) {
 		equation[equation_len++] = '^';
 	} else if (i == 0 && j == 4) {
@@ -6669,6 +6693,7 @@ void work_for_calc(uint16_t i, uint16_t j) {
 			}
 			clear_calc_result();
 			LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
+			is_append = 0;
 		} else if (screen_state == CALC_E) {
 			uint16_t cnt_equal = 0;
 			for (int i = 0; i < equation_len; i++) {
@@ -6717,6 +6742,7 @@ void work_for_calc(uint16_t i, uint16_t j) {
 				}
 				clear_calc_result();
 				LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
+				is_append = 0;
 			}
 		} else if (screen_state == CALC_B) {
 			Pair result = CalcBinaryExpression((char *) equation);
@@ -6733,7 +6759,13 @@ void work_for_calc(uint16_t i, uint16_t j) {
 			}
 			clear_calc_result();
 			LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
+			is_append = 0;
 		}
+	}
+	if (is_append && equation_len > 28) {
+		calc_equation_left++;
+		calc_equation_right++;
+		clear_calc_equation();
 	}
 	display_calc_equation();
 }
@@ -6770,6 +6802,27 @@ void calc_touch_screen_handler() {
 		HAL_Delay(50);
 		if (!(tp_dev.sta&TP_PRES_DOWN)) {
 			has_pressed = 0;
+		}
+	}
+}
+
+void calc_button_shift_handler(uint8_t press_key_id) {
+	if (press_key_id == 1) {
+		// 左移
+		if (calc_equation_left > 0) {
+			calc_equation_left--;
+			calc_equation_right--;
+			clear_calc_equation();
+			display_calc_equation();
+		}
+
+	} else if (press_key_id == 0) {
+		// 右移
+		if (calc_equation_right < equation_len) {
+			calc_equation_left++;
+			calc_equation_right++;
+			clear_calc_equation();
+			display_calc_equation();
 		}
 	}
 }
