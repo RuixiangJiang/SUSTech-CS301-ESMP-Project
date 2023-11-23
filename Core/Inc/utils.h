@@ -2,11 +2,15 @@
 #define __UTILS_H
 #include "stdint.h"
 #include "main.h"
+#include "touch.h"
+#include "calc.h"
 
 enum SCREEN_STATE {
   INITIAL,
   CHAT,
-  CALC,
+  CALC_D,
+  CALC_E,
+  CALC_B,
   PIC
 };
 
@@ -16,4 +20,5 @@ void update_time();
 void draw_chat_screen();
 void draw_calc_screen();
 void draw_pic_screen();
+void calc_touch_screen_handler();
 #endif

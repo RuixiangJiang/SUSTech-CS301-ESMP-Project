@@ -32,7 +32,7 @@ void MX_RTC_Init(void)
 {
 
   /* USER CODE BEGIN RTC_Init 0 */
-  RTC_DateTypeDef datebuff;   //定义一个datebuff的日期结构体
+  
   /* USER CODE END RTC_Init 0 */
 
   RTC_TimeTypeDef sTime = {0};

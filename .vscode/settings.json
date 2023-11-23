@@ -6,6 +6,7 @@
         "math.h": "c",
         "stdint.h": "c",
         "usart.h": "c",
-        "config.h": "c"
+        "config.h": "c",
+        "utils.h": "c"
     }
 }

@@ -1,4 +1,4 @@
-../Core/Src/rtc.c:31:6:MX_RTC_Init	48	static
+../Core/Src/rtc.c:31:6:MX_RTC_Init	40	static
 ../Core/Src/rtc.c:95:6:HAL_RTC_MspInit	24	static
 ../Core/Src/rtc.c:118:6:HAL_RTC_MspDeInit	16	static
 ../Core/Src/rtc.c:139:6:HAL_RTCEx_RTCEventCallback	16	static

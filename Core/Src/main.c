@@ -41,8 +41,8 @@
 
 // config for the users
 unsigned char user_name[20] = "Alice";
-struct TIME_SETTING time_setting = {2023, 11, 22, 23, 59, 12};
-uint16_t mark_seed = 0x1674; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
+struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
+uint16_t mark_seed = 0x1677; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
 
 /* USER CODE END PTD */
 
@@ -93,7 +93,7 @@ void rtp_test(void)
         // between (90, 150) and (90 + 60, 150 + 60) is the area of the [CALCULATOR] button
         else if (tp_dev.x[0] > 90 && tp_dev.x[0] < 150 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
           HAL_UART_Transmit(&huart1, (uint8_t*)"CALCULATOR", 10 , 0xFFFF);
-          screen_state = CALC;
+          screen_state = CALC_D;
           draw_calc_screen();
         }
         // between (170, 150) and (170 + 60, 150 + 60) is the area of the [PICTURE] button
@@ -103,6 +103,8 @@ void rtp_test(void)
           draw_pic_screen();
         }
       }
+    } else if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
+      calc_touch_screen_handler();
     }
     
   } 

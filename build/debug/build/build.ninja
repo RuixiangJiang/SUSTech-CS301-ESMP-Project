@@ -43,9 +43,49 @@ include CMakeFiles/rules.ninja
 
 build cmake_object_order_depends_target_Project: phony || CMakeFiles/Project.dir
 
+build CMakeFiles/Project.dir/Core/Src/24cxx.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/24cxx.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\24cxx.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/ctiic.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/ctiic.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\ctiic.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/delay.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/delay.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\delay.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/ft5206.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/ft5206.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\ft5206.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
 build CMakeFiles/Project.dir/Core/Src/gpio.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/gpio.c || cmake_object_order_depends_target_Project
   DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
   DEP_FILE = CMakeFiles\Project.dir\Core\Src\gpio.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/gt9147.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/gt9147.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\gt9147.c.obj.d
   FLAGS = -g -g3 -mcpu=cortex-m3
   INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
   OBJECT_DIR = CMakeFiles\Project.dir
@@ -62,6 +102,22 @@ build CMakeFiles/Project.dir/Core/Src/lcd.c.obj: C_COMPILER__Project_Debug ../..
 build CMakeFiles/Project.dir/Core/Src/main.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/main.c || cmake_object_order_depends_target_Project
   DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
   DEP_FILE = CMakeFiles\Project.dir\Core\Src\main.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/myiic.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/myiic.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\myiic.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/ott2001a.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/ott2001a.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\ott2001a.c.obj.d
   FLAGS = -g -g3 -mcpu=cortex-m3
   INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
   OBJECT_DIR = CMakeFiles\Project.dir
@@ -86,6 +142,14 @@ build CMakeFiles/Project.dir/Core/Src/stm32f1xx_hal_msp.c.obj: C_COMPILER__Proje
 build CMakeFiles/Project.dir/Core/Src/stm32f1xx_it.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/stm32f1xx_it.c || cmake_object_order_depends_target_Project
   DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
   DEP_FILE = CMakeFiles\Project.dir\Core\Src\stm32f1xx_it.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/sys.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/sys.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\sys.c.obj.d
   FLAGS = -g -g3 -mcpu=cortex-m3
   INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
   OBJECT_DIR = CMakeFiles\Project.dir
@@ -118,6 +182,14 @@ build CMakeFiles/Project.dir/Core/Src/system_stm32f1xx.c.obj: C_COMPILER__Projec
 build CMakeFiles/Project.dir/Core/Src/tim.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/tim.c || cmake_object_order_depends_target_Project
   DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
   DEP_FILE = CMakeFiles\Project.dir\Core\Src\tim.c.obj.d
+  FLAGS = -g -g3 -mcpu=cortex-m3
+  INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
+  OBJECT_DIR = CMakeFiles\Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project.dir\Core\Src
+
+build CMakeFiles/Project.dir/Core/Src/touch.c.obj: C_COMPILER__Project_Debug ../../../Core/Src/touch.c || cmake_object_order_depends_target_Project
+  DEFINES = -DDEBUG -DSTM32F103xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Project.dir\Core\Src\touch.c.obj.d
   FLAGS = -g -g3 -mcpu=cortex-m3
   INCLUDES = -I../../../Core/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc -I../../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../../../Drivers/CMSIS/Include
   OBJECT_DIR = CMakeFiles\Project.dir
@@ -322,7 +394,7 @@ build CMakeFiles/Project.dir/calc/stack.c.obj: C_COMPILER__Project_Debug ../../.
 #############################################
 # Link the executable Project.elf
 
-build Project.elf: C_EXECUTABLE_LINKER__Project_Debug CMakeFiles/Project.dir/Core/Src/gpio.c.obj CMakeFiles/Project.dir/Core/Src/lcd.c.obj CMakeFiles/Project.dir/Core/Src/main.c.obj CMakeFiles/Project.dir/Core/Src/rtc.c.obj CMakeFiles/Project.dir/Core/Src/stm32f1xx_hal_msp.c.obj CMakeFiles/Project.dir/Core/Src/stm32f1xx_it.c.obj CMakeFiles/Project.dir/Core/Src/syscalls.c.obj CMakeFiles/Project.dir/Core/Src/sysmem.c.obj CMakeFiles/Project.dir/Core/Src/system_stm32f1xx.c.obj CMakeFiles/Project.dir/Core/Src/tim.c.obj CMakeFiles/Project.dir/Core/Src/usart.c.obj CMakeFiles/Project.dir/Core/Src/utils.c.obj CMakeFiles/Project.dir/Core/Startup/startup_stm32f103rctx.s.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c.obj CMakeFiles/Project.dir/calc/binaryExpression.c.obj CMakeFiles/Project.dir/calc/calc.c.obj CMakeFiles/Project.dir/calc/calcExpression.c.obj CMakeFiles/Project.dir/calc/solveEquation.c.obj CMakeFiles/Project.dir/calc/stack.c.obj
+build Project.elf: C_EXECUTABLE_LINKER__Project_Debug CMakeFiles/Project.dir/Core/Src/24cxx.c.obj CMakeFiles/Project.dir/Core/Src/ctiic.c.obj CMakeFiles/Project.dir/Core/Src/delay.c.obj CMakeFiles/Project.dir/Core/Src/ft5206.c.obj CMakeFiles/Project.dir/Core/Src/gpio.c.obj CMakeFiles/Project.dir/Core/Src/gt9147.c.obj CMakeFiles/Project.dir/Core/Src/lcd.c.obj CMakeFiles/Project.dir/Core/Src/main.c.obj CMakeFiles/Project.dir/Core/Src/myiic.c.obj CMakeFiles/Project.dir/Core/Src/ott2001a.c.obj CMakeFiles/Project.dir/Core/Src/rtc.c.obj CMakeFiles/Project.dir/Core/Src/stm32f1xx_hal_msp.c.obj CMakeFiles/Project.dir/Core/Src/stm32f1xx_it.c.obj CMakeFiles/Project.dir/Core/Src/sys.c.obj CMakeFiles/Project.dir/Core/Src/syscalls.c.obj CMakeFiles/Project.dir/Core/Src/sysmem.c.obj CMakeFiles/Project.dir/Core/Src/system_stm32f1xx.c.obj CMakeFiles/Project.dir/Core/Src/tim.c.obj CMakeFiles/Project.dir/Core/Src/touch.c.obj CMakeFiles/Project.dir/Core/Src/usart.c.obj CMakeFiles/Project.dir/Core/Src/utils.c.obj CMakeFiles/Project.dir/Core/Startup/startup_stm32f103rctx.s.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c.obj CMakeFiles/Project.dir/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c.obj CMakeFiles/Project.dir/calc/binaryExpression.c.obj CMakeFiles/Project.dir/calc/calc.c.obj CMakeFiles/Project.dir/calc/calcExpression.c.obj CMakeFiles/Project.dir/calc/solveEquation.c.obj CMakeFiles/Project.dir/calc/stack.c.obj
   FLAGS = -g
   LINK_FLAGS = -mcpu=cortex-m3 -T C:/Users/mayst/ESMP-Project/STM32F103RCTX_FLASH.ld
   OBJECT_DIR = CMakeFiles\Project.dir

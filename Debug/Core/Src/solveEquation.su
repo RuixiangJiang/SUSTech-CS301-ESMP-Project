@@ -1,0 +1,4 @@
+../Core/Src/solveEquation.c:11:7:solveLinearEquation	80	static
+../Core/Src/solveEquation.c:19:7:solveQuadraticEquation	128	static
+../Core/Src/solveEquation.c:31:6:parseEquation	64	static
+../Core/Src/solveEquation.c:117:7:SolveEquation	72	static
