@@ -15,22 +15,22 @@ calcPair CalcOrSolve(char *str){
         return (calcPair){1, CalcExpression(str), (Pair2){0, (Root){0, 0, 0}}};
     }
 }
-// int main() {
-//     char temp[100];
-//     printf("Enter the string: ");
-//     fgets(temp, sizeof(temp), stdin);
-//     calcPair ans = CalcOrSolve(temp);
-//     if (ans.inputType==1) printf("calc\n"); else printf("solve\n");
-//     if (ans.inputType == 1){
-//         printf("The answer is %.2f, the errcode is %d\n", ans.p1.result,ans.p1.errorCode);
-//     }
-//     else{
-//         printf("the errorcode is %d\n",ans.p2.errorCode);
-//         printf("There are %d roots\n",ans.p2.root.rootNum);
-//         printf("root1 = %f, root2 = %f\n", ans.p2.root.root1, ans.p2.root.root2);
-//     }
-//     return 0;
-// }
+int main() {
+    char temp[100];
+    printf("Enter the string: ");
+    fgets(temp, sizeof(temp), stdin);
+    calcPair ans = CalcOrSolve(temp);
+    if (ans.inputType==1) printf("calc\n"); else printf("solve\n");
+    if (ans.inputType == 1){
+        printf("The answer is %.2f, the errcode is %d\n", ans.p1.result,ans.p1.errorCode);
+    }
+    else{
+        printf("the errorcode is %d\n",ans.p2.errorCode);
+        printf("There are %d roots\n",ans.p2.root.rootNum);
+        printf("root1 = %f, root2 = %f\n", ans.p2.root.root1, ans.p2.root.root2);
+    }
+    return 0;
+}
 /*
 use include "calc.h" to import the code
 given char str[], use calcPair ans = CalcOrSolve(str) to get the answer

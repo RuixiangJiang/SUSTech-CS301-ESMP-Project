@@ -14,6 +14,7 @@
 
 // Function to perform calculations based on operators
 int cal_loc(stackPtr head) {
+    if (head->topF < 1 || head->topC < 0) return INVALID_EXPRESSION;
     if (head->dataC[head->topC] == '(') return NO_ERROR;
     float a = popF(head);
     float b = popF(head);
@@ -82,6 +83,7 @@ Pair CalcExpression(char* str) {
                     power = power * 10 + str[j] - '0';
                     j++;
                 }
+                if (power * log(sum) > 32 * log(2)) return (Pair){TOO_LARGE_NUMBER, 0};
                 sum = pow(sum, power);
             }
             i = j - 1;

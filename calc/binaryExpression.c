@@ -59,10 +59,10 @@ Pair CalcBinaryExpression(char* expression){
     return CalcExpression(decimalExpression);
 }
 
-int main(){
-    char str[100];
-    printf("Enter the bi-expression: ");
-    fgets(str, sizeof(str), stdin);
-    Pair ans = CalcBinaryExpression(str);
-    printf("Ans = %d",(int)ans.result);
-}
+// int main(){
+//     char str[100];
+//     printf("Enter the bi-expression: ");
+//     fgets(str, sizeof(str), stdin);
+//     Pair ans = CalcBinaryExpression(str);
+//     printf("Ans = %d",(int)ans.result);
+// }
