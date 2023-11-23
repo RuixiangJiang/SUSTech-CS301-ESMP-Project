@@ -3,7 +3,7 @@
 #include <string.h>
 #include <regex.h>
 #include <math.h>
-#include "../../Inc/calc.h"
+#include "../Core/Inc/calc.h"
 
 #define LeftOfEqual (i - 1 < posEqual ? 1 : -1)
 

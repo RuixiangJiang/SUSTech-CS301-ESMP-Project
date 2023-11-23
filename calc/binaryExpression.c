@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "../../Inc/calc.h"
+#include "../Core/Inc/calc.h"
 
 char* decimalToStr(long long decimal) {
     char* binary = (char*)malloc(20 * sizeof(char));

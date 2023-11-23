@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "../../Inc/calc.h"
+#include "../Core/Inc/calc.h"
 
 stackPtr InitStack() {
     stackPtr head = (stackPtr)malloc(sizeof(stack));

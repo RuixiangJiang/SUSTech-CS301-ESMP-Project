@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "../../Inc/calc.h"
+#include "../Core/Inc/calc.h"
 
 calcPair CalcOrSolve(char *str){
     if (strstr(str, "=") != NULL) {
