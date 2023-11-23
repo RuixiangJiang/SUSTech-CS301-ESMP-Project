@@ -316,16 +316,18 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	switch(GPIO_Pin){
 		case KEY0_Pin:
 			if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET){
-        if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
-          calc_button_shift_handler(0);
-        }
+        // 在 calc 界面下，按下 key0 会右移方程
+        // if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
+        //   calc_button_shift_handler(0);
+        // }
 			}
 			break;
 		case KEY1_Pin:
 			if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) == GPIO_PIN_RESET){
-          if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
-          calc_button_shift_handler(1);
-        }
+        // 在 calc 界面下，按下 key1 会左移方程
+        // if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
+        //   calc_button_shift_handler(1);
+        // }
 			}
 			break;
 		case KEY_WK_Pin:
