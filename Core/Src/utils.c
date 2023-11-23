@@ -6610,7 +6610,7 @@ void work_for_calc(uint16_t i, uint16_t j) {
 			HAL_UART_Transmit(&huart1, equation, equation_len, 0xFFFF);
 			Pair result = CalcExpression((char *) equation);
 			char result_str[1024];
-			sprintf(result_str, "[%d]: %.2f", result.errorCode, result.result);
+			sprintf(result_str, "[%d]: %d", result.errorCode, (int) result.result);
 			LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
 		} else if (screen_state == CALC_E) {
 			equation[equation_len++] = '=';

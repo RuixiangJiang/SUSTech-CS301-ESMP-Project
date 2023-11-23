@@ -18,12 +18,16 @@ Pair2 solveLinearEquation(float b, float c) {
 // Function to solve quadratic equations
 Pair2 solveQuadraticEquation(float a, float b, float c) {
     float discriminant = b * b - 4 * a * c;
-    if (discriminant < 0) {
+    printf("delta = %.2f\n", discriminant);
+    if (-discriminant > 1e-5) {
         return (Pair2){NO_ERROR, (Root){0, 0, 0}}; // No real roots
+    }
+    else if (abs(discriminant) <= 1e-5) {
+        return (Pair2){NO_ERROR, (Root){1, -b / (2 * a), -b / (2 * a)}};
     } else {
         float root1 = (-b + sqrt(discriminant)) / (2 * a);
         float root2 = (-b - sqrt(discriminant)) / (2 * a);
-        return (Pair2){NO_ERROR, (abs(root1 - root2) < 1e-5) ? (Root){1, root1, root2} : (Root){2, root1, root2}};
+        return (Pair2){NO_ERROR, (Root){2, root1, root2}};
     }
 }
 
