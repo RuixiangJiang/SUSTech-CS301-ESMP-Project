@@ -6,6 +6,11 @@
 
 char* decimalToStr(long long decimal) {
     char* binary = (char*)malloc(20 * sizeof(char));
+    if (decimal == 0){
+        binary[0] = '0';
+        binary[1] = '\0';
+        return binary;
+    }
     int index = 0;
 
     while (decimal > 0) {
@@ -51,18 +56,10 @@ Pair CalcBinaryExpression(char* expression){
                 decimalExpression[decimalIndex++] = decimalString[k];
 
             i--;
-            free(decimalString);
         }
     }
     decimalExpression[decimalIndex] = '\0';
+    printf("%s\n",decimalExpression);
 
     return CalcExpression(decimalExpression);
 }
-
-// int main(){
-//     char str[100];
-//     printf("Enter the bi-expression: ");
-//     fgets(str, sizeof(str), stdin);
-//     Pair ans = CalcBinaryExpression(str);
-//     printf("Ans = %d",(int)ans.result);
-// }

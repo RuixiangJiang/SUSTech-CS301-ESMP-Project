@@ -1,2 +1,2 @@
-../Core/Src/binaryExpression.c:7:7:decimalToStr	3
-../Core/Src/binaryExpression.c:27:6:CalcBinaryExpression	11
+../Core/Src/binaryExpression.c:7:7:decimalToStr	4
+../Core/Src/binaryExpression.c:32:6:CalcBinaryExpression	11

@@ -1,2 +1,2 @@
 ../Core/Src/binaryExpression.c:7:7:decimalToStr	32	static
-../Core/Src/binaryExpression.c:27:6:CalcBinaryExpression	184	static
+../Core/Src/binaryExpression.c:32:6:CalcBinaryExpression	184	static
