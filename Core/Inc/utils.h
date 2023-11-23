@@ -21,4 +21,5 @@ void draw_chat_screen();
 void draw_calc_screen();
 void draw_pic_screen();
 void calc_touch_screen_handler();
+void calc_button_shift_handler(uint8_t press_key_id);
 #endif
