@@ -231,6 +231,20 @@ void startGame(){
 					drawSpace(shape, form, id, x, y++);
 				}
 			}
+			else if (ch == 'q'){ // rotate counterclockwise
+				printf("q: %d\n", isLegal(shape, (form + 1) % 4, id, x, y));
+				if (isLegal(shape, (form + 1) % 4, id, x, y)){
+					drawSpace(shape, form, id, x, y);
+					form = (form + 1) % 4;
+				}
+			}
+			else if (ch == 'e'){
+				printf("e: %d\n", isLegal(shape, (form + 3) % 4, id, x, y));
+				if (isLegal(shape, (form + 3) % 4, id, x, y)){
+					drawSpace(shape, form, id, x, y);
+					form = (form + 3) % 4;
+				}
+			}
 			else if (ch == 'p'){ // pause or go on
 			}
 			else if (ch == 'R'){ // restart
