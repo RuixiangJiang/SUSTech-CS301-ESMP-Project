@@ -6539,9 +6539,57 @@ uint8_t press_calc_button(uint16_t x, uint16_t y, uint16_t i, uint16_t j) {
 void clear_calc_equation() {
 	LCD_ShowString(10, 10, 240, 16, 16, (uint8_t*) "                                                  ");
 }
+void clear_calc_result() {
+	LCD_ShowString(10, 40, 240, 16, 16, (uint8_t*) "                                                  ");
+}
 void display_calc_equation() {
 	LCD_ShowString(10, 10, 240, 16, 16, equation);
 }
+
+
+void floatToString(float num, char* buffer, int decimalPlaces) {
+
+	float eps = 0.1;
+	for (int i = 0; i < decimalPlaces; i++) {
+		eps /= 10;
+	}
+
+	uint8_t negative = 0;
+	if (num < 0) {
+		num = -num;
+		negative = 1;
+	}
+
+    int integerPart = (int)num;
+    float fractionalPart = num - integerPart;
+
+    // 处理整数部分
+	if (negative) {
+		sprintf(buffer, "-%d", integerPart);
+	} else {
+		sprintf(buffer, "%d", integerPart);
+	}
+
+	if (fractionalPart == 0) {
+		return;
+	}
+
+    // 添加小数点
+    strcat(buffer, ".");
+
+    // 处理小数部分
+    for (int i = 0; i < decimalPlaces; i++) {
+        if (fractionalPart - 0 < eps) {
+			break;
+		}
+		fractionalPart *= 10;
+        int digit = (int)fractionalPart;
+        sprintf(buffer + strlen(buffer), "%d", digit);
+        fractionalPart -= digit;
+    }
+}
+
+
 
 void work_for_calc(uint16_t i, uint16_t j) {
 	if (i == 0 && j == 0) {
@@ -6558,6 +6606,7 @@ void work_for_calc(uint16_t i, uint16_t j) {
 			equation[--equation_len] = 0;
 		}
 		clear_calc_equation();
+		clear_calc_result();
 	} else if (i == 0 && j == 2) {
 		if (equation_len > 0) {
 			equation[--equation_len] = 0;
@@ -6607,18 +6656,68 @@ void work_for_calc(uint16_t i, uint16_t j) {
 		equation[equation_len++] = '.';
 	} else if (i == 4 && j == 4) {
 		if (screen_state == CALC_D) {
-			HAL_UART_Transmit(&huart1, equation, equation_len, 0xFFFF);
 			Pair result = CalcExpression((char *) equation);
-			char result_str[1024];
-			sprintf(result_str, "[%d]: %d", result.errorCode, (int) result.result);
+			char result_str[100];
+			uint8_t result_len = 0;
+			while (result_str[result_len] != 0) {
+				result_str[result_len++] = 0;
+			}
+			if (result.errorCode != 0) {
+				sprintf(result_str, "ERROR [%d]", result.errorCode);
+			} else {
+				floatToString(result.result, result_str, 5);
+			}
+			clear_calc_result();
 			LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
 		} else if (screen_state == CALC_E) {
-			equation[equation_len++] = '=';
+			uint16_t cnt_equal = 0;
+			for (int i = 0; i < equation_len; i++) {
+				if (equation[i] == '=') {
+					cnt_equal++;
+				}
+			}
+			if (cnt_equal == 0) {
+				equation[equation_len++] = '=';
+			} else {
+				Pair2 result = SolveEquation((char *) equation);
+				char result_str[100];
+				uint8_t result_len = 0;
+				while (result_str[result_len] != 0) {
+					result_str[result_len++] = 0;
+				}
+				if (result.errorCode != 0) {
+					sprintf(result_str, "ERROR [%d]", result.errorCode);
+				} else {
+					Root answer = result.root;
+					if (answer.rootNum == 0) {
+						sprintf(result_str, "NO ROOT");
+					} else if (answer.rootNum == 1) {
+						floatToString(answer.root1, result_str, 5);
+					} else if (answer.rootNum == 2) {
+						floatToString(answer.root1, result_str, 5);
+						strcat(result_str, ", ");
+						char root2_str[100];
+						floatToString(answer.root2, root2_str, 5);
+						strcat(result_str, root2_str);
+					}
+				}
+				clear_calc_result();
+				LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
+			}
 		} else if (screen_state == CALC_B) {
-			HAL_UART_Transmit(&huart1, equation, equation_len, 0xFFFF);
 			Pair result = CalcBinaryExpression((char *) equation);
-			char result_str[1024];
-			sprintf(result_str, "[%d]: %.2f", result.errorCode, result.result);
+			char result_str[100];
+			uint8_t result_len = 0;
+			while (result_str[result_len] != 0) {
+				result_str[result_len++] = 0;
+			}
+			if (result.errorCode != 0) {
+				sprintf(result_str, "ERROR [%d]", result.errorCode);
+			} else {
+				int integerPart = (int)result.result;
+				sprintf(result_str, "%d", integerPart);
+			}
+			clear_calc_result();
 			LCD_ShowString(10, 40, 240, 16, 16, (uint8_t *) result_str);
 		}
 	}

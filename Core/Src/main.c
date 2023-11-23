@@ -157,16 +157,6 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   draw_initial_screen((uint8_t *) user_name);
-  float a = 1.2;
-  float b = 2.9;
-  float c;
-  c = a + b;
-  char notice[20];
-  int xxx = (int) c;
-  sprintf(notice, "hahahhaha: %d ABCD\n", xxx);
-  HAL_UART_Transmit(&huart1, (uint8_t*)notice, strlen(notice) , 0xFFFF);
-  LCD_ShowString(10, 220, 200, 16, 16, (uint8_t *)notice);
-
   rtp_test();
   while (1)
   {

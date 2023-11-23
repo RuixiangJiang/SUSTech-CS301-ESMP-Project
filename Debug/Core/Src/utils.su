@@ -11,6 +11,8 @@
 ../Core/Src/utils.c:6524:9:press_between	16	static
 ../Core/Src/utils.c:6531:9:press_calc_button	40	static
 ../Core/Src/utils.c:6539:6:clear_calc_equation	16	static
-../Core/Src/utils.c:6542:6:display_calc_equation	16	static
-../Core/Src/utils.c:6546:6:work_for_calc	1072	static
-../Core/Src/utils.c:6628:6:calc_touch_screen_handler	32	static
+../Core/Src/utils.c:6542:6:clear_calc_result	16	static
+../Core/Src/utils.c:6545:6:display_calc_equation	16	static
+../Core/Src/utils.c:6550:6:floatToString	56	static
+../Core/Src/utils.c:6594:6:work_for_calc	288	static
+../Core/Src/utils.c:6727:6:calc_touch_screen_handler	32	static
