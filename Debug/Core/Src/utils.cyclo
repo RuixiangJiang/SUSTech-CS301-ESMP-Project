@@ -14,5 +14,5 @@
 ../Core/Src/utils.c:6542:6:clear_calc_result	1
 ../Core/Src/utils.c:6545:6:display_calc_equation	1
 ../Core/Src/utils.c:6550:6:floatToString	7
-../Core/Src/utils.c:6594:6:work_for_calc	71
-../Core/Src/utils.c:6727:6:calc_touch_screen_handler	10
+../Core/Src/utils.c:6594:6:work_for_calc	76
+../Core/Src/utils.c:6741:6:calc_touch_screen_handler	10

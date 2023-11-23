@@ -6679,6 +6679,13 @@ void work_for_calc(uint16_t i, uint16_t j) {
 			if (cnt_equal == 0) {
 				equation[equation_len++] = '=';
 			} else {
+				char unknown_var = 0;
+				for (int i = 0; i < equation_len; i++) {
+					if (equation[i] == 'x' || equation[i] == 'y' || equation[i] == 'z') {
+						unknown_var = equation[i];
+						break;
+					}
+				}
 				Pair2 result = SolveEquation((char *) equation);
 				char result_str[100];
 				uint8_t result_len = 0;
@@ -6692,13 +6699,20 @@ void work_for_calc(uint16_t i, uint16_t j) {
 					if (answer.rootNum == 0) {
 						sprintf(result_str, "NO ROOT");
 					} else if (answer.rootNum == 1) {
-						floatToString(answer.root1, result_str, 5);
+						char root1_str[100];
+						floatToString(answer.root1, root1_str, 5);
+						sprintf(result_str, "%c = %s", unknown_var, root1_str);
 					} else if (answer.rootNum == 2) {
-						floatToString(answer.root1, result_str, 5);
-						strcat(result_str, ", ");
+						char root1_str[100];
+						if (answer.root1 > answer.root2) {
+							float tmp = answer.root1;
+							answer.root1 = answer.root2;
+							answer.root2 = tmp;
+						}
+						floatToString(answer.root1, root1_str, 5);
 						char root2_str[100];
 						floatToString(answer.root2, root2_str, 5);
-						strcat(result_str, root2_str);
+						sprintf(result_str, "%c = %s | %c = %s", unknown_var, root1_str, unknown_var, root2_str);
 					}
 				}
 				clear_calc_result();
