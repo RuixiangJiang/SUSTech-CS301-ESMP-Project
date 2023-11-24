@@ -1,5 +1,5 @@
-../Core/Src/stack.c:7:10:InitStack	16	static
-../Core/Src/stack.c:14:6:pushC	16	static
-../Core/Src/stack.c:22:6:popC	16	static
-../Core/Src/stack.c:26:6:pushF	16	static
-../Core/Src/stack.c:34:7:popF	16	static
+../Core/Src/stack.c:7:10:InitStack	8	static
+../Core/Src/stack.c:14:6:pushC	0	static
+../Core/Src/stack.c:22:6:popC	0	static
+../Core/Src/stack.c:26:6:pushF	0	static
+../Core/Src/stack.c:34:7:popF	0	static

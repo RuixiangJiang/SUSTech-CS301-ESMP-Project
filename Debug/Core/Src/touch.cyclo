@@ -1,11 +1,11 @@
 ../Core/Src/touch.c:41:6:TP_Write_Byte	3
 ../Core/Src/touch.c:58:5:TP_Read_AD	3
-../Core/Src/touch.c:91:5:TP_Read_XOY	6
+../Core/Src/touch.c:91:5:TP_Read_XOY	5
 ../Core/Src/touch.c:119:4:TP_Read_XY	1
 ../Core/Src/touch.c:135:4:TP_Read_XY2	11
+../Core/Src/touch.c:185:4:TP_Scan	6
 ../Core/Src/touch.c:158:6:TP_Drow_Touch_Point	1
 ../Core/Src/touch.c:172:6:TP_Draw_Big_Point	1
-../Core/Src/touch.c:185:4:TP_Scan	6
 ../Core/Src/touch.c:220:6:TP_Save_Adjdata	1
 ../Core/Src/touch.c:228:4:TP_Get_Adjdata	3
 ../Core/Src/touch.c:252:6:TP_Adj_Info_Show	1
