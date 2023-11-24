@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <time.h>
 #include <string.h>
 #include "../Inc/tetris.h"
@@ -17,6 +18,8 @@ int infoLen;
 int hasPaused = 0;
 
 int COL_N = 100;
+
+int srandNum = 1;
 
 extern enum SCREEN_STATE screen_state;
 extern unsigned char user_name[20];
@@ -82,11 +85,16 @@ void initBlock(){
 	}
 }
 
+unsigned int generate_seed(){
+    int a[srandNum];
+    srandNum = (srandNum + 1) % 300 + 1;
+    return &a;
+}
 void initGame(){
 	gameScore = 0;
 	initMap();
 	initBlock();
-	srand((unsigned int)time(NULL));
+	srand(generate_seed());
 }
 
 // after rotation the (shape) block has (form) and top-left position (x, y)
