@@ -40,7 +40,7 @@
 /* USER CODE BEGIN PTD */
 
 // config for the users
-unsigned char user_name[20] = "Alice";
+unsigned char user_name[20] = "Jiang";
 struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
 uint16_t mark_seed = 0x1677; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
 
@@ -78,29 +78,35 @@ extern uint8_t rxBuffer[2000];
 void rtp_test(void)
 {
 
-  HAL_UART_Transmit(&huart1, (uint8_t*)"HELLO WORLD!", 12 , 0xFFFF);
+  HAL_UART_Transmit(&huart1, (uint8_t*)"HELLO WORLD!\r\n", 14 , 0xFFFF);
   while (1) {
     tp_dev.scan(0);
     if (screen_state == INITIAL) {
       if(tp_dev.sta&TP_PRES_DOWN) {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"pressed", 7 , 0xFFFF);
+        HAL_UART_Transmit(&huart1, (uint8_t*)"pressed\r\n", 9 , 0xFFFF);
         // between (10, 150) and (10 + 60, 150 + 60) is the area of the [CHAT] button
         if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"CHAT", 4 , 0xFFFF);
+          HAL_UART_Transmit(&huart1, (uint8_t*)"CHAT\r\n", 6 , 0xFFFF);
           screen_state = CHAT;
           draw_chat_screen();
         }
         // between (90, 150) and (90 + 60, 150 + 60) is the area of the [CALCULATOR] button
         else if (tp_dev.x[0] > 90 && tp_dev.x[0] < 150 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"CALCULATOR", 10 , 0xFFFF);
+          HAL_UART_Transmit(&huart1, (uint8_t*)"CALCULATOR\r\n", 12 , 0xFFFF);
           screen_state = CALC_D;
           draw_calc_screen();
         }
         // between (170, 150) and (170 + 60, 150 + 60) is the area of the [PICTURE] button
         else if (tp_dev.x[0] > 170 && tp_dev.x[0] < 230 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE", 7 , 0xFFFF);
+          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
           screen_state = PIC;
           draw_pic_screen();
+        }
+        // between (10, 220) and (10 + 60, 220 + 60) is the area of the [Tetris] button
+        else if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 220 && tp_dev.y[0] < 280) {
+          HAL_UART_Transmit(&huart1, (uint8_t*)"Tetris\r\n", 8 , 0xFFFF);
+          screen_state = Tetris;
+          draw_tetris_screen();
         }
       }
     } else if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {

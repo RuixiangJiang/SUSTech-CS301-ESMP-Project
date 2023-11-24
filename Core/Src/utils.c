@@ -37,6 +37,8 @@ void draw_initial_screen(uint8_t* username) {
 
     LCD_ShowPicture(170, 150, 60, 59, (uint16_t *) gImage_pic);
 
+	LCD_ShowPicture(10, 220, 60, 60, (uint16_t *) gImage_tetris);
+
 }
 
 const uint32_t mon_table[12]={31,28,31,30,31,30,31,31,30,31,30,31};//月份日期表
@@ -251,6 +253,12 @@ void draw_pic_screen() {
 	LCD_Clear(WHITE);
 	POINT_COLOR = BLACK;
 	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "pic");
+}
+
+void draw_tetris_screen() {
+	LCD_Clear(WHITE);
+	POINT_COLOR = BLACK;
+	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "tetris");
 }
 
 uint8_t press_between(uint16_t x, uint16_t y, uint16_t lp_x, uint16_t lp_y, uint16_t rd_x, uint16_t rd_y) {
