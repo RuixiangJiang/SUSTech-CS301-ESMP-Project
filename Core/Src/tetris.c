@@ -280,15 +280,6 @@ void startGame(){
 			char ch = ' '; // input instruction from board
             int waitCount = 5;
             while (waitCount--){
-                // if (tp_dev.sta & TP_PRES_DOWN){
-                //     HAL_Delay(50);
-                //     if (tp_dev.sta & TP_PRES_DOWN){
-                //     ch = getInstruction(tp_dev.x[0], tp_dev.y[0]);
-                //     infoLen = snprintf((char *)infoUART, sizeof(infoUART), "(%d, %d) -> ", tp_dev.x[0], tp_dev.y[0]);
-                //     HAL_UART_Transmit(&huart1, infoUART, infoLen, HAL_MAX_DELAY);
-                //     break;
-                //     }
-                // }
                 if (tp_dev.sta & TP_PRES_DOWN){
                     HAL_Delay(10);
                     if (tp_dev.sta & TP_PRES_DOWN && !hasPressed){
