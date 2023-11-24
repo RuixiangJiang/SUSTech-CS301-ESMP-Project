@@ -165,7 +165,7 @@ char getInstruction(int x, int y){
 void printMap(){
     int COL_N = 100;
     uint16_t COLOR[COL_N + 5];
-    for (int i = 0; i <= ROW; i++){
+    for (int i = 0; i <= ROW + 1; i++){
         int x = 10, y = 50 + i * 10;
         for (int j = 0; j <= COL + 1; j++){
             switch (map.color[i][j]){
@@ -223,10 +223,13 @@ void startGame(){
             int waitCount = 50000;
             while (waitCount--){
                 if (tp_dev.sta & TP_PRES_DOWN){
-                    ch = getInstruction(tp_dev.x[0], tp_dev.y[0]);
-                    //infoLen = snprintf((char *)infoUART, sizeof(infoUART), "(%d, %d) -> ", tp_dev.x[0], tp_dev.y[0]);
-                    //HAL_UART_Transmit(&huart1, infoUART, infoLen, HAL_MAX_DELAY);
-                    break;
+                    HAL_Delay(50);
+                    if (tp_dev.sta & TP_PRES_DOWN){
+                        ch = getInstruction(tp_dev.x[0], tp_dev.y[0]);
+                        //infoLen = snprintf((char *)infoUART, sizeof(infoUART), "(%d, %d) -> ", tp_dev.x[0], tp_dev.y[0]);
+                        //HAL_UART_Transmit(&huart1, infoUART, infoLen, HAL_MAX_DELAY);
+                        break;
+                    }
                 }
             }
             infoLen = snprintf((char *)infoUART, sizeof(infoUART), "input instruction is %c.\r\n", ch);

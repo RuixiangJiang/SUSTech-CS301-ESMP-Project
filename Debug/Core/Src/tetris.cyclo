@@ -9,8 +9,8 @@
 ../Core/Src/tetris.c:154:5:inRange	4
 ../Core/Src/tetris.c:155:6:getInstruction	15
 ../Core/Src/tetris.c:165:6:printMap	20
-../Core/Src/tetris.c:292:6:getMap	1
-../Core/Src/tetris.c:294:5:getScore	1
-../Core/Src/tetris.c:296:6:draw_tetris_screen	1
-../Core/Src/tetris.c:285:6:tetris	1
-../Core/Src/tetris.c:212:6:startGame	18
+../Core/Src/tetris.c:295:6:getMap	1
+../Core/Src/tetris.c:297:5:getScore	1
+../Core/Src/tetris.c:299:6:draw_tetris_screen	1
+../Core/Src/tetris.c:288:6:tetris	1
+../Core/Src/tetris.c:212:6:startGame	19
