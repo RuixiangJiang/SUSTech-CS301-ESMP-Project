@@ -16,6 +16,9 @@ int infoLen;
 
 int COL_N = 100;
 
+extern enum SCREEN_STATE screen_state;
+extern unsigned char user_name[20];
+
 void initMap(){
 	memset(map.data, 0, sizeof(map.data));
 	memset(map.color, 0, sizeof(map.color));
@@ -359,7 +362,9 @@ void startGame(){
                 break;
             }
 			else if (ch == 'R'){ // back to menu
-				// to do
+				screen_state = INITIAL;
+                draw_initial_screen((uint8_t *)user_name);
+                return;
 			}
 		}
 		shape = nxtShape, form = nxtForm, id++;
