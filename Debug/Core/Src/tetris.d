@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/Src/tetris.o: ../Core/Src/tetris.c ../Core/Src/../Inc/tetris.h \
+ ../Core/Src/../Inc/../Inc/utils.h ../Core/Src/../Inc/../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -26,15 +27,16 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/rtc.h ../Core/Inc/main.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/lcd.h \
- ../Core/Inc/utils.h ../Core/Inc/touch.h ../Core/Inc/sys.h \
- ../Core/Inc/ott2001a.h ../Core/Inc/gt9147.h ../Core/Inc/ft5206.h \
- ../Core/Inc/calc.h ../Core/Inc/touch.h ../Core/Inc/sys.h \
- ../Core/Inc/tetris.h ../Core/Inc/../Inc/utils.h ../Core/Inc/../Inc/lcd.h \
- ../Core/Inc/../Inc/rtc.h ../Core/Inc/../Inc/usart.h ../Core/Inc/delay.h \
- ../Core/Inc/config.h
-../Core/Inc/main.h:
+ ../Core/Src/../Inc/../Inc/touch.h ../Core/Src/../Inc/../Inc/sys.h \
+ ../Core/Src/../Inc/../Inc/ott2001a.h ../Core/Src/../Inc/../Inc/gt9147.h \
+ ../Core/Src/../Inc/../Inc/ft5206.h ../Core/Src/../Inc/../Inc/calc.h \
+ ../Core/Src/../Inc/../Inc/lcd.h ../Core/Src/../Inc/../Inc/rtc.h \
+ ../Core/Src/../Inc/../Inc/usart.h ../Core/Src/../Inc/utils.h \
+ ../Core/Src/../Inc/lcd.h ../Core/Src/../Inc/rtc.h \
+ ../Core/Src/../Inc/usart.h
+../Core/Src/../Inc/tetris.h:
+../Core/Src/../Inc/../Inc/utils.h:
+../Core/Src/../Inc/../Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h:
@@ -62,25 +64,16 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-../Core/Inc/rtc.h:
-../Core/Inc/main.h:
-../Core/Inc/tim.h:
-../Core/Inc/usart.h:
-../Core/Inc/gpio.h:
-../Core/Inc/lcd.h:
-../Core/Inc/utils.h:
-../Core/Inc/touch.h:
-../Core/Inc/sys.h:
-../Core/Inc/ott2001a.h:
-../Core/Inc/gt9147.h:
-../Core/Inc/ft5206.h:
-../Core/Inc/calc.h:
-../Core/Inc/touch.h:
-../Core/Inc/sys.h:
-../Core/Inc/tetris.h:
-../Core/Inc/../Inc/utils.h:
-../Core/Inc/../Inc/lcd.h:
-../Core/Inc/../Inc/rtc.h:
-../Core/Inc/../Inc/usart.h:
-../Core/Inc/delay.h:
-../Core/Inc/config.h:
+../Core/Src/../Inc/../Inc/touch.h:
+../Core/Src/../Inc/../Inc/sys.h:
+../Core/Src/../Inc/../Inc/ott2001a.h:
+../Core/Src/../Inc/../Inc/gt9147.h:
+../Core/Src/../Inc/../Inc/ft5206.h:
+../Core/Src/../Inc/../Inc/calc.h:
+../Core/Src/../Inc/../Inc/lcd.h:
+../Core/Src/../Inc/../Inc/rtc.h:
+../Core/Src/../Inc/../Inc/usart.h:
+../Core/Src/../Inc/utils.h:
+../Core/Src/../Inc/lcd.h:
+../Core/Src/../Inc/rtc.h:
+../Core/Src/../Inc/usart.h:

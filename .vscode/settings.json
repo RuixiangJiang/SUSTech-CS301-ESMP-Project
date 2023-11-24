@@ -7,6 +7,9 @@
         "stdint.h": "c",
         "usart.h": "c",
         "config.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "tetris.h": "c",
+        "lcd.h": "c",
+        "stdio.h": "c"
     }
 }

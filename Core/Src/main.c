@@ -31,6 +31,7 @@
 #include "string.h"
 #include "stdio.h"
 #include "sys.h"
+#include "tetris.h"
 #include "delay.h"
 #include "config.h"
 
@@ -106,7 +107,7 @@ void rtp_test(void)
         else if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 220 && tp_dev.y[0] < 280) {
           HAL_UART_Transmit(&huart1, (uint8_t*)"Tetris\r\n", 8 , 0xFFFF);
           screen_state = Tetris;
-          draw_tetris_screen();
+          tetris();
         }
       }
     } else if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {

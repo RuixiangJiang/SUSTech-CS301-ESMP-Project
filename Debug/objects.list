@@ -20,6 +20,7 @@
 "./Core/Src/syscalls.o"
 "./Core/Src/sysmem.o"
 "./Core/Src/system_stm32f1xx.o"
+"./Core/Src/tetris.o"
 "./Core/Src/tim.o"
 "./Core/Src/touch.o"
 "./Core/Src/usart.o"

@@ -6,6 +6,7 @@
 #include "rtc.h"
 #include "usart.h"
 #include "calc.h"
+#include "tetris.h"
 #include "pic.h"
 
 extern enum SCREEN_STATE screen_state;
@@ -253,12 +254,6 @@ void draw_pic_screen() {
 	LCD_Clear(WHITE);
 	POINT_COLOR = BLACK;
 	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "pic");
-}
-
-void draw_tetris_screen() {
-	LCD_Clear(WHITE);
-	POINT_COLOR = BLACK;
-	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "tetris");
 }
 
 uint8_t press_between(uint16_t x, uint16_t y, uint16_t lp_x, uint16_t lp_y, uint16_t rd_x, uint16_t rd_y) {

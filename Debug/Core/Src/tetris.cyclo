@@ -1,0 +1,16 @@
+../Core/Src/tetris.c:17:6:initMap	3
+../Core/Src/tetris.c:33:6:initBlock	5
+../Core/Src/tetris.c:75:6:initGame	1
+../Core/Src/tetris.c:83:6:drawBlock	4
+../Core/Src/tetris.c:94:6:drawSpace	4
+../Core/Src/tetris.c:104:5:isLegal	8
+../Core/Src/tetris.c:117:5:clearRow	7
+../Core/Src/tetris.c:143:5:judgeFinish	4
+../Core/Src/tetris.c:154:5:inRange	4
+../Core/Src/tetris.c:155:6:getInstruction	15
+../Core/Src/tetris.c:165:6:printMap	20
+../Core/Src/tetris.c:292:6:getMap	1
+../Core/Src/tetris.c:294:5:getScore	1
+../Core/Src/tetris.c:296:6:draw_tetris_screen	1
+../Core/Src/tetris.c:285:6:tetris	1
+../Core/Src/tetris.c:212:6:startGame	18
