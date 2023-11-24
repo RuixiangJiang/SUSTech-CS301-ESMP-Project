@@ -14,6 +14,8 @@ basicBlock block[10][4];
 unsigned char infoUART[1024] = {0};
 int infoLen;
 
+int hasPaused = 0;
+
 int COL_N = 100;
 
 extern enum SCREEN_STATE screen_state;
@@ -161,6 +163,7 @@ char getInstruction(int x, int y){
 }
 
 void printMap(){
+    if (screen_state != Tetris) return;
     uint16_t COLOR[COL_N + 5];
     for (int i = 0; i <= ROW + 1; i++){
         int x = 10, y = 50 + i * 10;
@@ -207,6 +210,7 @@ void printMap(){
 }
 
 void printNextBlock(int shape, int form){
+    if (screen_state != Tetris) return;
     uint16_t COLOR[COL_N + 5];
     for (int i = 0; i < 4; i++){
         int x = 190, y = 110 + i * 10;
@@ -252,11 +256,10 @@ void printNextBlock(int shape, int form){
 void startGame(){
 	int shape = rand() % 7 + 2, form = rand() % 4, id = 1;
     int hasPressed = 0;
-    int hasPaused = 0;
-	while (1){
+	while (screen_state == Tetris){
 		int nxtShape = rand() % 7 + 2, nxtForm = rand() % 4;
 		int x = 1, y = COL / 2 - 2; // initial position of block
-		while (1){
+		while (screen_state == Tetris){
             tp_dev.scan(0);
             if (drawBlock(shape, form, id, x, y)){ // finish
                 LCD_ShowString(35, 155, 200, 80, 24, (uint8_t*) "Game Over!");
@@ -358,6 +361,7 @@ void startGame(){
                 return;
 			}
 		}
+        if (screen_state != Tetris) return;
 		shape = nxtShape, form = nxtForm, id++;
         gameScore++;
         POINT_COLOR = BLACK;
