@@ -9,9 +9,9 @@
 ../Core/Src/tetris.c:162:5:inRange	0	static
 ../Core/Src/tetris.c:163:6:getInstruction	0	static
 ../Core/Src/tetris.c:173:6:printMap	56	dynamic
-../Core/Src/tetris.c:220:6:printNextBlock	56	dynamic
-../Core/Src/tetris.c:264:6:startGame	80	static
-../Core/Src/tetris.c:389:6:getMap	8	static
-../Core/Src/tetris.c:391:5:getScore	0	static
-../Core/Src/tetris.c:393:6:draw_tetris_screen	48	static
-../Core/Src/tetris.c:382:6:tetris	8	static
+../Core/Src/tetris.c:219:6:printNextBlock	56	dynamic
+../Core/Src/tetris.c:262:6:startGame	72	static
+../Core/Src/tetris.c:387:6:getMap	8	static
+../Core/Src/tetris.c:389:5:getScore	0	static
+../Core/Src/tetris.c:391:6:draw_tetris_screen	48	static
+../Core/Src/tetris.c:380:6:tetris	8	static

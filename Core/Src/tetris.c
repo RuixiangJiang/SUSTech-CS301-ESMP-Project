@@ -214,7 +214,6 @@ void printMap(){
             x += 10;
         }
     }
-    HAL_Delay(500);
 }
 
 void printNextBlock(int shape, int form){
@@ -259,7 +258,6 @@ void printNextBlock(int shape, int form){
             x += 10;
         }
     }
-    HAL_Delay(500);
 }
 void startGame(){
 	int shape = rand() % 7 + 2, form = rand() % 4, id = 1;
@@ -289,7 +287,7 @@ void startGame(){
             }
 			
 			char ch = ' '; // input instruction from board
-            int waitCount = 5;
+            int waitCount = 80;
             while (waitCount--){
                 if (tp_dev.sta & TP_PRES_DOWN){
                     HAL_Delay(10);
