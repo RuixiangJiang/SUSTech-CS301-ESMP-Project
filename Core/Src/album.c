@@ -6,4 +6,5 @@
 #include "../Inc/lcd.h"
 #include "../Inc/rtc.h"
 #include "../Inc/usart.h"
+#include "../Inc/album.h"
 
