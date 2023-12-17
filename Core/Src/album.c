@@ -8,6 +8,7 @@
 #include "../Inc/rtc.h"
 #include "../Inc/usart.h"
 #include "../Inc/album.h"
+#include "bsp_driver_sd.h"
 
 FATFS fs;                 //工作空间
 FIL fil;                  // 文件项目

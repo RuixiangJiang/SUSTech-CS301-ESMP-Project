@@ -20,10 +20,8 @@
 #include "main.h"
 #include "dma.h"
 #include "fatfs.h"
-#include "i2c.h"
 #include "rtc.h"
 #include "sdio.h"
-#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -39,6 +37,7 @@
 #include "tetris.h"
 #include "delay.h"
 #include "config.h"
+#include "album.h"
 
 /* USER CODE END Includes */
 
@@ -47,7 +46,7 @@
 
 // config for the users
 unsigned char user_name[20] = "Jiacheng Luo";
-struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
+struct TIME_SETTING time_setting = {2023, 12, 28, 0, 52, 11};
 uint16_t mark_seed = 0x1677; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
 
 /* USER CODE END PTD */
@@ -102,11 +101,12 @@ void rtp_test(void)
           screen_state = CALC_D;
           draw_calc_screen();
         }
-        // between (170, 150) and (170 + 60, 150 + 60) is the area of the [Album] button
+        // between (170, 150) and (170 + 60, 150 + 60) is the area of the [PICTURE] button
         else if (tp_dev.x[0] > 170 && tp_dev.x[0] < 230 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"Album\r\n", 9 , 0xFFFF);
-          screen_state = Album;
+          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
+          screen_state = PIC;
           draw_pic_screen();
+          TFcard_test();
         }
         // between (10, 220) and (10 + 60, 220 + 60) is the area of the [Tetris] button
         else if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 220 && tp_dev.y[0] < 280) {
@@ -158,8 +158,6 @@ int main(void)
   MX_TIM3_Init();
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
-  MX_I2C1_Init();
-  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, (uint8_t *)rxBuffer, 1);
   HAL_TIM_Base_Start_IT(&htim3);

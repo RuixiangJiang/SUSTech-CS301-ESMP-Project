@@ -11,7 +11,7 @@ enum SCREEN_STATE {
   CALC_D,
   CALC_E,
   CALC_B,
-  Album,
+  PIC,
   Tetris
 };
 

@@ -36,7 +36,7 @@ void draw_initial_screen(uint8_t* username) {
 
     LCD_ShowPicture(90, 150, 60, 60, (uint16_t *) gImage_calc);
 
-    LCD_ShowPicture(170, 150, 60, 59, (uint16_t *) gImage_album);
+    LCD_ShowPicture(170, 150, 60, 59, (uint16_t *) gImage_pic);
 
 	LCD_ShowPicture(10, 220, 60, 60, (uint16_t *) gImage_tetris);
 
@@ -253,7 +253,7 @@ void draw_calc_screen() {
 void draw_pic_screen() {
 	LCD_Clear(WHITE);
 	POINT_COLOR = BLACK;
-	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "album");
+	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "pic");
 }
 
 uint8_t press_between(uint16_t x, uint16_t y, uint16_t lp_x, uint16_t lp_y, uint16_t rd_x, uint16_t rd_y) {
