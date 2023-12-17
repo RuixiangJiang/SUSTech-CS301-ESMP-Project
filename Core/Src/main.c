@@ -20,8 +20,10 @@
 #include "main.h"
 #include "dma.h"
 #include "fatfs.h"
+#include "i2c.h"
 #include "rtc.h"
 #include "sdio.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -100,10 +102,10 @@ void rtp_test(void)
           screen_state = CALC_D;
           draw_calc_screen();
         }
-        // between (170, 150) and (170 + 60, 150 + 60) is the area of the [PICTURE] button
+        // between (170, 150) and (170 + 60, 150 + 60) is the area of the [Album] button
         else if (tp_dev.x[0] > 170 && tp_dev.x[0] < 230 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
-          screen_state = PIC;
+          HAL_UART_Transmit(&huart1, (uint8_t*)"Album\r\n", 9 , 0xFFFF);
+          screen_state = Album;
           draw_pic_screen();
         }
         // between (10, 220) and (10 + 60, 220 + 60) is the area of the [Tetris] button
@@ -156,6 +158,8 @@ int main(void)
   MX_TIM3_Init();
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
+  MX_I2C1_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, (uint8_t *)rxBuffer, 1);
   HAL_TIM_Base_Start_IT(&htim3);
@@ -193,11 +197,11 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
-  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
@@ -220,7 +224,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();

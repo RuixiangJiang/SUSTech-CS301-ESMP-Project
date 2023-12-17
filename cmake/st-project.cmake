@@ -74,6 +74,7 @@ target_link_options(
 target_sources(
     ${TARGET_NAME} PRIVATE
     "Core\\Src\\24cxx.c"
+    "Core\\Src\\album.c"
     "Core\\Src\\binaryExpression.c"
     "Core\\Src\\calc.c"
     "Core\\Src\\calcExpression.c"
@@ -83,6 +84,7 @@ target_sources(
     "Core\\Src\\ft5206.c"
     "Core\\Src\\gpio.c"
     "Core\\Src\\gt9147.c"
+    "Core\\Src\\i2c.c"
     "Core\\Src\\lcd.c"
     "Core\\Src\\main.c"
     "Core\\Src\\myiic.c"
@@ -90,6 +92,7 @@ target_sources(
     "Core\\Src\\rtc.c"
     "Core\\Src\\sdio.c"
     "Core\\Src\\solveEquation.c"
+    "Core\\Src\\spi.c"
     "Core\\Src\\stack.c"
     "Core\\Src\\stm32f1xx_hal_msp.c"
     "Core\\Src\\stm32f1xx_it.c"
@@ -118,22 +121,19 @@ target_sources(
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_flash.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_gpio_ex.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_gpio.c"
+    "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_i2c.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_pwr.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_rcc_ex.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_rcc.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_rtc_ex.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_rtc.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_sd.c"
+    "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_spi.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_tim_ex.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_tim.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_uart.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal.c"
     "Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_ll_sdmmc.c"
-    "calc\\binaryExpression.c"
-    "calc\\calc.c"
-    "calc\\calcExpression.c"
-    "calc\\solveEquation.c"
-    "calc\\stack.c"
 )
 
 add_custom_command(
