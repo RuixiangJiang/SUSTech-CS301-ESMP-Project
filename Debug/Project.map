@@ -8609,57 +8609,57 @@ LOAD C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .data.filename
                 0x0000000020000000        0x8 ./Core/Src/album.o
                 0x0000000020000000                filename
- .data.wtext    0x0000000020000008        0xb ./Core/Src/album.o
+ .data.wtext    0x0000000020000008        0xd ./Core/Src/album.o
                 0x0000000020000008                wtext
- *fill*         0x0000000020000013        0x1 
+ *fill*         0x0000000020000015        0x1 
  .data.BACK_COLOR
-                0x0000000020000014        0x2 ./Core/Src/lcd.o
-                0x0000000020000014                BACK_COLOR
+                0x0000000020000016        0x2 ./Core/Src/lcd.o
+                0x0000000020000016                BACK_COLOR
  .data.mark_seed
-                0x0000000020000016        0x2 ./Core/Src/main.o
-                0x0000000020000016                mark_seed
+                0x0000000020000018        0x2 ./Core/Src/main.o
+                0x0000000020000018                mark_seed
  .data.time_setting
-                0x0000000020000018        0x8 ./Core/Src/main.o
-                0x0000000020000018                time_setting
+                0x000000002000001a        0x8 ./Core/Src/main.o
+                0x000000002000001a                time_setting
  .data.user_name
-                0x0000000020000020       0x14 ./Core/Src/main.o
-                0x0000000020000020                user_name
+                0x0000000020000022       0x14 ./Core/Src/main.o
+                0x0000000020000022                user_name
+ *fill*         0x0000000020000036        0x2 
  .data.SystemCoreClock
-                0x0000000020000034        0x4 ./Core/Src/system_stm32f1xx.o
-                0x0000000020000034                SystemCoreClock
- .data.COL_N    0x0000000020000038        0x4 ./Core/Src/tetris.o
-                0x0000000020000038                COL_N
+                0x0000000020000038        0x4 ./Core/Src/system_stm32f1xx.o
+                0x0000000020000038                SystemCoreClock
+ .data.COL_N    0x000000002000003c        0x4 ./Core/Src/tetris.o
+                0x000000002000003c                COL_N
  .data.srandNum
-                0x000000002000003c        0x4 ./Core/Src/tetris.o
-                0x000000002000003c                srandNum
- .data.CMD_RDX  0x0000000020000040        0x1 ./Core/Src/touch.o
-                0x0000000020000040                CMD_RDX
- .data.CMD_RDY  0x0000000020000041        0x1 ./Core/Src/touch.o
-                0x0000000020000041                CMD_RDY
- *fill*         0x0000000020000042        0x2 
- .data.tp_dev   0x0000000020000044       0x34 ./Core/Src/touch.o
-                0x0000000020000044                tp_dev
+                0x0000000020000040        0x4 ./Core/Src/tetris.o
+                0x0000000020000040                srandNum
+ .data.CMD_RDX  0x0000000020000044        0x1 ./Core/Src/touch.o
+                0x0000000020000044                CMD_RDX
+ .data.CMD_RDY  0x0000000020000045        0x1 ./Core/Src/touch.o
+                0x0000000020000045                CMD_RDY
+ *fill*         0x0000000020000046        0x2 
+ .data.tp_dev   0x0000000020000048       0x34 ./Core/Src/touch.o
+                0x0000000020000048                tp_dev
  .data.uwTickFreq
-                0x0000000020000078        0x1 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                0x0000000020000078                uwTickFreq
- *fill*         0x0000000020000079        0x3 
+                0x000000002000007c        0x1 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                0x000000002000007c                uwTickFreq
+ *fill*         0x000000002000007d        0x3 
  .data.uwTickPrio
-                0x000000002000007c        0x4 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                0x000000002000007c                uwTickPrio
- .data.Stat     0x0000000020000080        0x1 ./Middlewares/Third_Party/FatFs/src/drivers/sd_diskio.o
- *fill*         0x0000000020000081        0x3 
- .data.__sglue  0x0000000020000084        0xc C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-findfp.o)
-                0x0000000020000084                __sglue
+                0x0000000020000080        0x4 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                0x0000000020000080                uwTickPrio
+ .data.Stat     0x0000000020000084        0x1 ./Middlewares/Third_Party/FatFs/src/drivers/sd_diskio.o
+ *fill*         0x0000000020000085        0x3 
+ .data.__sglue  0x0000000020000088        0xc C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-findfp.o)
+                0x0000000020000088                __sglue
  .data.__global_locale
-                0x0000000020000090      0x16c C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-locale.o)
-                0x0000000020000090                __global_locale
+                0x0000000020000094      0x16c C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-locale.o)
+                0x0000000020000094                __global_locale
  .data._impure_data
-                0x00000000200001fc       0x4c C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
-                0x00000000200001fc                _impure_data
+                0x0000000020000200       0x4c C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
+                0x0000000020000200                _impure_data
  .data._impure_ptr
-                0x0000000020000248        0x4 C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
-                0x0000000020000248                _impure_ptr
- *fill*         0x000000002000024c        0x4 
+                0x000000002000024c        0x4 C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
+                0x000000002000024c                _impure_ptr
  .data.one      0x0000000020000250        0x8 C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(libm_a-e_sqrt.o)
  .data.tiny     0x0000000020000258        0x8 C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(libm_a-e_sqrt.o)
  *(.RamFunc)

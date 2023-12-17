@@ -2044,8 +2044,8 @@ void TFcard_test(void)
  80016e8:	4c71      	ldr	r4, [pc, #452]	; (80018b0 <TFcard_test+0x1d4>)
  80016ea:	4603      	mov	r3, r0
  80016ec:	7020      	strb	r0, [r4, #0]
-   // retSD = f_mount(&fs, "0:", 1);
-    if(retSD)
+    //retSD = f_mount(&fs, "0:", 1);
+    if(retSD != FR_OK)
  80016ee:	2800      	cmp	r0, #0
  80016f0:	f000 80a7 	beq.w	8001842 <TFcard_test+0x166>
     {
@@ -2067,14 +2067,14 @@ void TFcard_test(void)
     }
 
     /*-2-创建新的文件并写入数据*/
-    retSD = f_open(&fil, filename, FA_CREATE_ALWAYS | FA_WRITE);		//打开文件，权限包括创建、写（如果没有该文件，会创建该文件）
- 8001712:	220a      	movs	r2, #10
+    retSD = f_open(&fil, filename, FA_OPEN_ALWAYS | FA_WRITE | FA_CREATE_ALWAYS);		//打开文件，权限包括创建、写（如果没有该文件，会创建该文件）
+ 8001712:	221a      	movs	r2, #26
  8001714:	496a      	ldr	r1, [pc, #424]	; (80018c0 <TFcard_test+0x1e4>)
  8001716:	486b      	ldr	r0, [pc, #428]	; (80018c4 <TFcard_test+0x1e8>)
  8001718:	f00c fd2e 	bl	800e178 <f_open>
  800171c:	4603      	mov	r3, r0
  800171e:	7020      	strb	r0, [r4, #0]
-    if(retSD){ //返回值不为0（出现问题）
+    if(retSD != FR_OK){ //返回值不为0（出现问题）
  8001720:	2800      	cmp	r0, #0
  8001722:	f000 809a 	beq.w	800185a <TFcard_test+0x17e>
     	infoLen = snprintf((char *)info, sizeof(info), "open file error : %d\r\n",retSD);
@@ -2099,7 +2099,7 @@ void TFcard_test(void)
 //	{
 		retSD = f_write(&fil, wtext, sizeof(wtext), (void *)&byteswritten);	//在文件内写入wtext内的内容
  8001740:	4b62      	ldr	r3, [pc, #392]	; (80018cc <TFcard_test+0x1f0>)
- 8001742:	220b      	movs	r2, #11
+ 8001742:	220d      	movs	r2, #13
  8001744:	4962      	ldr	r1, [pc, #392]	; (80018d0 <TFcard_test+0x1f4>)
  8001746:	485f      	ldr	r0, [pc, #380]	; (80018c4 <TFcard_test+0x1e8>)
  8001748:	f00c fe9d 	bl	800e486 <f_write>
@@ -3975,7 +3975,7 @@ u8 FT5206_Scan(u8 mode)
  8002300:	8160      	strh	r0, [r4, #10]
  8002302:	e7d9      	b.n	80022b8 <FT5206_Scan+0xdc>
  8002304:	20000ee4 	.word	0x20000ee4
- 8002308:	20000044 	.word	0x20000044
+ 8002308:	20000048 	.word	0x20000048
  800230c:	0801308a 	.word	0x0801308a
 
 08002310 <MX_GPIO_Init>:
@@ -3996,7 +3996,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
  8002316:	2401      	movs	r4, #1
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
- 8002318:	2702      	movs	r7, #2
+ 8002318:	2602      	movs	r6, #2
 {
  800231a:	b088      	sub	sp, #32
   GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -4028,12 +4028,12 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin : PA3 */
   GPIO_InitStruct.Pin = GPIO_PIN_3;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
- 8002344:	2600      	movs	r6, #0
+ 8002344:	2700      	movs	r7, #0
   __HAL_RCC_GPIOD_CLK_ENABLE();
  8002346:	f042 0220 	orr.w	r2, r2, #32
  800234a:	619a      	str	r2, [r3, #24]
  800234c:	699a      	ldr	r2, [r3, #24]
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
@@ -4065,7 +4065,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
  8002378:	e9cd 4304 	strd	r4, r3, [sp, #16]
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
- 800237c:	9706      	str	r7, [sp, #24]
+ 800237c:	9606      	str	r6, [sp, #24]
   HAL_GPIO_Init(KEY_WK_GPIO_Port, &GPIO_InitStruct);
  800237e:	f008 fb3b 	bl	800a9f8 <HAL_GPIO_Init>
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -4074,8 +4074,8 @@ void MX_GPIO_Init(void)
  8002384:	4628      	mov	r0, r5
  8002386:	a904      	add	r1, sp, #16
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
- 8002388:	e9cd 3604 	strd	r3, r6, [sp, #16]
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 8002388:	e9cd 3704 	strd	r3, r7, [sp, #16]
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
  800238c:	9606      	str	r6, [sp, #24]
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
  800238e:	f008 fb33 	bl	800a9f8 <HAL_GPIO_Init>
@@ -4104,7 +4104,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
  80023aa:	e9cd 3404 	strd	r3, r4, [sp, #16]
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 80023ae:	e9cd 6706 	strd	r6, r7, [sp, #24]
+ 80023ae:	e9cd 7606 	strd	r7, r6, [sp, #24]
   HAL_GPIO_Init(LED0_GPIO_Port, &GPIO_InitStruct);
  80023b2:	f008 fb21 	bl	800a9f8 <HAL_GPIO_Init>
 
@@ -4125,7 +4125,7 @@ void MX_GPIO_Init(void)
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
- 80023c8:	4632      	mov	r2, r6
+ 80023c8:	463a      	mov	r2, r7
  80023ca:	4621      	mov	r1, r4
  80023cc:	2006      	movs	r0, #6
  80023ce:	f008 f86f 	bl	800a4b0 <HAL_NVIC_SetPriority>
@@ -4143,7 +4143,7 @@ void MX_GPIO_Init(void)
  80023e4:	f008 f894 	bl	800a510 <HAL_NVIC_EnableIRQ>
 
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 1, 2);
- 80023e8:	463a      	mov	r2, r7
+ 80023e8:	4632      	mov	r2, r6
  80023ea:	4621      	mov	r1, r4
  80023ec:	2028      	movs	r0, #40	; 0x28
  80023ee:	f008 f85f 	bl	800a4b0 <HAL_NVIC_SetPriority>
@@ -4695,7 +4695,7 @@ u8 GT9147_Scan(u8 mode)
  8002754:	2001      	movs	r0, #1
  8002756:	e762      	b.n	800261e <GT9147_Scan+0x26>
  8002758:	20000ee5 	.word	0x20000ee5
- 800275c:	20000044 	.word	0x20000044
+ 800275c:	20000048 	.word	0x20000048
  8002760:	0801316e 	.word	0x0801316e
  8002764:	20000ee8 	.word	0x20000ee8
 
@@ -13411,7 +13411,7 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size,
  8006d18:	0801318f 	.word	0x0801318f
  8006d1c:	20000ee8 	.word	0x20000ee8
  8006d20:	20000ee6 	.word	0x20000ee6
- 8006d24:	20000014 	.word	0x20000014
+ 8006d24:	20000016 	.word	0x20000016
 
 08006d28 <LCD_ShowNum>:
 // Display number without the leading zeros
@@ -13759,7 +13759,7 @@ void rtp_test(void)
  8006f36:	e796      	b.n	8006e66 <rtp_test+0x16>
  8006f38:	0801494f 	.word	0x0801494f
  8006f3c:	20004530 	.word	0x20004530
- 8006f40:	20000044 	.word	0x20000044
+ 8006f40:	20000048 	.word	0x20000048
  8006f44:	20000ef6 	.word	0x20000ef6
  8006f48:	0801495e 	.word	0x0801495e
  8006f4c:	08014968 	.word	0x08014968
@@ -13920,8 +13920,8 @@ void Error_Handler(void)
  8007038:	20000fd4 	.word	0x20000fd4
  800703c:	20004530 	.word	0x20004530
  8007040:	200044e8 	.word	0x200044e8
- 8007044:	20000044 	.word	0x20000044
- 8007048:	20000020 	.word	0x20000020
+ 8007044:	20000048 	.word	0x20000048
+ 8007048:	20000022 	.word	0x20000022
 
 0800704c <Error_Handler>:
  800704c:	b672      	cpsid	i
@@ -14797,7 +14797,7 @@ u8 OTT2001A_Init(void)
  8007578:	47ae147b 	.word	0x47ae147b
  800757c:	3fd47ae1 	.word	0x3fd47ae1
  8007580:	20000ef7 	.word	0x20000ef7
- 8007584:	20000044 	.word	0x20000044
+ 8007584:	20000048 	.word	0x20000048
  8007588:	08014990 	.word	0x08014990
  800758c:	40890000 	.word	0x40890000
 
@@ -14973,9 +14973,9 @@ void MX_RTC_Init(void)
  8007660:	40021000 	.word	0x40021000
  8007664:	20000ef8 	.word	0x20000ef8
  8007668:	40002800 	.word	0x40002800
- 800766c:	20000016 	.word	0x20000016
+ 800766c:	20000018 	.word	0x20000018
  8007670:	23221103 	.word	0x23221103
- 8007674:	20000018 	.word	0x20000018
+ 8007674:	2000001a 	.word	0x2000001a
 
 08007678 <HAL_RTC_MspInit>:
 
@@ -16166,7 +16166,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
  8007ce2:	bf00      	nop
  8007ce4:	40010800 	.word	0x40010800
  8007ce8:	20000ef6 	.word	0x20000ef6
- 8007cec:	20000020 	.word	0x20000020
+ 8007cec:	20000022 	.word	0x20000022
  8007cf0:	40011000 	.word	0x40011000
 
 08007cf4 <BSP_SD_IsDetected>:
@@ -16715,7 +16715,7 @@ unsigned int generate_seed(){
 }
  8007fa0:	46bd      	mov	sp, r7
  8007fa2:	bd80      	pop	{r7, pc}
- 8007fa4:	2000003c 	.word	0x2000003c
+ 8007fa4:	20000040 	.word	0x20000040
 
 08007fa8 <initGame>:
 void initGame(){
@@ -17284,7 +17284,7 @@ void printMap(){
  8008374:	e7fa      	b.n	800836c <printMap+0x144>
  8008376:	bf00      	nop
  8008378:	20000ef6 	.word	0x20000ef6
- 800837c:	20000038 	.word	0x20000038
+ 800837c:	2000003c 	.word	0x2000003c
  8008380:	200032c4 	.word	0x200032c4
  8008384:	080149fa 	.word	0x080149fa
  8008388:	200025b8 	.word	0x200025b8
@@ -17481,7 +17481,7 @@ void printNextBlock(int shape, int form){
  80084e4:	e7fa      	b.n	80084dc <printNextBlock+0x14c>
  80084e6:	bf00      	nop
  80084e8:	20000ef6 	.word	0x20000ef6
- 80084ec:	20000038 	.word	0x20000038
+ 80084ec:	2000003c 	.word	0x2000003c
  80084f0:	20001bac 	.word	0x20001bac
 
 080084f4 <startGame>:
@@ -17865,7 +17865,7 @@ void startGame(){
  800881a:	4a04      	ldr	r2, [pc, #16]	; (800882c <startGame+0x338>)
  800881c:	6013      	str	r3, [r2, #0]
  800881e:	e69e      	b.n	800855e <startGame+0x6a>
- 8008820:	20000044 	.word	0x20000044
+ 8008820:	20000048 	.word	0x20000048
  8008824:	20000ef6 	.word	0x20000ef6
  8008828:	08014a05 	.word	0x08014a05
  800882c:	200025b0 	.word	0x200025b0
@@ -17954,7 +17954,7 @@ void startGame(){
  80088e4:	20001bac 	.word	0x20001bac
  80088e8:	200029b8 	.word	0x200029b8
  80088ec:	20000ef6 	.word	0x20000ef6
- 80088f0:	20000020 	.word	0x20000020
+ 80088f0:	20000022 	.word	0x20000022
 
 080088f4 <draw_tetris_screen>:
 
@@ -18551,8 +18551,8 @@ u8 TP_Read_XY(u16 *x,u16 *y)
 }
  8008c54:	2001      	movs	r0, #1
  8008c56:	bd70      	pop	{r4, r5, r6, pc}
- 8008c58:	20000040 	.word	0x20000040
- 8008c5c:	20000041 	.word	0x20000041
+ 8008c58:	20000044 	.word	0x20000044
+ 8008c5c:	20000045 	.word	0x20000045
 
 08008c60 <TP_Read_XY2>:
 //�ú����ܴ�����׼ȷ��
@@ -18735,7 +18735,7 @@ u8 TP_Scan(u8 tp)
  8008d8c:	6163      	strge	r3, [r4, #20]
  8008d8e:	e7bc      	b.n	8008d0a <TP_Scan+0x32>
  8008d90:	42220000 	.word	0x42220000
- 8008d94:	20000044 	.word	0x20000044
+ 8008d94:	20000048 	.word	0x20000048
  8008d98:	ffff0000 	.word	0xffff0000
 
 08008d9c <TP_Drow_Touch_Point>:
@@ -18826,7 +18826,7 @@ void TP_Save_Adjdata(void)
  8008e24:	210a      	movs	r1, #10
  8008e26:	2036      	movs	r0, #54	; 0x36
  8008e28:	f7f8 bc19 	b.w	800165e <AT24CXX_WriteOneByte>
- 8008e2c:	20000068 	.word	0x20000068
+ 8008e2c:	2000006c 	.word	0x2000006c
 
 08008e30 <TP_Get_Adjdata>:
 //����ֵ��1���ɹ���ȡ����
@@ -18882,9 +18882,9 @@ u8 TP_Get_Adjdata(void)
 	return 0;
  8008e68:	2000      	movs	r0, #0
  8008e6a:	e7f8      	b.n	8008e5e <TP_Get_Adjdata+0x2e>
- 8008e6c:	20000044 	.word	0x20000044
- 8008e70:	20000040 	.word	0x20000040
- 8008e74:	20000041 	.word	0x20000041
+ 8008e6c:	20000048 	.word	0x20000048
+ 8008e70:	20000044 	.word	0x20000044
+ 8008e74:	20000045 	.word	0x20000045
 
 08008e78 <TP_Adj_Info_Show>:
 //��ʾ�ַ���
@@ -19408,9 +19408,9 @@ void TP_Adj_Info_Show(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2,u16 x3,u16 y3,u1
  8009238:	cccccccd 	.word	0xcccccccd
  800923c:	3ff0cccc 	.word	0x3ff0cccc
  8009240:	20000ee6 	.word	0x20000ee6
- 8009244:	20000014 	.word	0x20000014
+ 8009244:	20000016 	.word	0x20000016
  8009248:	08014a8b 	.word	0x08014a8b
- 800924c:	20000044 	.word	0x20000044
+ 800924c:	20000048 	.word	0x20000048
  8009250:	20000ee8 	.word	0x20000ee8
  8009254:	40590000 	.word	0x40590000
 					tem1=abs(pos_temp[0][0]-pos_temp[2][0]);//x1-x3
@@ -19772,11 +19772,11 @@ void TP_Adj_Info_Show(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2,u16 x3,u16 y3,u1
  8009528:	cccccccd 	.word	0xcccccccd
  800952c:	3ff0cccc 	.word	0x3ff0cccc
  8009530:	40590000 	.word	0x40590000
- 8009534:	20000044 	.word	0x20000044
+ 8009534:	20000048 	.word	0x20000048
  8009538:	08014b04 	.word	0x08014b04
  800953c:	20000ee8 	.word	0x20000ee8
- 8009540:	20000040 	.word	0x20000040
- 8009544:	20000041 	.word	0x20000041
+ 8009540:	20000044 	.word	0x20000044
+ 8009544:	20000045 	.word	0x20000045
  8009548:	20000ee6 	.word	0x20000ee6
  800954c:	08014b16 	.word	0x08014b16
 
@@ -19911,12 +19911,12 @@ u8 TP_Init(void)
  8009606:	bf00      	nop
  8009608:	20000ee8 	.word	0x20000ee8
  800960c:	08007421 	.word	0x08007421
- 8009610:	20000044 	.word	0x20000044
+ 8009610:	20000048 	.word	0x20000048
  8009614:	080025f9 	.word	0x080025f9
  8009618:	080021dd 	.word	0x080021dd
  800961c:	40021000 	.word	0x40021000
  8009620:	40011000 	.word	0x40011000
- 8009624:	2000005a 	.word	0x2000005a
+ 8009624:	2000005e 	.word	0x2000005e
 
 08009628 <MX_USART1_UART_Init>:
 UART_HandleTypeDef huart1;
@@ -22013,7 +22013,7 @@ void calc_touch_screen_handler() {
  800a36c:	f7ff ff80 	bl	800a270 <work_for_calc>
  800a370:	e7c8      	b.n	800a304 <calc_touch_screen_handler+0x4c>
  800a372:	bf00      	nop
- 800a374:	20000044 	.word	0x20000044
+ 800a374:	20000048 	.word	0x20000048
  800a378:	200049f4 	.word	0x200049f4
  800a37c:	200049fc 	.word	0x200049fc
  800a380:	200049f8 	.word	0x200049f8
@@ -22167,9 +22167,9 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     return HAL_ERROR;
  800a410:	2001      	movs	r0, #1
  800a412:	e7fc      	b.n	800a40e <HAL_InitTick+0x36>
- 800a414:	20000078 	.word	0x20000078
- 800a418:	20000034 	.word	0x20000034
- 800a41c:	2000007c 	.word	0x2000007c
+ 800a414:	2000007c 	.word	0x2000007c
+ 800a418:	20000038 	.word	0x20000038
+ 800a41c:	20000080 	.word	0x20000080
 
 0800a420 <HAL_Init>:
   __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
@@ -22212,7 +22212,7 @@ __weak void HAL_IncTick(void)
  800a450:	4770      	bx	lr
  800a452:	bf00      	nop
  800a454:	20004a68 	.word	0x20004a68
- 800a458:	20000078 	.word	0x20000078
+ 800a458:	2000007c 	.word	0x2000007c
 
 0800a45c <HAL_GetTick>:
   *       implementations in user file.
@@ -22262,7 +22262,7 @@ __weak void HAL_Delay(uint32_t Delay)
   }
 }
  800a486:	bd38      	pop	{r3, r4, r5, pc}
- 800a488:	20000078 	.word	0x20000078
+ 800a488:	2000007c 	.word	0x2000007c
 
 0800a48c <HAL_NVIC_SetPriorityGrouping>:
 __STATIC_INLINE void __NVIC_SetPriorityGrouping(uint32_t PriorityGroup)
@@ -23871,7 +23871,7 @@ static void RCC_Delay(uint32_t mdelay)
  800ae76:	e706      	b.n	800ac86 <HAL_RCC_OscConfig+0x82>
  800ae78:	40021000 	.word	0x40021000
  800ae7c:	42420000 	.word	0x42420000
- 800ae80:	20000034 	.word	0x20000034
+ 800ae80:	20000038 	.word	0x20000038
  800ae84:	40007000 	.word	0x40007000
     if (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK)
  800ae88:	4c2a      	ldr	r4, [pc, #168]	; (800af34 <HAL_RCC_OscConfig+0x330>)
@@ -24175,8 +24175,8 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  800b0ac:	40022000 	.word	0x40022000
  800b0b0:	40021000 	.word	0x40021000
  800b0b4:	080149e2 	.word	0x080149e2
- 800b0b8:	20000034 	.word	0x20000034
- 800b0bc:	2000007c 	.word	0x2000007c
+ 800b0b8:	20000038 	.word	0x20000038
+ 800b0bc:	20000080 	.word	0x20000080
 
 0800b0c0 <HAL_RCC_GetPCLK1Freq>:
   return (HAL_RCC_GetHCLKFreq() >> APBPrescTable[(RCC->CFGR & RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos]);
@@ -24192,7 +24192,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  800b0d2:	4770      	bx	lr
  800b0d4:	40021000 	.word	0x40021000
  800b0d8:	080149f2 	.word	0x080149f2
- 800b0dc:	20000034 	.word	0x20000034
+ 800b0dc:	20000038 	.word	0x20000038
 
 0800b0e0 <HAL_RCC_GetPCLK2Freq>:
   return (HAL_RCC_GetHCLKFreq() >> APBPrescTable[(RCC->CFGR & RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos]);
@@ -24208,7 +24208,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  800b0f2:	4770      	bx	lr
  800b0f4:	40021000 	.word	0x40021000
  800b0f8:	080149f2 	.word	0x080149f2
- 800b0fc:	20000034 	.word	0x20000034
+ 800b0fc:	20000038 	.word	0x20000038
 
 0800b100 <HAL_RCCEx_PeriphCLKConfig>:
 
@@ -29317,7 +29317,7 @@ static uint32_t SDMMC_GetCmdError(SDIO_TypeDef *SDIOx)
  800cd96:	f04f 4000 	mov.w	r0, #2147483648	; 0x80000000
   return errorstate;
  800cd9a:	e7fa      	b.n	800cd92 <SDMMC_CmdGoIdleState+0x3e>
- 800cd9c:	20000034 	.word	0x20000034
+ 800cd9c:	20000038 	.word	0x20000038
 
 0800cda0 <SDMMC_GetCmdResp1>:
 {
@@ -29490,7 +29490,7 @@ static uint32_t SDMMC_GetCmdError(SDIO_TypeDef *SDIOx)
  800ceb0:	f44f 0080 	mov.w	r0, #4194304	; 0x400000
  800ceb4:	e78a      	b.n	800cdcc <SDMMC_GetCmdResp1+0x2c>
  800ceb6:	bf00      	nop
- 800ceb8:	20000034 	.word	0x20000034
+ 800ceb8:	20000038 	.word	0x20000038
  800cebc:	fdffe008 	.word	0xfdffe008
 
 0800cec0 <SDMMC_CmdBlockLength>:
@@ -29906,7 +29906,7 @@ static uint32_t SDMMC_GetCmdError(SDIO_TypeDef *SDIOx)
 }
  800d130:	4770      	bx	lr
  800d132:	bf00      	nop
- 800d134:	20000034 	.word	0x20000034
+ 800d134:	20000038 	.word	0x20000038
 
 0800d138 <SDMMC_CmdSendCID>:
   sdmmc_cmdinit.CmdIndex         = SDMMC_CMD_ALL_SEND_CID;
@@ -30007,7 +30007,7 @@ static uint32_t SDMMC_GetCmdError(SDIO_TypeDef *SDIOx)
  800d1c6:	f04f 4000 	mov.w	r0, #2147483648	; 0x80000000
 }
  800d1ca:	4770      	bx	lr
- 800d1cc:	20000034 	.word	0x20000034
+ 800d1cc:	20000038 	.word	0x20000038
 
 0800d1d0 <SDMMC_CmdAppOperCommand>:
   sdmmc_cmdinit.Response         = SDIO_RESPONSE_SHORT;
@@ -30120,7 +30120,7 @@ static uint32_t SDMMC_GetCmdError(SDIO_TypeDef *SDIOx)
  800d27c:	f44f 5000 	mov.w	r0, #8192	; 0x2000
  800d280:	e7d8      	b.n	800d234 <SDMMC_GetCmdResp6+0x30>
  800d282:	bf00      	nop
- 800d284:	20000034 	.word	0x20000034
+ 800d284:	20000038 	.word	0x20000038
 
 0800d288 <SDMMC_CmdSetRelAdd>:
 {
@@ -30211,7 +30211,7 @@ static uint32_t SDMMC_GetCmdError(SDIO_TypeDef *SDIOx)
 }
  800d30c:	4770      	bx	lr
  800d30e:	bf00      	nop
- 800d310:	20000034 	.word	0x20000034
+ 800d310:	20000038 	.word	0x20000038
 
 0800d314 <SDMMC_CmdOperCond>:
   sdmmc_cmdinit.CmdIndex         = SDMMC_CMD_HS_SEND_EXT_CSD;
@@ -33551,7 +33551,7 @@ DSTATUS SD_initialize(BYTE lun)
 }
  800e7a4:	bd10      	pop	{r4, pc}
  800e7a6:	bf00      	nop
- 800e7a8:	20000080 	.word	0x20000080
+ 800e7a8:	20000084 	.word	0x20000084
 
 0800e7ac <SD_status>:
   * @param  lun : not used
@@ -33582,7 +33582,7 @@ DSTATUS SD_status(BYTE lun)
 }
  800e7c4:	bd10      	pop	{r4, pc}
  800e7c6:	bf00      	nop
- 800e7c8:	20000080 	.word	0x20000080
+ 800e7c8:	20000084 	.word	0x20000084
 
 0800e7cc <SD_ioctl>:
   * @param  *buff: Buffer to send/receive control data
@@ -33652,7 +33652,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800e816:	460c      	mov	r4, r1
  800e818:	e7e7      	b.n	800e7ea <SD_ioctl+0x1e>
  800e81a:	bf00      	nop
- 800e81c:	20000080 	.word	0x20000080
+ 800e81c:	20000084 	.word	0x20000084
 
 0800e820 <SD_write>:
 {
@@ -33721,7 +33721,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800e88c:	6818      	ldr	r0, [r3, #0]
  800e88e:	f000 b82b 	b.w	800e8e8 <_malloc_r>
  800e892:	bf00      	nop
- 800e894:	20000248 	.word	0x20000248
+ 800e894:	2000024c 	.word	0x2000024c
 
 0800e898 <free>:
  800e898:	4b02      	ldr	r3, [pc, #8]	; (800e8a4 <free+0xc>)
@@ -33729,7 +33729,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800e89c:	6818      	ldr	r0, [r3, #0]
  800e89e:	f001 bb3b 	b.w	800ff18 <_free_r>
  800e8a2:	bf00      	nop
- 800e8a4:	20000248 	.word	0x20000248
+ 800e8a4:	2000024c 	.word	0x2000024c
 
 0800e8a8 <sbrk_aligned>:
  800e8a8:	b570      	push	{r4, r5, r6, lr}
@@ -33913,7 +33913,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800ea3e:	611c      	str	r4, [r3, #16]
  800ea40:	615a      	str	r2, [r3, #20]
  800ea42:	bd38      	pop	{r3, r4, r5, pc}
- 800ea44:	20000248 	.word	0x20000248
+ 800ea44:	2000024c 	.word	0x2000024c
  800ea48:	08032194 	.word	0x08032194
  800ea4c:	080321ab 	.word	0x080321ab
  800ea50:	abcd330e 	.word	0xabcd330e
@@ -33958,7 +33958,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800eaae:	e9c1 3004 	strd	r3, r0, [r1, #16]
  800eab2:	f020 4000 	bic.w	r0, r0, #2147483648	; 0x80000000
  800eab6:	bd10      	pop	{r4, pc}
- 800eab8:	20000248 	.word	0x20000248
+ 800eab8:	2000024c 	.word	0x2000024c
  800eabc:	08032194 	.word	0x08032194
  800eac0:	080321ab 	.word	0x080321ab
  800eac4:	abcd330e 	.word	0xabcd330e
@@ -35193,8 +35193,8 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800f710:	6800      	ldr	r0, [r0, #0]
  800f712:	f7ff ba05 	b.w	800eb20 <_strtod_l>
  800f716:	bf00      	nop
- 800f718:	20000248 	.word	0x20000248
- 800f71c:	20000090 	.word	0x20000090
+ 800f718:	2000024c 	.word	0x2000024c
+ 800f71c:	20000094 	.word	0x20000094
 
 0800f720 <_strtol_l.constprop.0>:
  800f720:	2b01      	cmp	r3, #1
@@ -35311,7 +35311,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800f824:	6800      	ldr	r0, [r0, #0]
  800f826:	f7ff bf7b 	b.w	800f720 <_strtol_l.constprop.0>
  800f82a:	bf00      	nop
- 800f82c:	20000248 	.word	0x20000248
+ 800f82c:	2000024c 	.word	0x2000024c
 
 0800f830 <std>:
  800f830:	2300      	movs	r3, #0
@@ -35363,9 +35363,9 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800f8a0:	4803      	ldr	r0, [pc, #12]	; (800f8b0 <stdio_exit_handler+0x14>)
  800f8a2:	f000 b869 	b.w	800f978 <_fwalk_sglue>
  800f8a6:	bf00      	nop
- 800f8a8:	20000084 	.word	0x20000084
+ 800f8a8:	20000088 	.word	0x20000088
  800f8ac:	08011935 	.word	0x08011935
- 800f8b0:	200001fc 	.word	0x200001fc
+ 800f8b0:	20000200 	.word	0x20000200
 
 0800f8b4 <cleanup_stdio>:
  800f8b4:	6841      	ldr	r1, [r0, #4]
@@ -35490,7 +35490,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800f9cc:	f85d eb04 	ldr.w	lr, [sp], #4
  800f9d0:	b004      	add	sp, #16
  800f9d2:	4770      	bx	lr
- 800f9d4:	20000248 	.word	0x20000248
+ 800f9d4:	2000024c 	.word	0x2000024c
 
 0800f9d8 <_puts_r>:
  800f9d8:	6a03      	ldr	r3, [r0, #32]
@@ -35576,7 +35576,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800fa84:	6818      	ldr	r0, [r3, #0]
  800fa86:	f7ff bfa7 	b.w	800f9d8 <_puts_r>
  800fa8a:	bf00      	nop
- 800fa8c:	20000248 	.word	0x20000248
+ 800fa8c:	2000024c 	.word	0x2000024c
 
 0800fa90 <sniprintf>:
  800fa90:	b40c      	push	{r2, r3}
@@ -35621,7 +35621,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800faee:	701a      	strb	r2, [r3, #0]
  800faf0:	e7d9      	b.n	800faa6 <sniprintf+0x16>
  800faf2:	bf00      	nop
- 800faf4:	20000248 	.word	0x20000248
+ 800faf4:	2000024c 	.word	0x2000024c
 
 0800faf8 <siprintf>:
  800faf8:	b40e      	push	{r1, r2, r3}
@@ -35648,7 +35648,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800fb28:	f85d eb04 	ldr.w	lr, [sp], #4
  800fb2c:	b003      	add	sp, #12
  800fb2e:	4770      	bx	lr
- 800fb30:	20000248 	.word	0x20000248
+ 800fb30:	2000024c 	.word	0x2000024c
  800fb34:	ffff0208 	.word	0xffff0208
 
 0800fb38 <__sread>:
@@ -35841,7 +35841,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800fcde:	e7f4      	b.n	800fcca <__swsetup_r+0x92>
  800fce0:	2000      	movs	r0, #0
  800fce2:	e7f7      	b.n	800fcd4 <__swsetup_r+0x9c>
- 800fce4:	20000248 	.word	0x20000248
+ 800fce4:	2000024c 	.word	0x2000024c
 
 0800fce8 <memset>:
  800fce8:	4603      	mov	r3, r0
@@ -35905,7 +35905,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800fd58:	4601      	mov	r1, r0
  800fd5a:	6818      	ldr	r0, [r3, #0]
  800fd5c:	f000 b802 	b.w	800fd64 <_strndup_r>
- 800fd60:	20000248 	.word	0x20000248
+ 800fd60:	2000024c 	.word	0x2000024c
 
 0800fd64 <_strndup_r>:
  800fd64:	b570      	push	{r4, r5, r6, lr}
@@ -36026,7 +36026,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800fe4a:	6818      	ldr	r0, [r3, #0]
  800fe4c:	4770      	bx	lr
  800fe4e:	bf00      	nop
- 800fe50:	20000248 	.word	0x20000248
+ 800fe50:	2000024c 	.word	0x2000024c
 
 0800fe54 <__libc_init_array>:
  800fe54:	b570      	push	{r4, r5, r6, lr}
@@ -36117,7 +36117,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  800ff02:	461c      	mov	r4, r3
  800ff04:	e7f3      	b.n	800feee <__assert_func+0x12>
  800ff06:	bf00      	nop
- 800ff08:	20000248 	.word	0x20000248
+ 800ff08:	2000024c 	.word	0x2000024c
  800ff0c:	08032367 	.word	0x08032367
  800ff10:	08032374 	.word	0x08032374
  800ff14:	08013007 	.word	0x08013007
@@ -38910,7 +38910,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  801199c:	f85d eb04 	ldr.w	lr, [sp], #4
  80119a0:	b003      	add	sp, #12
  80119a2:	4770      	bx	lr
- 80119a4:	20000248 	.word	0x20000248
+ 80119a4:	2000024c 	.word	0x2000024c
 
 080119a8 <__swhatbuf_r>:
  80119a8:	b570      	push	{r4, r5, r6, lr}
@@ -39176,7 +39176,7 @@ DRESULT SD_ioctl(BYTE lun, BYTE cmd, void *buff)
  8011be8:	6818      	ldr	r0, [r3, #0]
  8011bea:	f7ff bfd3 	b.w	8011b94 <_raise_r>
  8011bee:	bf00      	nop
- 8011bf0:	20000248 	.word	0x20000248
+ 8011bf0:	2000024c 	.word	0x2000024c
 
 08011bf4 <_kill_r>:
  8011bf4:	b538      	push	{r3, r4, r5, lr}

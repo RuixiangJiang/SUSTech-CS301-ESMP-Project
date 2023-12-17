@@ -15,7 +15,7 @@ FIL fil;                  // 文件项目
 uint32_t file_byte = 0;		  //文件大小（字节数）
 uint32_t byteswritten = 0;    // 写文件计数
 uint32_t bytesread = 0;       // 读文件计数
-uint8_t wtext[] = "test write"; // 写的内容
+uint8_t wtext[] = "test write\r\n"; // 写的内容
 uint8_t rtext[1024];             	// 读取的buff,1024bytes
 
 char filename[] = "log.txt"; // 文件名
@@ -28,8 +28,8 @@ void TFcard_test(void)
 
     /*-1- 挂载文件系统*/
 	retSD = f_mount(&fs, "", 0);
-   // retSD = f_mount(&fs, "0:", 1);
-    if(retSD)
+    //retSD = f_mount(&fs, "0:", 1);
+    if(retSD != FR_OK)
     {
     	infoLen = snprintf((char *)info, sizeof(info), "mount error : %d \r\n", retSD);
     	HAL_UART_Transmit(&huart1, info, infoLen, HAL_MAX_DELAY);
@@ -41,8 +41,8 @@ void TFcard_test(void)
     }
 
     /*-2-创建新的文件并写入数据*/
-    retSD = f_open(&fil, filename, FA_CREATE_ALWAYS | FA_WRITE);		//打开文件，权限包括创建、写（如果没有该文件，会创建该文件）
-    if(retSD){ //返回值不为0（出现问题）
+    retSD = f_open(&fil, filename, FA_OPEN_ALWAYS | FA_WRITE | FA_CREATE_ALWAYS);		//打开文件，权限包括创建、写（如果没有该文件，会创建该文件）
+    if(retSD != FR_OK){ //返回值不为0（出现问题）
     	infoLen = snprintf((char *)info, sizeof(info), "open file error : %d\r\n",retSD);
     	HAL_UART_Transmit(&huart1, info, infoLen, HAL_MAX_DELAY);
     }
