@@ -10,4 +10,10 @@
 #include "../Inc/rtc.h"
 #include "../Inc/usart.h"
 
+void TFcard_test(void);
+
+
+
+
+
 #endif

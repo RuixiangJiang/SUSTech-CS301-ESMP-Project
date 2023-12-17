@@ -16,4 +16,4 @@
 ../Core/Src/stm32f1xx_it.c:297:6:SDIO_IRQHandler	1
 ../Core/Src/stm32f1xx_it.c:311:6:DMA2_Channel4_5_IRQHandler	1
 ../Core/Src/stm32f1xx_it.c:324:6:HAL_UART_RxCpltCallback	3
-../Core/Src/stm32f1xx_it.c:343:6:HAL_GPIO_EXTI_Callback	5
+../Core/Src/stm32f1xx_it.c:343:6:HAL_GPIO_EXTI_Callback	9

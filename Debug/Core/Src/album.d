@@ -1,6 +1,7 @@
-Core/Src/album.o: ../Core/Src/album.c ../Core/Src/../Inc/utils.h \
- ../Core/Src/../Inc/main.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+Core/Src/album.o: ../Core/Src/album.c \
+ ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
+ ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -31,13 +32,19 @@ Core/Src/album.o: ../Core/Src/album.c ../Core/Src/../Inc/utils.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
+ ../FATFS/Target/bsp_driver_sd.h ../FATFS/Target/fatfs_platform.h \
+ ../Core/Src/../Inc/utils.h ../Core/Src/../Inc/main.h \
  ../Core/Src/../Inc/touch.h ../Core/Src/../Inc/sys.h \
  ../Core/Src/../Inc/ott2001a.h ../Core/Src/../Inc/gt9147.h \
  ../Core/Src/../Inc/ft5206.h ../Core/Src/../Inc/calc.h \
  ../Core/Src/../Inc/lcd.h ../Core/Src/../Inc/rtc.h \
- ../Core/Src/../Inc/usart.h
-../Core/Src/../Inc/utils.h:
-../Core/Src/../Inc/main.h:
+ ../Core/Src/../Inc/usart.h ../Core/Src/../Inc/album.h \
+ ../Core/Src/../Inc/../Inc/utils.h ../Core/Src/../Inc/../Inc/lcd.h \
+ ../Core/Src/../Inc/../Inc/rtc.h ../Core/Src/../Inc/../Inc/usart.h
+../Middlewares/Third_Party/FatFs/src/ff.h:
+../Middlewares/Third_Party/FatFs/src/integer.h:
+../FATFS/Target/ffconf.h:
+../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h:
@@ -69,6 +76,10 @@ Core/Src/album.o: ../Core/Src/album.c ../Core/Src/../Inc/utils.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+../FATFS/Target/bsp_driver_sd.h:
+../FATFS/Target/fatfs_platform.h:
+../Core/Src/../Inc/utils.h:
+../Core/Src/../Inc/main.h:
 ../Core/Src/../Inc/touch.h:
 ../Core/Src/../Inc/sys.h:
 ../Core/Src/../Inc/ott2001a.h:
@@ -78,3 +89,8 @@ Core/Src/album.o: ../Core/Src/album.c ../Core/Src/../Inc/utils.h \
 ../Core/Src/../Inc/lcd.h:
 ../Core/Src/../Inc/rtc.h:
 ../Core/Src/../Inc/usart.h:
+../Core/Src/../Inc/album.h:
+../Core/Src/../Inc/../Inc/utils.h:
+../Core/Src/../Inc/../Inc/lcd.h:
+../Core/Src/../Inc/../Inc/rtc.h:
+../Core/Src/../Inc/../Inc/usart.h:
