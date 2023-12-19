@@ -12,6 +12,7 @@
         "lcd.h": "c",
         "stdio.h": "c",
         "types.h": "c",
-        "malloc.h": "c"
+        "malloc.h": "c",
+        "main.h": "c"
     }
 }

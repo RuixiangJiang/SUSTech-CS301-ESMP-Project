@@ -95,14 +95,14 @@ extern TIM_HandleTypeDef htim3;
 
 u8 res;
 DIR picdir;	 						//Í¼Æ¬Ä¿Â¼
-FILINFO *picfileinfo;				//ÎÄ¼þÐÅÏ¢
-u8 *pname;							//´øÂ·¾¶µÄÎÄ¼þ????
-u16 totpicnum; 						//Í¼Æ¬ÎÄ¼þ×ÜÊý
-u16 curindex;						//Í¼Æ¬µ±Ç°Ë÷Òý
-u8 key,mode;							//¼ü???
-u8 pause=0;							//ÔÝÍ£±ê¼Ç
+FILINFO *picfileinfo;				//ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢
+u8 *pname;							//ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½????
+u16 totpicnum; 						//Í¼Æ¬ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+u16 curindex;						//Í¼Æ¬ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+u8 key,mode;							//ï¿½ï¿½???
+u8 pause=0;							//ï¿½ï¿½Í£ï¿½ï¿½ï¿½
 u16 temp;
-u32 *picoffsettbl;					//Í¼Æ¬ÎÄ¼þoffsetË÷Òý????
+u32 *picoffsettbl;					//Í¼Æ¬ï¿½Ä¼ï¿½offsetï¿½ï¿½ï¿½ï¿½????
 u16 t=0;
 u8 tmp_buf[33];
 
@@ -113,114 +113,122 @@ u16 pic_get_tnum(u8 *path)
 {
 	u8 res;
 	u16 rval=0;
- 	DIR tdir;	 		//ÁÙÊ±Ä¿Â¼
-	FILINFO *tfileinfo;	//ÁÙÊ±ÎÄ¼þÐÅÏ¢
-	tfileinfo=(FILINFO*)mymalloc(sizeof(FILINFO));//ÉêÇëÄÚ´æ
-    res=f_opendir(&tdir,(const TCHAR*)path); 	//´ò¿ªÄ¿Â¼
+ 	DIR tdir;	 		//ï¿½ï¿½Ê±Ä¿Â¼
+	FILINFO *tfileinfo;	//ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢
+	tfileinfo=(FILINFO*)mymalloc(sizeof(FILINFO));//ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
+    res=f_opendir(&tdir,(const TCHAR*)path); 	//ï¿½ï¿½Ä¿Â¼
 	if(res==FR_OK&&tfileinfo)
 	{
-		while(1)//²éÑ¯×ÜµÄÓÐÐ§ÎÄ¼þ????
+		while(1)//ï¿½ï¿½Ñ¯ï¿½Üµï¿½ï¿½ï¿½Ð§ï¿½Ä¼ï¿½????
 		{
-	        res=f_readdir(&tdir,tfileinfo);       		//¶ÁÈ¡Ä¿Â¼ÏÂµÄ????¸öÎÄ????
-	        if(res!=FR_OK||tfileinfo->fname[0]==0)break;//´íÎó????/µ½Ä©Î²ÁË,????????
+	        res=f_readdir(&tdir,tfileinfo);       		//ï¿½ï¿½È¡Ä¿Â¼ï¿½Âµï¿½????ï¿½ï¿½ï¿½ï¿½????
+	        if(res!=FR_OK||tfileinfo->fname[0]==0)break;//ï¿½ï¿½ï¿½ï¿½????/ï¿½ï¿½Ä©Î²ï¿½ï¿½,????????
 			res=f_typetell((u8*)tfileinfo->fname);
-			if((res&0XF0)==0X50)//È¡¸ßËÄÎ»,¿´¿´ÊÇ²»ÊÇÍ¼Æ¬ÎÄ????
+			if((res&0XF0)==0X50)//È¡ï¿½ï¿½ï¿½ï¿½Î»,ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½????
 			{
-				rval++;//ÓÐÐ§ÎÄ¼þÊýÔö????1
+				rval++;//ï¿½ï¿½Ð§ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½????1
 			}
 		}
 	}
-	myfree(tfileinfo);//ÊÍ·ÅÄÚ´æ
+	myfree(tfileinfo);//ï¿½Í·ï¿½ï¿½Ú´ï¿½
 	return rval;
 }
 void album(){
-  while(f_opendir(&picdir,"0:/PICTURE"))//´ò¿ªÍ¼Æ¬ÎÄ¼þ¼Ð
+  while(f_opendir(&picdir,"0:/PICTURE"))//ï¿½ï¿½Í¼Æ¬ï¿½Ä¼ï¿½ï¿½ï¿½
    	{
-  		LCD_ShowString(30,170,240,16, 16, (uint8_t*)"/PICTURE is wrong!");
+  		LCD_ShowString(10,170,240,16, 16, (uint8_t*)"/PICTURE is wrong!");
   		delay_ms(200);
-  		LCD_Fill(30,170,240,186,WHITE);//Çå³ýÏÔÊ¾
+  		LCD_Fill(30,170,240,186,WHITE);//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
   		delay_ms(200);
   	}
-  	totpicnum=pic_get_tnum("0:/PICTURE"); //µÃµ½×ÜÓÐÐ§ÎÄ¼þÊý
-    	while(totpicnum==NULL)//Í¼Æ¬ÎÄ¼þÎª0
+  	totpicnum=pic_get_tnum("0:/PICTURE"); //ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ä¼ï¿½ï¿½ï¿½
+    if(totpicnum==NULL)//Í¼Æ¬ï¿½Ä¼ï¿½Îª0
    	{
-  		LCD_ShowString(30,170,240,16, 16, (uint8_t*)"No picture!");
+  		LCD_ShowString(10,300,240,16, 16, (uint8_t*)"No picture!");
   		delay_ms(200);
-  		LCD_Fill(30,170,240,186,WHITE);//Çå³ýÏÔÊ¾
+  		LCD_Fill(30,170,240,186,WHITE);//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
   		delay_ms(200);
   	}
-  	picfileinfo=(FILINFO*)mymalloc(sizeof(FILINFO));	//ÉêÇëÄÚ´æ
-   	pname=mymalloc(_MAX_LFN*2+1);					//Îª´øÂ·¾¶µÄÎÄ¼þÃû·ÖÅäÄÚ´æ
-   	picoffsettbl=mymalloc(4*totpicnum);				//ÉêÇë4*totpicnum¸ö×Ö½ÚµÄÄÚ´æ,ÓÃÓÚ´æ·ÅÍ¼Æ¬Ë÷Òý
-   	while(!picfileinfo||!pname||!picoffsettbl)				//ÄÚ´æ·ÖÅä³ö´í
+  	picfileinfo=(FILINFO*)mymalloc(sizeof(FILINFO));	//ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
+   	pname=mymalloc(_MAX_LFN*2+1);					//Îªï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
+   	picoffsettbl=mymalloc(4*totpicnum);				//ï¿½ï¿½ï¿½ï¿½4*totpicnumï¿½ï¿½ï¿½Ö½Úµï¿½ï¿½Ú´ï¿½,ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+   	while(!picfileinfo||!pname||!picoffsettbl)				//ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    	{
-  		LCD_ShowString(30,170,240,16, 16, (uint8_t*)"Fail to allocate memory!");
+  		LCD_ShowString(10,300,240,16, 16, (uint8_t*)"Fail to allocate memory!");
   		delay_ms(200);
-  		LCD_Fill(30,170,240,186,WHITE);//Çå³ýÏÔÊ¾
+  		LCD_Fill(30,170,240,186,WHITE);//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
   		delay_ms(200);
   	}
-  	//¼ÇÂ¼Ë÷Òý
-      res=f_opendir(&picdir,"0:/PICTURE"); //´ò¿ªÄ¿Â¼
+  	//ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+      res=f_opendir(&picdir,"0:/PICTURE"); //ï¿½ï¿½Ä¿Â¼
   	if(res==FR_OK)
   	{
-  		curindex=0;//µ±Ç°Ë÷ÒýÎª0
-  		while(1)//È«²¿²éÑ¯Ò»±é
+  		curindex=0;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îª0
+  		while(1)//È«ï¿½ï¿½ï¿½ï¿½Ñ¯Ò»ï¿½ï¿½
   		{
-  			temp=picdir.dptr;								//¼ÇÂ¼µ±Ç°dptrÆ«ÒÆ
-  	        res=f_readdir(&picdir,picfileinfo);       		//¶ÁÈ¡Ä¿Â¼ÏÂµÄÒ»¸öÎÄ¼þ
-  	        if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//´íÎóÁË/µ½Ä©Î²ÁË,ÍË³ö
+  			temp=picdir.dptr;								//ï¿½ï¿½Â¼ï¿½ï¿½Ç°dptrÆ«ï¿½ï¿½
+  	        res=f_readdir(&picdir,picfileinfo);       		//ï¿½ï¿½È¡Ä¿Â¼ï¿½Âµï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½
+  	        if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½Ä©Î²ï¿½ï¿½,ï¿½Ë³ï¿½
   			res=f_typetell((u8*)picfileinfo->fname);
-  			if((res&0XF0)==0X50)//È¡¸ßËÄÎ»,¿´¿´ÊÇ²»ÊÇÍ¼Æ¬ÎÄ¼þ
+  			if((res&0XF0)==0X50)//È¡ï¿½ï¿½ï¿½ï¿½Î»,ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Ä¼ï¿½
   			{
-  				picoffsettbl[curindex]=temp;//¼ÇÂ¼Ë÷Òý
+  				picoffsettbl[curindex]=temp;//ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
   				curindex++;
   			}
   		}
   	}
-    LCD_ShowString(30,170,240,16, 16, (uint8_t*)"Start showing...");
+    LCD_ShowString(10,300,240,16, 16, (uint8_t*)"Start showing...");
   	delay_ms(1500);
-  	piclib_init();										//³õÊ¼»¯»­Í¼
-  	curindex=0;											//´Ó0¿ªÊ¼ÏÔÊ¾
-     	res=f_opendir(&picdir,(const TCHAR*)"0:/PICTURE"); 	//´ò¿ªÄ¿Â¼
-  	while(res==FR_OK)//´ò¿ª³É¹¦
+  	piclib_init();										//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¼
+  	curindex=0;											//ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½Ê¾
+     	res=f_opendir(&picdir,(const TCHAR*)"0:/PICTURE"); 	//ï¿½ï¿½Ä¿Â¼
+  	while(res==FR_OK)//ï¿½ò¿ª³É¹ï¿½
   	{
-  		dir_sdi(&picdir,picoffsettbl[curindex]);			//¸Ä±äµ±Ç°Ä¿Â¼Ë÷Òý
-          res=f_readdir(&picdir,picfileinfo);       		//¶ÁÈ¡Ä¿Â¼ÏÂµÄÒ»¸öÎÄ¼þ
-          if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//´íÎóÁË/µ½Ä©Î²ÁË,ÍË³ö
-  		strcpy((char*)pname,"0:/PICTURE/");				//¸´ÖÆÂ·¾¶(Ä¿Â¼)
-  		strcat((char*)pname,(const char*)picfileinfo->fname);//½«ÎÄ¼þÃû½ÓÔÚºóÃæ
-   		LCD_Clear(BLACK);
-   		ai_load_picfile(pname,0,0,lcddev.width,lcddev.height,1);//ÏÔÊ¾Í¼Æ¬
-  		Show_Str(2,2,lcddev.width,16,pname,16,1); 				//ÏÔÊ¾Í¼Æ¬Ãû×Ö
+  		dir_sdi(&picdir,picoffsettbl[curindex]);			//ï¿½Ä±äµ±Ç°Ä¿Â¼ï¿½ï¿½ï¿½ï¿½
+          res=f_readdir(&picdir,picfileinfo);       		//ï¿½ï¿½È¡Ä¿Â¼ï¿½Âµï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½
+          if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½Ä©Î²ï¿½ï¿½,ï¿½Ë³ï¿½
+  		strcpy((char*)pname,"/PICTURE/");				//ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½(Ä¿Â¼)
+  		strcat((char*)pname,(const char*)picfileinfo->fname);//ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½
+   		LCD_Clear(WHITE);
+   		ai_load_picfile(pname,0,0,lcddev.width,lcddev.height,1);//ï¿½ï¿½Ê¾Í¼Æ¬
+
+      POINT_COLOR = BLUE;
+      LCD_ShowString(10, 10, lcddev.width, 16, 16, (uint8_t*)pname);
+      char PicIndex[40] = {0};
+      sprintf(PicIndex, "This picture is %d/%d.", curindex + 1, totpicnum);
+      LCD_ShowString(10, 30, 200, 16, 16, (uint8_t*)PicIndex);
+      
   		t=0;
   		while(1)
   		{
-  			key=KEY_Scan(0);		//É¨Ãè°´¼ü
-  			if(t>250)key=1;			//Ä£ÄâÒ»´Î°´ÏÂKEY0
-  			if((t%20)==0)LED0=!LED0;//LED0ÉÁË¸,ÌáÊ¾³ÌÐòÕýÔÚÔËÐÐ.
-  			if(key==KEY1_PRES)		//ÉÏÒ»ÕÅ
+  			key=KEY_Scan(0);		//É¨ï¿½è°´ï¿½ï¿½
+  			if(t>250)key=1;			//Ä£ï¿½ï¿½Ò»ï¿½Î°ï¿½ï¿½ï¿½KEY0
+  			if((t%20)==0)LED0=!LED0;//LED0ï¿½ï¿½Ë¸,ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+  			if(key==KEY1_PRES)		//ï¿½ï¿½Ò»ï¿½ï¿½
   			{
   				if(curindex)curindex--;
   				else curindex=totpicnum-1;
   				break;
-  			}else if(key==KEY0_PRES)//ÏÂÒ»ÕÅ
+  			}else if(key==KEY0_PRES)//ï¿½ï¿½Ò»ï¿½ï¿½
   			{
   				curindex++;
-  				if(curindex>=totpicnum)curindex=0;//µ½Ä©Î²µÄÊ±ºò,×Ô¶¯´ÓÍ·¿ªÊ¼
+  				if(curindex>=totpicnum)curindex=0;//ï¿½ï¿½Ä©Î²ï¿½ï¿½Ê±ï¿½ï¿½,ï¿½Ô¶ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ê¼
   				break;
   			}else if(key==WKUP_PRES)
   			{
   				pause=!pause;
-  				LED1=!pause; 	//ÔÝÍ£µÄÊ±ºòLED1ÁÁ.
+  				LED1=!pause; 	//ï¿½ï¿½Í£ï¿½ï¿½Ê±ï¿½ï¿½LED1ï¿½ï¿½.
+  				screen_state == INITIAL;
+  				break;
   			}
   			if(pause==0)t++;
   			delay_ms(10);
   		}
   		res=0;
   	}
-  	myfree(picfileinfo);			//ÊÍ·ÅÄÚ´æ
-  	myfree(pname);				//ÊÍ·ÅÄÚ´æ
-  	myfree(picoffsettbl);		//ÊÍ·ÅÄÚ´æ
+  	myfree(picfileinfo);			//ï¿½Í·ï¿½ï¿½Ú´ï¿½
+  	myfree(pname);				//ï¿½Í·ï¿½ï¿½Ú´ï¿½
+  	myfree(picoffsettbl);		//ï¿½Í·ï¿½ï¿½Ú´ï¿½
 }
 void rtp_test(void)
 {
@@ -288,14 +296,14 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
   LCD_Init();
-  LED_Init();							//³õÊ¼»¯LED
-  KEY_Init();							//³õÊ¼»¯°´????
-  mem_init();							//³õÊ¼»¯ÄÚ´æ³Ø
-  exfuns_init();						//ÎªfatfsÏà¹Ø±äÁ¿ÉêÇëÄÚ´æ
-	f_mount(fs[0],"0:",1); 				//¹ÒÔØSD????
-	f_mount(fs[1],"1:",1); 				//¹ÒÔØFLASH.
+  LED_Init();							//ï¿½ï¿½Ê¼ï¿½ï¿½LED
+  KEY_Init();							//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½????
+  mem_init();							//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+  exfuns_init();						//Îªfatfsï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
+	f_mount(fs[0],"0:",1); 				//ï¿½ï¿½ï¿½ï¿½SD????
+	f_mount(fs[1],"1:",1); 				//ï¿½ï¿½ï¿½ï¿½FLASH.
   Remote_Init();
-	NRF24L01_Init();    		    	//³õÊ¼»¯NRF24L01
+	NRF24L01_Init();    		    	//ï¿½ï¿½Ê¼ï¿½ï¿½NRF24L01
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */

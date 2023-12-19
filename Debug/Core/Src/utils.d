@@ -32,7 +32,7 @@ Core/Src/utils.o: ../Core/Src/utils.c ../Core/Inc/utils.h \
  ../Core/Inc/lcd.h ../Core/Inc/rtc.h ../Core/Inc/usart.h \
  ../Core/Inc/calc.h ../Core/Inc/tetris.h ../Core/Inc/../Inc/utils.h \
  ../Core/Inc/../Inc/lcd.h ../Core/Inc/../Inc/rtc.h \
- ../Core/Inc/../Inc/usart.h ../Core/Inc/pic.h
+ ../Core/Inc/../Inc/usart.h ../Core/Src/pic.h
 ../Core/Inc/utils.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
@@ -78,4 +78,4 @@ Core/Src/utils.o: ../Core/Src/utils.c ../Core/Inc/utils.h \
 ../Core/Inc/../Inc/lcd.h:
 ../Core/Inc/../Inc/rtc.h:
 ../Core/Inc/../Inc/usart.h:
-../Core/Inc/pic.h:
+../Core/Src/pic.h:
