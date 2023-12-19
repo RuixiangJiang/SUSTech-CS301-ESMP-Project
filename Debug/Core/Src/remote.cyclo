@@ -1,0 +1,6 @@
+../Core/Src/remote.c:20:6:Remote_Init	1
+../Core/Src/remote.c:44:6:HAL_TIM_IC_MspInit	1
+../Core/Src/remote.c:72:6:TIM5_IRQHandler	1
+../Core/Src/remote.c:78:6:HAL_TIM_PeriodElapsedCallback	5
+../Core/Src/remote.c:97:6:HAL_TIM_IC_CaptureCallback	9
+../Core/Src/remote.c:145:4:Remote_Scan	7

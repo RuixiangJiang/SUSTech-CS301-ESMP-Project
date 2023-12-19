@@ -1,0 +1,16 @@
+../Core/Src/gif.c:44:4:gif_check_head	8
+../Core/Src/gif.c:59:5:gif_getrgb565	1
+../Core/Src/gif.c:72:4:gif_readcolortbl	3
+../Core/Src/gif.c:90:4:gif_getinfo	3
+../Core/Src/gif.c:105:6:gif_savegctbl	1
+../Core/Src/gif.c:112:6:gif_recovergctbl	1
+../Core/Src/gif.c:121:6:gif_initlzw	1
+../Core/Src/gif.c:139:5:gif_getdatablock	4
+../Core/Src/gif.c:170:4:gif_readextension	8
+../Core/Src/gif.c:198:5:gif_getnextcode	7
+../Core/Src/gif.c:234:5:gif_getnextbyte	15
+../Core/Src/gif.c:304:4:gif_dispimage	19
+../Core/Src/gif.c:386:6:gif_clear2bkcolor	23
+../Core/Src/gif.c:428:4:gif_drawimage	13
+../Core/Src/gif.c:485:6:gif_quit	1
+../Core/Src/gif.c:494:4:gif_decode	12

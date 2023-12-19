@@ -1,0 +1,3 @@
+../Core/Src/bmp.c:32:4:stdbmp_decode	27
+../Core/Src/bmp.c:211:4:minibmp_decode	23
+../Core/Src/bmp.c:374:4:bmp_encode	15

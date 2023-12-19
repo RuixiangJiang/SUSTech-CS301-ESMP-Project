@@ -1,0 +1,17 @@
+../Core/Src/mmc_sd.c:23:4:SD_SPI_ReadWriteByte	0	static
+../Core/Src/mmc_sd.c:28:6:SD_SPI_SpeedLow	0	static
+../Core/Src/mmc_sd.c:33:6:SD_SPI_SpeedHigh	0	static
+../Core/Src/mmc_sd.c:38:6:SD_SPI_Init	40	static
+../Core/Src/mmc_sd.c:63:6:SD_DisSelect	0	static
+../Core/Src/mmc_sd.c:79:4:SD_WaitReady	8	static
+../Core/Src/mmc_sd.c:70:4:SD_Select	8	static
+../Core/Src/mmc_sd.c:93:4:SD_GetResponse	16	static
+../Core/Src/mmc_sd.c:104:4:SD_RecvData	16	static
+../Core/Src/mmc_sd.c:121:4:SD_SendBlock	16	static
+../Core/Src/mmc_sd.c:142:4:SD_SendCmd	16	static
+../Core/Src/mmc_sd.c:169:4:SD_GetCID	16	static
+../Core/Src/mmc_sd.c:186:4:SD_GetCSD	16	static
+../Core/Src/mmc_sd.c:202:5:SD_GetSectorCount	24	static
+../Core/Src/mmc_sd.c:224:4:SD_Init	32	static
+../Core/Src/mmc_sd.c:296:4:SD_ReadDisk	16	static
+../Core/Src/mmc_sd.c:325:4:SD_WriteDisk	16	static

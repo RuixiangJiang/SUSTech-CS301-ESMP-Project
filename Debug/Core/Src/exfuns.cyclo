@@ -1,0 +1,8 @@
+../Core/Src/exfuns.c:51:4:exfuns_init	5
+../Core/Src/exfuns.c:67:4:char_upper	2
+../Core/Src/exfuns.c:77:4:f_typetell	11
+../Core/Src/exfuns.c:120:4:exf_getfree	2
+../Core/Src/exfuns.c:160:4:exf_copy	13
+../Core/Src/exfuns.c:220:5:exf_get_src_dname	5
+../Core/Src/exfuns.c:236:5:exf_fdsize	9
+../Core/Src/exfuns.c:305:4:exf_fdcopy	13

@@ -1,0 +1,4 @@
+../Core/Src/fontupd.c:44:5:fupd_prog	32	static
+../Core/Src/fontupd.c:65:4:updata_fontx	56	static
+../Core/Src/fontupd.c:128:4:update_font	56	static
+../Core/Src/fontupd.c:211:4:font_init	16	static

@@ -42,7 +42,7 @@
 /* USER CODE BEGIN PTD */
 
 // config for the users
-unsigned char user_name[20] = "Jiacheng Luo";
+unsigned char user_name[20] = "Bendan Luo";
 struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
 uint16_t mark_seed = 0x1677; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
 

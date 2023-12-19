@@ -1,0 +1,11 @@
+../Core/Src/tjpgd.c:132:7:alloc_pool	2
+../Core/Src/tjpgd.c:254:5:bitext	9
+../Core/Src/tjpgd.c:305:5:huffext	11
+../Core/Src/tjpgd.c:1041:5:jpeg_out_func_fill	1
+../Core/Src/tjpgd.c:1026:5:jpeg_in_func	2
+../Core/Src/tjpgd.c:1054:5:jpeg_out_func_point	5
+../Core/Src/tjpgd.c:759:9:jd_prepare	65
+../Core/Src/tjpgd.c:930:9:jd_decomp	59
+../Core/Src/tjpgd.c:993:4:jpeg_mallocall	4
+../Core/Src/tjpgd.c:1004:6:jpeg_freeall	1
+../Core/Src/tjpgd.c:1089:4:jpg_decode	10

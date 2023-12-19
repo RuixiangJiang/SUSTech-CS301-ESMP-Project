@@ -1,0 +1,8 @@
+../Core/Src/diskio.c:38:9:disk_status	0	static
+../Core/Src/diskio.c:45:9:disk_initialize	8	static
+../Core/Src/diskio.c:70:9:disk_read	16	static
+../Core/Src/diskio.c:111:9:disk_write	16	static
+../Core/Src/diskio.c:150:9:disk_ioctl	8	static
+../Core/Src/diskio.c:210:7:get_fattime	0	static
+../Core/Src/diskio.c:215:7:ff_memalloc	0	static
+../Core/Src/diskio.c:220:6:ff_memfree	0	static

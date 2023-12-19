@@ -1,0 +1,9 @@
+../Core/Src/malloc.c:65:4:mem_perused	0	static
+../Core/Src/malloc.c:41:6:mymemcpy	0	static
+../Core/Src/malloc.c:51:6:mymemset	0	static
+../Core/Src/malloc.c:57:6:mem_init	8	static
+../Core/Src/malloc.c:79:5:mem_malloc	16	static
+../Core/Src/malloc.c:107:4:mem_free	8	static
+../Core/Src/malloc.c:128:6:myfree	0	static
+../Core/Src/malloc.c:138:7:mymalloc	8	static
+../Core/Src/malloc.c:149:7:myrealloc	24	static

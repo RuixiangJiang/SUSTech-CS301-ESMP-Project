@@ -1,0 +1,4 @@
+../Core/Src/text.c:26:6:Get_HzMat	7
+../Core/Src/text.c:62:6:Show_Font	8
+../Core/Src/text.c:95:6:Show_Str	9
+../Core/Src/text.c:141:6:Show_Str_Mid	2

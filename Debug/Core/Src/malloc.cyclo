@@ -1,0 +1,9 @@
+../Core/Src/malloc.c:65:4:mem_perused	3
+../Core/Src/malloc.c:41:6:mymemcpy	2
+../Core/Src/malloc.c:51:6:mymemset	1
+../Core/Src/malloc.c:57:6:mem_init	1
+../Core/Src/malloc.c:79:5:mem_malloc	8
+../Core/Src/malloc.c:107:4:mem_free	3
+../Core/Src/malloc.c:128:6:myfree	2
+../Core/Src/malloc.c:138:7:mymalloc	2
+../Core/Src/malloc.c:149:7:myrealloc	2

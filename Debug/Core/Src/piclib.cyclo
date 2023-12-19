@@ -1,0 +1,9 @@
+../Core/Src/piclib.c:32:6:piclib_fill_color	1
+../Core/Src/piclib.c:23:6:piclib_draw_hline	4
+../Core/Src/piclib.c:39:6:piclib_init	1
+../Core/Src/piclib.c:65:5:piclib_alpha_blend	1
+../Core/Src/piclib.c:81:6:ai_draw_init	3
+../Core/Src/piclib.c:100:4:is_element_ok	4
+../Core/Src/piclib.c:117:4:ai_load_picfile	9
+../Core/Src/piclib.c:159:7:pic_memalloc	1
+../Core/Src/piclib.c:164:6:pic_memfree	1
