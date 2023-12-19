@@ -34,7 +34,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/calc.h ../Core/Inc/touch.h ../Core/Inc/sys.h \
  ../Core/Inc/tetris.h ../Core/Inc/../Inc/utils.h ../Core/Inc/../Inc/lcd.h \
  ../Core/Inc/../Inc/rtc.h ../Core/Inc/../Inc/usart.h ../Core/Inc/delay.h \
- ../Core/Inc/config.h
+ ../Core/Inc/config.h ../Core/Inc/led.h ../Core/Inc/key.h \
+ ../Core/Inc/malloc.h ../Core/Inc/MMC_SD.h ../Core/Inc/ff.h \
+ ../Core/Inc/integer.h ../Core/Inc/ffconf.h ../Core/Inc/exfuns.h \
+ ../Core/Inc/ff.h ../Core/Inc/fontupd.h ../Core/Inc/text.h \
+ ../Core/Inc/fontupd.h ../Core/Inc/piclib.h ../Core/Inc/lcd.h \
+ ../Core/Inc/malloc.h ../Core/Inc/exfuns.h ../Core/Inc/bmp.h \
+ ../Core/Inc/tjpgd.h ../Core/Inc/gif.h ../Core/Inc/24cxx.h \
+ ../Core/Inc/myiic.h ../Core/Inc/remote.h ../Core/Inc/24l01.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -87,3 +94,26 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/../Inc/usart.h:
 ../Core/Inc/delay.h:
 ../Core/Inc/config.h:
+../Core/Inc/led.h:
+../Core/Inc/key.h:
+../Core/Inc/malloc.h:
+../Core/Inc/MMC_SD.h:
+../Core/Inc/ff.h:
+../Core/Inc/integer.h:
+../Core/Inc/ffconf.h:
+../Core/Inc/exfuns.h:
+../Core/Inc/ff.h:
+../Core/Inc/fontupd.h:
+../Core/Inc/text.h:
+../Core/Inc/fontupd.h:
+../Core/Inc/piclib.h:
+../Core/Inc/lcd.h:
+../Core/Inc/malloc.h:
+../Core/Inc/exfuns.h:
+../Core/Inc/bmp.h:
+../Core/Inc/tjpgd.h:
+../Core/Inc/gif.h:
+../Core/Inc/24cxx.h:
+../Core/Inc/myiic.h:
+../Core/Inc/remote.h:
+../Core/Inc/24l01.h:

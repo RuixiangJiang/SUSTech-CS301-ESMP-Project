@@ -36,6 +36,20 @@
 #include "delay.h"
 #include "config.h"
 
+#include "led.h"
+#include "key.h"
+#include "malloc.h"
+#include "MMC_SD.h"
+#include "ff.h"
+#include "exfuns.h"
+#include "fontupd.h"
+#include "text.h"
+#include "piclib.h"
+#include "24cxx.h"
+#include "remote.h"
+#include "24l01.h"
+#include <math.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,7 +90,138 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 extern UART_HandleTypeDef huart1;
 extern uint8_t rxBuffer[2000];
+extern SPI_HandleTypeDef hspi1;
+extern TIM_HandleTypeDef htim3;
 
+u8 res;
+DIR picdir;	 						//图片目录
+FILINFO *picfileinfo;				//文件信息
+u8 *pname;							//带路径的文件????
+u16 totpicnum; 						//图片文件总数
+u16 curindex;						//图片当前索引
+u8 key,mode;							//键???
+u8 pause=0;							//暂停标记
+u16 temp;
+u32 *picoffsettbl;					//图片文件offset索引????
+u16 t=0;
+u8 tmp_buf[33];
+
+unsigned char txBuffer[1024] = {0};
+int txLen;
+
+u16 pic_get_tnum(u8 *path)
+{
+	u8 res;
+	u16 rval=0;
+ 	DIR tdir;	 		//临时目录
+	FILINFO *tfileinfo;	//临时文件信息
+	tfileinfo=(FILINFO*)mymalloc(sizeof(FILINFO));//申请内存
+    res=f_opendir(&tdir,(const TCHAR*)path); 	//打开目录
+	if(res==FR_OK&&tfileinfo)
+	{
+		while(1)//查询总的有效文件????
+		{
+	        res=f_readdir(&tdir,tfileinfo);       		//读取目录下的????个文????
+	        if(res!=FR_OK||tfileinfo->fname[0]==0)break;//错误????/到末尾了,????????
+			res=f_typetell((u8*)tfileinfo->fname);
+			if((res&0XF0)==0X50)//取高四位,看看是不是图片文????
+			{
+				rval++;//有效文件数增????1
+			}
+		}
+	}
+	myfree(tfileinfo);//释放内存
+	return rval;
+}
+void album(){
+  while(f_opendir(&picdir,"0:/PICTURE"))//打开图片文件夹
+   	{
+  		LCD_ShowString(30,170,240,16, 16, (uint8_t*)"/PICTURE is wrong!");
+  		delay_ms(200);
+  		LCD_Fill(30,170,240,186,WHITE);//清除显示
+  		delay_ms(200);
+  	}
+  	totpicnum=pic_get_tnum("0:/PICTURE"); //得到总有效文件数
+    	while(totpicnum==NULL)//图片文件为0
+   	{
+  		LCD_ShowString(30,170,240,16, 16, (uint8_t*)"No picture!");
+  		delay_ms(200);
+  		LCD_Fill(30,170,240,186,WHITE);//清除显示
+  		delay_ms(200);
+  	}
+  	picfileinfo=(FILINFO*)mymalloc(sizeof(FILINFO));	//申请内存
+   	pname=mymalloc(_MAX_LFN*2+1);					//为带路径的文件名分配内存
+   	picoffsettbl=mymalloc(4*totpicnum);				//申请4*totpicnum个字节的内存,用于存放图片索引
+   	while(!picfileinfo||!pname||!picoffsettbl)				//内存分配出错
+   	{
+  		LCD_ShowString(30,170,240,16, 16, (uint8_t*)"Fail to allocate memory!");
+  		delay_ms(200);
+  		LCD_Fill(30,170,240,186,WHITE);//清除显示
+  		delay_ms(200);
+  	}
+  	//记录索引
+      res=f_opendir(&picdir,"0:/PICTURE"); //打开目录
+  	if(res==FR_OK)
+  	{
+  		curindex=0;//当前索引为0
+  		while(1)//全部查询一遍
+  		{
+  			temp=picdir.dptr;								//记录当前dptr偏移
+  	        res=f_readdir(&picdir,picfileinfo);       		//读取目录下的一个文件
+  	        if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//错误了/到末尾了,退出
+  			res=f_typetell((u8*)picfileinfo->fname);
+  			if((res&0XF0)==0X50)//取高四位,看看是不是图片文件
+  			{
+  				picoffsettbl[curindex]=temp;//记录索引
+  				curindex++;
+  			}
+  		}
+  	}
+    LCD_ShowString(30,170,240,16, 16, (uint8_t*)"Start showing...");
+  	delay_ms(1500);
+  	piclib_init();										//初始化画图
+  	curindex=0;											//从0开始显示
+     	res=f_opendir(&picdir,(const TCHAR*)"0:/PICTURE"); 	//打开目录
+  	while(res==FR_OK)//打开成功
+  	{
+  		dir_sdi(&picdir,picoffsettbl[curindex]);			//改变当前目录索引
+          res=f_readdir(&picdir,picfileinfo);       		//读取目录下的一个文件
+          if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//错误了/到末尾了,退出
+  		strcpy((char*)pname,"0:/PICTURE/");				//复制路径(目录)
+  		strcat((char*)pname,(const char*)picfileinfo->fname);//将文件名接在后面
+   		LCD_Clear(BLACK);
+   		ai_load_picfile(pname,0,0,lcddev.width,lcddev.height,1);//显示图片
+  		Show_Str(2,2,lcddev.width,16,pname,16,1); 				//显示图片名字
+  		t=0;
+  		while(1)
+  		{
+  			key=KEY_Scan(0);		//扫描按键
+  			if(t>250)key=1;			//模拟一次按下KEY0
+  			if((t%20)==0)LED0=!LED0;//LED0闪烁,提示程序正在运行.
+  			if(key==KEY1_PRES)		//上一张
+  			{
+  				if(curindex)curindex--;
+  				else curindex=totpicnum-1;
+  				break;
+  			}else if(key==KEY0_PRES)//下一张
+  			{
+  				curindex++;
+  				if(curindex>=totpicnum)curindex=0;//到末尾的时候,自动从头开始
+  				break;
+  			}else if(key==WKUP_PRES)
+  			{
+  				pause=!pause;
+  				LED1=!pause; 	//暂停的时候LED1亮.
+  			}
+  			if(pause==0)t++;
+  			delay_ms(10);
+  		}
+  		res=0;
+  	}
+  	myfree(picfileinfo);			//释放内存
+  	myfree(pname);				//释放内存
+  	myfree(picoffsettbl);		//释放内存
+}
 void rtp_test(void)
 {
 
@@ -102,7 +247,7 @@ void rtp_test(void)
         else if (tp_dev.x[0] > 170 && tp_dev.x[0] < 230 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
           HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
           screen_state = PIC;
-          draw_pic_screen();
+          album();
         }
         // between (10, 220) and (10 + 60, 220 + 60) is the area of the [Tetris] button
         else if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 220 && tp_dev.y[0] < 280) {
@@ -136,7 +281,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -144,6 +288,14 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
   LCD_Init();
+  LED_Init();							//初始化LED
+  KEY_Init();							//初始化按????
+  mem_init();							//初始化内存池
+  exfuns_init();						//为fatfs相关变量申请内存
+	f_mount(fs[0],"0:",1); 				//挂载SD????
+	f_mount(fs[1],"1:",1); 				//挂载FLASH.
+  Remote_Init();
+	NRF24L01_Init();    		    	//初始化NRF24L01
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */

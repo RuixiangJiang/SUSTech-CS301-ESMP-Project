@@ -11,6 +11,7 @@
         "tetris.h": "c",
         "lcd.h": "c",
         "stdio.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "malloc.h": "c"
     }
 }

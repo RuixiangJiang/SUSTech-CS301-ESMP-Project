@@ -39,7 +39,7 @@ void W25QXX_Init(void)
     HAL_GPIO_Init(GPIOA,&GPIO_Initure);     //��ʼ��
     
 	W25QXX_CS=1;			                //SPI FLASH��ѡ��
-	SPI1_Init();		   			        //��ʼ��SPI
+	MX_SPI1_Init();		   			        //��ʼ��SPI
 	SPI1_SetSpeed(SPI_BAUDRATEPRESCALER_2); //����Ϊ42Mʱ��,����ģʽ
 	W25QXX_TYPE=W25QXX_ReadID();	        //��ȡFLASH ID.
     if(W25QXX_TYPE==W25Q256)                //SPI FLASHΪW25Q256
