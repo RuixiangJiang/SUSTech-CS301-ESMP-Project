@@ -18,10 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dma.h"
-#include "fatfs.h"
 #include "rtc.h"
-#include "sdio.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -37,7 +35,6 @@
 #include "tetris.h"
 #include "delay.h"
 #include "config.h"
-#include "album.h"
 
 /* USER CODE END Includes */
 
@@ -46,7 +43,7 @@
 
 // config for the users
 unsigned char user_name[20] = "Jiacheng Luo";
-struct TIME_SETTING time_setting = {2023, 12, 28, 0, 52, 11};
+struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
 uint16_t mark_seed = 0x1677; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
 
 /* USER CODE END PTD */
@@ -106,7 +103,6 @@ void rtp_test(void)
           HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
           screen_state = PIC;
           draw_pic_screen();
-          TFcard_test();
         }
         // between (10, 220) and (10 + 60, 220 + 60) is the area of the [Tetris] button
         else if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 220 && tp_dev.y[0] < 280) {
@@ -152,12 +148,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_RTC_Init();
   MX_TIM3_Init();
-  MX_SDIO_SD_Init();
-  MX_FATFS_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, (uint8_t *)rxBuffer, 1);
   HAL_TIM_Base_Start_IT(&htim3);
