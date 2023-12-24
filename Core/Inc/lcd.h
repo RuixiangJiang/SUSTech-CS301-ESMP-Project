@@ -198,7 +198,7 @@ void LCD_ShowxNum(uint16_t x,uint16_t y,uint32_t num,uint8_t len,uint8_t size,ui
 void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 		uint8_t size, uint8_t *p); // Display a string
 void LCD_ShowPicture(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned short *pic); // Display a picture
-void LCD_ShowPicture_black(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned short *pic);
+void LCD_ShowPicture_black(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned char *pic);
 
 void LCD_WriteReg(uint16_t LCD_Reg, uint16_t LCD_RegValue);
 uint16_t LCD_ReadReg(uint16_t LCD_Reg);

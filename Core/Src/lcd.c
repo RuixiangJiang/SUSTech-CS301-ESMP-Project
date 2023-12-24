@@ -3019,14 +3019,16 @@ void LCD_ShowPicture(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned
 	}
 }
 
-void LCD_ShowPicture_black(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned short *pic) {
+void LCD_ShowPicture_black(uint16_t x,uint16_t y,uint16_t column,uint16_t row,unsigned char *pic) {
 	uint16_t m,h;
 	uint8_t *data=(uint8_t *)pic;
 	for(h=0+y;h<row+y;h++) //60
 	{
 		for(m=0+x;m<column+x;m++) //180
 		{
-		LCD_Fast_DrawPoint(m,h,*data++);
+			LCD_Fast_DrawPoint(m++,h,(*data) >> 4);
+			LCD_Fast_DrawPoint(m,h,(*data) & 0x0F);
+			data++;
 		}
 	}
 }

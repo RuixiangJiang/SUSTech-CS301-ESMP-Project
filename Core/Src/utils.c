@@ -205,7 +205,7 @@ uint8_t has_pressed;
 void draw_calc_screen() {
 	LCD_Clear(WHITE);
 	LCD_ShowPicture(0, 120, 240, 26, (uint16_t *) gImage_left_or_right);
-	LCD_ShowPicture(0, 150, 240, 165, (uint16_t *) gImage_calc_bg_DE);
+	LCD_ShowPicture_black(0, 150, 240, 165, (uint8_t *) gImage_calc_bg_DE);
 	if (screen_state == CALC_D) {
 		char notice[50] = "[mode] decimal computation";
 		LCD_ShowString((240 - strlen(notice) * 8) / 2, 90, 400, 16, 16, (uint8_t*) notice);
