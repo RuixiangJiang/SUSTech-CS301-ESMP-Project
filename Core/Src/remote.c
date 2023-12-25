@@ -1,136 +1,136 @@
 #include "remote.h"
 #include "delay.h"
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32F103¿ª·¢°å
-//ºìÍâÒ£¿Ø½âÂëÇý¶¯´úÂë	   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2017/5/31
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½Í¾
+//ALIENTEK STM32F103ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Ò£ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	   
+//ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½@ALIENTEK
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³:www.openedv.com
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2017/5/31
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2014-2024
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 	
 
-TIM_HandleTypeDef TIM5_Handler;      //¶¨Ê±Æ÷5¾ä±ú
+TIM_HandleTypeDef TIM5_Handler;      //ï¿½ï¿½Ê±ï¿½ï¿½5ï¿½ï¿½ï¿½
 
-//ºìÍâÒ£¿Ø³õÊ¼»¯
-//ÉèÖÃIOÒÔ¼°TIM4_CH4µÄÊäÈë²¶»ñ
+//ï¿½ï¿½ï¿½ï¿½Ò£ï¿½Ø³ï¿½Ê¼ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½IOï¿½Ô¼ï¿½TIM4_CH4ï¿½ï¿½ï¿½ï¿½ï¿½ë²¶ï¿½ï¿½
 void Remote_Init(void)
 {  
     TIM_IC_InitTypeDef TIM5_CH2Config;  
     
-    TIM5_Handler.Instance=TIM5;                          //Í¨ÓÃ¶¨Ê±Æ÷5
-    TIM5_Handler.Init.Prescaler=(72-1);                	 //Ô¤·ÖÆµÆ÷,1MµÄ¼ÆÊýÆµÂÊ,1us¼Ó1.
-    TIM5_Handler.Init.CounterMode=TIM_COUNTERMODE_UP;    //ÏòÉÏ¼ÆÊýÆ÷
-    TIM5_Handler.Init.Period=10000;                      //×Ô¶¯×°ÔØÖµ
+    TIM5_Handler.Instance=TIM5;                          //Í¨ï¿½Ã¶ï¿½Ê±ï¿½ï¿½5
+    TIM5_Handler.Init.Prescaler=(72-1);                	 //Ô¤ï¿½ï¿½Æµï¿½ï¿½,1Mï¿½Ä¼ï¿½ï¿½ï¿½Æµï¿½ï¿½,1usï¿½ï¿½1.
+    TIM5_Handler.Init.CounterMode=TIM_COUNTERMODE_UP;    //ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½
+    TIM5_Handler.Init.Period=10000;                      //ï¿½Ô¶ï¿½×°ï¿½ï¿½Öµ
     TIM5_Handler.Init.ClockDivision=TIM_CLOCKDIVISION_DIV1;
     HAL_TIM_IC_Init(&TIM5_Handler);
     
-    //³õÊ¼»¯TIM1ÊäÈë²¶»ñ²ÎÊý
-    TIM5_CH2Config.ICPolarity=TIM_ICPOLARITY_RISING;    //ÉÏÉýÑØ²¶»ñ
-    TIM5_CH2Config.ICSelection=TIM_ICSELECTION_DIRECTTI;//Ó³Éäµ½TI2ÉÏ
-    TIM5_CH2Config.ICPrescaler=TIM_ICPSC_DIV1;          //ÅäÖÃÊäÈë·ÖÆµ£¬²»·ÖÆµ
-    TIM5_CH2Config.ICFilter=0x03;                       //IC4F=0003 8¸ö¶¨Ê±Æ÷Ê±ÖÓÖÜÆÚÂË²¨
-    HAL_TIM_IC_ConfigChannel(&TIM5_Handler,&TIM5_CH2Config,TIM_CHANNEL_2);//ÅäÖÃTIM5Í¨µÀ2
-    HAL_TIM_IC_Start_IT(&TIM5_Handler,TIM_CHANNEL_2);   //¿ªÊ¼²¶»ñTIM5µÄÍ¨µÀ2
-    __HAL_TIM_ENABLE_IT(&TIM5_Handler,TIM_IT_UPDATE);   //Ê¹ÄÜ¸üÐÂÖÐ¶Ï
+    //ï¿½ï¿½Ê¼ï¿½ï¿½TIM1ï¿½ï¿½ï¿½ë²¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    TIM5_CH2Config.ICPolarity=TIM_ICPOLARITY_RISING;    //ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
+    TIM5_CH2Config.ICSelection=TIM_ICSELECTION_DIRECTTI;//Ó³ï¿½äµ½TI2ï¿½ï¿½
+    TIM5_CH2Config.ICPrescaler=TIM_ICPSC_DIV1;          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
+    TIM5_CH2Config.ICFilter=0x03;                       //IC4F=0003 8ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½
+    HAL_TIM_IC_ConfigChannel(&TIM5_Handler,&TIM5_CH2Config,TIM_CHANNEL_2);//ï¿½ï¿½ï¿½ï¿½TIM5Í¨ï¿½ï¿½2
+    HAL_TIM_IC_Start_IT(&TIM5_Handler,TIM_CHANNEL_2);   //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½TIM5ï¿½ï¿½Í¨ï¿½ï¿½2
+    __HAL_TIM_ENABLE_IT(&TIM5_Handler,TIM_IT_UPDATE);   //Ê¹ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 }
 
-//¶¨Ê±Æ÷1µ×²ãÇý¶¯£¬Ê±ÖÓÊ¹ÄÜ£¬Òý½ÅÅäÖÃ
-//´Ëº¯Êý»á±»HAL_TIM_IC_Init()µ÷ÓÃ
-//htim:¶¨Ê±Æ÷1¾ä±ú
+//ï¿½ï¿½Ê±ï¿½ï¿½1ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½Ëºï¿½ï¿½ï¿½ï¿½á±»HAL_TIM_IC_Init()ï¿½ï¿½ï¿½ï¿½
+//htim:ï¿½ï¿½Ê±ï¿½ï¿½1ï¿½ï¿½ï¿½
 void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
 {
     GPIO_InitTypeDef GPIO_Initure;
-    __HAL_RCC_TIM5_CLK_ENABLE();            //Ê¹ÄÜTIM5Ê±ÖÓ
-    __HAL_RCC_GPIOA_CLK_ENABLE();			//¿ªÆôGPIOAÊ±ÖÓ
+    __HAL_RCC_TIM5_CLK_ENABLE();            //Ê¹ï¿½ï¿½TIM5Ê±ï¿½ï¿½
+    __HAL_RCC_GPIOA_CLK_ENABLE();			//ï¿½ï¿½ï¿½ï¿½GPIOAÊ±ï¿½ï¿½
 	
     GPIO_Initure.Pin=GPIO_PIN_1;            //PA1
-    GPIO_Initure.Mode=GPIO_MODE_AF_INPUT;  	//¸´ÓÃÊäÈë
-    GPIO_Initure.Pull=GPIO_PULLUP;          //ÉÏÀ­
-    GPIO_Initure.Speed=GPIO_SPEED_FREQ_HIGH;//¸ßËÙ
+    GPIO_Initure.Mode=GPIO_MODE_AF_INPUT;  	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    GPIO_Initure.Pull=GPIO_PULLUP;          //ï¿½ï¿½ï¿½ï¿½
+    GPIO_Initure.Speed=GPIO_SPEED_FREQ_HIGH;//ï¿½ï¿½ï¿½ï¿½
     HAL_GPIO_Init(GPIOA,&GPIO_Initure);
 
-    HAL_NVIC_SetPriority(TIM5_IRQn,1,3); 	//ÉèÖÃÖÐ¶ÏÓÅÏÈ¼¶£¬ÇÀÕ¼ÓÅÏÈ¼¶1£¬×ÓÓÅÏÈ¼¶3
-    HAL_NVIC_EnableIRQ(TIM5_IRQn);       	//¿ªÆôITM4ÖÐ¶Ï
+    HAL_NVIC_SetPriority(TIM5_IRQn,1,3); 	//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½È¼ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½3
+    HAL_NVIC_EnableIRQ(TIM5_IRQn);       	//ï¿½ï¿½ï¿½ï¿½ITM4ï¿½Ð¶ï¿½
 }
 
-//Ò£¿ØÆ÷½ÓÊÕ×´Ì¬
-//[7]:ÊÕµ½ÁËÒýµ¼Âë±êÖ¾
-//[6]:µÃµ½ÁËÒ»¸ö°´¼üµÄËùÓÐÐÅÏ¢
-//[5]:±£Áô	
-//[4]:±ê¼ÇÉÏÉýÑØÊÇ·ñÒÑ¾­±»²¶»ñ								   
-//[3:0]:Òç³ö¼ÆÊ±Æ÷
+//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+//[7]:ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
+//[6]:ï¿½Ãµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+//[5]:ï¿½ï¿½ï¿½ï¿½	
+//[4]:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½								   
+//[3:0]:ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 u8 	RmtSta=0;	  	  
-u16 Dval;		//ÏÂ½µÑØÊ±¼ÆÊýÆ÷µÄÖµ
-u32 RmtRec=0;	//ºìÍâ½ÓÊÕµ½µÄÊý¾Ý	   		    
-u8  RmtCnt=0;	//°´¼ü°´ÏÂµÄ´ÎÊý	 
+u16 Dval;		//ï¿½Â½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+u32 RmtRec=0;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	   		    
+u8  RmtCnt=0;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ´ï¿½ï¿½ï¿½	 
 
-//¶¨Ê±Æ÷5ÖÐ¶Ë·þÎñº¯Êý
+//ï¿½ï¿½Ê±ï¿½ï¿½5ï¿½Ð¶Ë·ï¿½ï¿½ï¿½ï¿½ï¿½
 void TIM5_IRQHandler(void)
 {
-	HAL_TIM_IRQHandler(&TIM5_Handler);//¶¨Ê±Æ÷¹²ÓÃ´¦Àíº¯Êý
+	HAL_TIM_IRQHandler(&TIM5_Handler);//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½
 } 
 
-//¶¨Ê±Æ÷¸üÐÂ£¨Òç³ö£©ÖÐ¶Ï»Øµ÷º¯Êý
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if(htim->Instance==TIM5)
-	{
- 		if(RmtSta&0x80)//ÉÏ´ÎÓÐÊý¾Ý±»½ÓÊÕµ½ÁË
-		{	
-			RmtSta&=~0X10;						//È¡ÏûÉÏÉýÑØÒÑ¾­±»²¶»ñ±ê¼Ç
-			if((RmtSta&0X0F)==0X00)RmtSta|=1<<6;//±ê¼ÇÒÑ¾­Íê³ÉÒ»´Î°´¼üµÄ¼üÖµÐÅÏ¢²É¼¯
-			if((RmtSta&0X0F)<14)RmtSta++;
-			else
-			{
-				RmtSta&=~(1<<7);//Çå¿ÕÒýµ¼±êÊ¶
-				RmtSta&=0XF0;	//Çå¿Õ¼ÆÊýÆ÷	
-			}						 	   	
-		}	
-	}
-}
+////ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
+//	if(htim->Instance==TIM5)
+//	{
+// 		if(RmtSta&0x80)//ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½
+//		{
+//			RmtSta&=~0X10;						//È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//			if((RmtSta&0X0F)==0X00)RmtSta|=1<<6;//ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î°ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Öµï¿½ï¿½Ï¢ï¿½É¼ï¿½
+//			if((RmtSta&0X0F)<14)RmtSta++;
+//			else
+//			{
+//				RmtSta&=~(1<<7);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶
+//				RmtSta&=0XF0;	//ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
+//			}
+//		}
+//	}
+//}
 
-//¶¨Ê±Æ÷ÊäÈë²¶»ñÖÐ¶Ï»Øµ÷º¯Êý
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)//²¶»ñÖÐ¶Ï·¢ÉúÊ±Ö´ÐÐ
+//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ë²¶ï¿½ï¿½ï¿½Ð¶Ï»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½Ê±Ö´ï¿½ï¿½
 {
 	if(htim->Instance==TIM5)
 	{
-		if(RDATA)//ÉÏÉýÑØ²¶»ñ
+		if(RDATA)//ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
 		{
-			TIM_RESET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2);   //Ò»¶¨ÒªÏÈÇå³ýÔ­À´µÄÉèÖÃ£¡£¡
-			TIM_SET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);//CC2P=1 ÉèÖÃÎªÏÂ½µÑØ²¶»ñ
-			__HAL_TIM_SET_COUNTER(&TIM5_Handler,0);  	//Çå¿Õ¶¨Ê±Æ÷Öµ   	  
-		  	RmtSta|=0X10;							//±ê¼ÇÉÏÉýÑØÒÑ¾­±»²¶»ñ
-		}else //ÏÂ½µÑØ²¶»ñ
+			TIM_RESET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2);   //Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½
+			TIM_SET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);//CC2P=1 ï¿½ï¿½ï¿½ï¿½Îªï¿½Â½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
+			__HAL_TIM_SET_COUNTER(&TIM5_Handler,0);  	//ï¿½ï¿½Õ¶ï¿½Ê±ï¿½ï¿½Öµ   	  
+		  	RmtSta|=0X10;							//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		}else //ï¿½Â½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
 		{
-			Dval=HAL_TIM_ReadCapturedValue(&TIM5_Handler,TIM_CHANNEL_2);//¶ÁÈ¡CCR2Ò²¿ÉÒÔÇåCC2IF±êÖ¾Î»
-			TIM_RESET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2);   	//Ò»¶¨ÒªÏÈÇå³ýÔ­À´µÄÉèÖÃ£¡£¡
-			TIM_SET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2,TIM_ICPOLARITY_RISING);//ÅäÖÃTIM5Í¨µÀ2ÉÏÉýÑØ²¶»ñ
-			if(RmtSta&0X10)							//Íê³ÉÒ»´Î¸ßµçÆ½²¶»ñ 
+			Dval=HAL_TIM_ReadCapturedValue(&TIM5_Handler,TIM_CHANNEL_2);//ï¿½ï¿½È¡CCR2Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CC2IFï¿½ï¿½Ö¾Î»
+			TIM_RESET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2);   	//Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½
+			TIM_SET_CAPTUREPOLARITY(&TIM5_Handler,TIM_CHANNEL_2,TIM_ICPOLARITY_RISING);//ï¿½ï¿½ï¿½ï¿½TIM5Í¨ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
+			if(RmtSta&0X10)							//ï¿½ï¿½ï¿½Ò»ï¿½Î¸ßµï¿½Æ½ï¿½ï¿½ï¿½ï¿½ 
 			{
- 				if(RmtSta&0X80)//½ÓÊÕµ½ÁËÒýµ¼Âë
+ 				if(RmtSta&0X80)//ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					
-					if(Dval>300&&Dval<800)			//560Îª±ê×¼Öµ,560us
+					if(Dval>300&&Dval<800)			//560Îªï¿½ï¿½×¼Öµ,560us
 					{
-						RmtRec<<=1;					//×óÒÆÒ»Î».
-						RmtRec|=0;					//½ÓÊÕµ½0	   
-					}else if(Dval>1400&&Dval<1800)	//1680Îª±ê×¼Öµ,1680us
+						RmtRec<<=1;					//ï¿½ï¿½ï¿½ï¿½Ò»Î».
+						RmtRec|=0;					//ï¿½ï¿½ï¿½Õµï¿½0	   
+					}else if(Dval>1400&&Dval<1800)	//1680Îªï¿½ï¿½×¼Öµ,1680us
 					{
-						RmtRec<<=1;					//×óÒÆÒ»Î».
-						RmtRec|=1;					//½ÓÊÕµ½1
-					}else if(Dval>2200&&Dval<2600)	//µÃµ½°´¼ü¼üÖµÔö¼ÓµÄÐÅÏ¢ 2500Îª±ê×¼Öµ2.5ms
+						RmtRec<<=1;					//ï¿½ï¿½ï¿½ï¿½Ò»Î».
+						RmtRec|=1;					//ï¿½ï¿½ï¿½Õµï¿½1
+					}else if(Dval>2200&&Dval<2600)	//ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Ï¢ 2500Îªï¿½ï¿½×¼Öµ2.5ms
 					{
-						RmtCnt++; 					//°´¼ü´ÎÊýÔö¼Ó1´Î
-						RmtSta&=0XF0;				//Çå¿Õ¼ÆÊ±Æ÷		
+						RmtCnt++; 					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½
+						RmtSta&=0XF0;				//ï¿½ï¿½Õ¼ï¿½Ê±ï¿½ï¿½		
 					}
- 				}else if(Dval>4200&&Dval<4700)		//4500Îª±ê×¼Öµ4.5ms
+ 				}else if(Dval>4200&&Dval<4700)		//4500Îªï¿½ï¿½×¼Öµ4.5ms
 				{
-					RmtSta|=1<<7;					//±ê¼Ç³É¹¦½ÓÊÕµ½ÁËÒýµ¼Âë
-					RmtCnt=0;						//Çå³ý°´¼ü´ÎÊý¼ÆÊýÆ÷
+					RmtSta|=1<<7;					//ï¿½ï¿½Ç³É¹ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					RmtCnt=0;						//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				}						 
 			}
 			RmtSta&=~(1<<4);
@@ -138,28 +138,28 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)//²¶»ñÖÐ¶Ï·¢ÉúÊ±Ö´ÐÐ
 	}
 }
 
-//´¦ÀíºìÍâ¼üÅÌ
-//·µ»ØÖµ:
-//	 0,Ã»ÓÐÈÎºÎ°´¼ü°´ÏÂ
-//ÆäËû,°´ÏÂµÄ°´¼ü¼üÖµ.
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:
+//	 0,Ã»ï¿½ï¿½ï¿½ÎºÎ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ÂµÄ°ï¿½ï¿½ï¿½ï¿½ï¿½Öµ.
 u8 Remote_Scan(void)
 {        
 	u8 sta=0;       
 	u8 t1,t2;  
-	if(RmtSta&(1<<6))//µÃµ½Ò»¸ö°´¼üµÄËùÓÐÐÅÏ¢ÁË
+	if(RmtSta&(1<<6))//ï¿½Ãµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 	{ 
-	    t1=RmtRec>>24;			//µÃµ½µØÖ·Âë
-	    t2=(RmtRec>>16)&0xff;	//µÃµ½µØÖ··´Âë 
- 	    if((t1==(u8)~t2)&&t1==REMOTE_ID)//¼ìÑéÒ£¿ØÊ¶±ðÂë(ID)¼°µØÖ· 
+	    t1=RmtRec>>24;			//ï¿½Ãµï¿½ï¿½ï¿½Ö·ï¿½ï¿½
+	    t2=(RmtRec>>16)&0xff;	//ï¿½Ãµï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ 
+ 	    if((t1==(u8)~t2)&&t1==REMOTE_ID)//ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½(ID)ï¿½ï¿½ï¿½ï¿½Ö· 
 	    { 
 	        t1=RmtRec>>8;
 	        t2=RmtRec; 	
-	        if(t1==(u8)~t2)sta=t1;//¼üÖµÕýÈ·	 
+	        if(t1==(u8)~t2)sta=t1;//ï¿½ï¿½Öµï¿½ï¿½È·	 
 		}   
-		if((sta==0)||((RmtSta&0X80)==0))//°´¼üÊý¾Ý´íÎó/Ò£¿ØÒÑ¾­Ã»ÓÐ°´ÏÂÁË
+		if((sta==0)||((RmtSta&0X80)==0))//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½/Ò£ï¿½ï¿½ï¿½Ñ¾ï¿½Ã»ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-		 	RmtSta&=~(1<<6);//Çå³ý½ÓÊÕµ½ÓÐÐ§°´¼ü±êÊ¶
-			RmtCnt=0;		//Çå³ý°´¼ü´ÎÊý¼ÆÊýÆ÷
+		 	RmtSta&=~(1<<6);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶
+			RmtCnt=0;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}  
     return sta;

@@ -30,3 +30,4 @@
 ../Core/Src/lcd.c:2965:6:LCD_ShowxNum	7
 ../Core/Src/lcd.c:2990:6:LCD_ShowString	4
 ../Core/Src/lcd.c:3010:6:LCD_ShowPicture	3
+../Core/Src/lcd.c:3021:6:LCD_ShowPicture_black	3

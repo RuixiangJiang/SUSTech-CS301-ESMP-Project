@@ -41,7 +41,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/fontupd.h ../Core/Inc/piclib.h ../Core/Inc/lcd.h \
  ../Core/Inc/malloc.h ../Core/Inc/exfuns.h ../Core/Inc/bmp.h \
  ../Core/Inc/tjpgd.h ../Core/Inc/gif.h ../Core/Inc/24cxx.h \
- ../Core/Inc/myiic.h ../Core/Inc/remote.h ../Core/Inc/24l01.h
+ ../Core/Inc/myiic.h ../Core/Inc/24l01.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -115,5 +115,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/gif.h:
 ../Core/Inc/24cxx.h:
 ../Core/Inc/myiic.h:
-../Core/Inc/remote.h:
 ../Core/Inc/24l01.h:

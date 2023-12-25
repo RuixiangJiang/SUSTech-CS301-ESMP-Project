@@ -23,6 +23,8 @@ int srandNum = 1;
 
 extern enum SCREEN_STATE screen_state;
 extern unsigned char user_name[20];
+extern struct User friend1;
+extern int chat_remind;
 
 void initMap(){
 	memset(map.data, 0, sizeof(map.data));
@@ -262,7 +264,24 @@ void printNextBlock(int shape, int form){
 void startGame(){
 	int shape = rand() % 7 + 2, form = rand() % 4, id = 1;
     int hasPressed = 0;
+    NRF24L01_RX_Mode();
 	while (screen_state == Tetris){
+		check2();
+		check();
+		u8 check_buf[33];
+		if(NRF24L01_RxPacket(check_buf)==0){
+			char check_buf_substr[7]; // 5字符 + 1 null 终止符
+			memcpy(check_buf_substr, check_buf, 6);
+			check_buf_substr[6] = '\0'; // 添加 null 终止符
+			if (strcmp(check_buf_substr, "INVITE") == 0) {
+				LCD_Fill(50, 10, 100, 40, WHITE);
+				char invite[300];
+				sprintf(invite, "%s %s",friend1.name,"invite you!");
+				LCD_ShowString(60,20,200,24,16,(uint8_t*) invite);
+				HAL_Delay(1000);
+				LCD_Fill(50, 10, 200, 40, WHITE);
+			}
+		}
 		int nxtShape = rand() % 7 + 2, nxtForm = rand() % 4;
 		int x = 1, y = COL / 2 - 2; // initial position of block
 		while (screen_state == Tetris){
@@ -289,6 +308,8 @@ void startGame(){
 			char ch = ' '; // input instruction from board
             int waitCount = 80;
             while (waitCount--){
+            	check2();
+            	check();
                 if (tp_dev.sta & TP_PRES_DOWN){
                     HAL_Delay(10);
                     if (tp_dev.sta & TP_PRES_DOWN && !hasPressed){
@@ -305,7 +326,7 @@ void startGame(){
                 }
             }
             infoLen = snprintf((char *)infoUART, sizeof(infoUART), "input instruction is %c.\r\n", ch);
-			HAL_UART_Transmit(&huart1, infoUART, infoLen, HAL_MAX_DELAY);
+//			HAL_UART_Transmit(&huart1, infoUART, infoLen, HAL_MAX_DELAY);
 
 			if (ch == ' '){ // no instruction from board
 				if (!isLegal(shape, form, id, x + 1, y)){ // reaches bottom

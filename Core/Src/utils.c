@@ -8,6 +8,7 @@
 #include "calc.h"
 #include "tetris.h"
 #include "pic.h"
+#include "24l01.h"
 
 extern enum SCREEN_STATE screen_state;
 
@@ -190,11 +191,650 @@ void update_time() {
 	}
 }
 
+//struct User{
+//	int status; // 1 is online, 0 is offline
+//	unsigned char name[30];
+//};
+
+struct User friend1 = {0,"Jack"};
+
+//int send(const char* msg){
+//	NRF24L01_TX_Mode();
+//	sprintf(DATA_TO_SEND,msg);
+//	int cnt = 0;
+////	while(1)
+////	{
+//		if(NRF24L01_TxPacket(DATA_TO_SEND)==TX_OK)
+//		{
+//			if (strncmp((char*)DATA_TO_SEND, "check", strlen("check")) != 0){
+//				char message[300];
+//				sprintf(message, "%s: %s",user_name,msg);
+//				LCD_ShowString(10,50+20*message_cnt,lcddev.width-1,16,16,message);
+//				message_cnt++;
+//			}
+//			NRF24L01_RX_Mode();
+//			return 1;
+//		}
+//		delay_ms(20);
+////	}
+//	NRF24L01_RX_Mode();
+//	return 0;
+//}
+
+
+
+extern unsigned char user_name[20];
+int message_cnt = 0;
+int interface = 0;
+u8 tmp_buf[33];
+int mode24 = 0;
+extern int chat_remind;
+#define MAX_MSG_COUNT 50
+#define MAX_MSG_LENGTH 100
+extern unsigned char DATA_TO_SEND[200];
+
+char messages[MAX_MSG_COUNT][MAX_MSG_LENGTH];
+int msg_count = 0;
+int count = 0;
+
+
+int send(const char* msg){
+	NRF24L01_TX_Mode();
+	sprintf(DATA_TO_SEND,msg);
+	int cnt = 0;
+
+	int max_chars_per_line = (lcddev.width - 10) / 8; // 每行能容纳的字符数量
+    int max_lines_per_page = 10; // 每页能容纳的行数
+    int total_lines = message_cnt; // 总共的聊天行数
+    int total_pages = (total_lines - 1) / max_lines_per_page + 1; // 总页数
+    int current_page = 1; // 当前显示的页数
+//	while(1){
+		if(NRF24L01_TxPacket(DATA_TO_SEND)==TX_OK)
+		{
+			if (strncmp((char*)DATA_TO_SEND, "check", strlen("check")) != 0){
+				if (strncmp((char*)DATA_TO_SEND, "emoji1", strlen("emoji1")) == 0){
+					char message[30];
+					sprintf(message, "%s:", user_name);
+					LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, message);
+					LCD_ShowPicture(60, 50 + 20 * message_cnt, 30, 30, (uint16_t *) gImage_emoji_cool);
+					message_cnt+=2;
+
+					char message_save[30];
+					sprintf(message_save, "%s: %s",user_name,"emoji1");
+					strncpy(messages[msg_count], message_save, MAX_MSG_LENGTH - 1);
+
+					messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+					msg_count+=2;
+
+				}else if(strncmp((char*)DATA_TO_SEND, "emoji2", strlen("emoji2")) == 0){
+					char message[30];
+					sprintf(message, "%s:", user_name);
+					LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, message);
+					LCD_ShowPicture(60, 50 + 20 * message_cnt, 30, 29, (uint16_t *) gImage_emoji_smile);
+					message_cnt+=2;
+
+					char message_save[30];
+					sprintf(message_save, "%s: %s",user_name,"emoji2");
+					strncpy(messages[msg_count], message_save, MAX_MSG_LENGTH - 1);
+
+					messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+					msg_count+=2;
+
+				}else{
+					char message[300];
+					sprintf(message, "%s: %s", user_name, msg);
+
+					int msg_length = strlen(message);
+
+					if (msg_length > max_chars_per_line){
+						int start_index = 0; // 要显示的消息的起始索引
+						while (start_index < msg_length) {
+							char tmp_msg[400] = {0};
+							strncpy(tmp_msg, message + start_index, max_chars_per_line);
+							tmp_msg[max_chars_per_line] = '\0'; // 添加字符串结束符
+
+							if(message_cnt <= 10){
+								LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, tmp_msg);
+							}else{
+								message_cnt = 0;
+							}
+
+							strncpy(messages[msg_count], tmp_msg, MAX_MSG_LENGTH - 1);
+							messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+							msg_count++;
+
+							message_cnt++;
+							start_index += max_chars_per_line;
+						}
+					}else{
+						LCD_ShowString(10,50+20*message_cnt,lcddev.width-1,16,16,message);
+
+						strncpy(messages[msg_count], message, MAX_MSG_LENGTH - 1);
+						messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+						msg_count++;
+						message_cnt++;
+					}
+				}
+			}
+			NRF24L01_RX_Mode();
+			return 1;
+
+		}delay_ms(20);
+//	}
+		if (strncmp((char*)DATA_TO_SEND, "check", strlen("check")) != 0){
+			//发送消息失败
+			friend1.status = 0;
+			POINT_COLOR = RED;
+			if(screen_state == CHAT){
+				LCD_ShowString(120,65,200,16,16,(uint8_t*)"offline");
+			}
+			chat_remind = 0;
+
+		}
+
+
+
+	NRF24L01_RX_Mode();
+	return 0;
+}
+
+
+
+
+void check2(){
+	u8 check_buf[33];
+	if(NRF24L01_RxPacket(check_buf)==0){
+		char check_buf_substr1[7]; // 5字符 + 1 null 终止符
+		memcpy(check_buf_substr1, check_buf, 6);
+		check_buf_substr1[6] = '\0'; // 添加 null 终止符
+
+		char check_buf_substr2[6]; // 5字符 + 1 null 终止符
+		memcpy(check_buf_substr2, check_buf, 5);
+		check_buf_substr2[5] = '\0'; // 添加 null 终止符
+
+		//收到invite
+		if (strcmp(check_buf_substr1, "INVITE") == 0) {
+			LCD_Fill(50, 10, 100, 40, WHITE);
+			char invite[300];
+			POINT_COLOR = RED;
+			sprintf(invite, "%s %s",friend1.name,"invite you!");
+			LCD_ShowString(60,20,200,24,16,(uint8_t*) invite);
+			HAL_Delay(1000);
+			LCD_Fill(50, 10, 200, 40, WHITE);
+			chat_remind = 1;
+		}
+	}
+	POINT_COLOR = BLACK;
+	NRF24L01_RX_Mode();
+}
+
+
+void check(){
+	if(send("check")==1){
+		friend1.status = 1;
+		POINT_COLOR = RED;
+		if(screen_state == CHAT){
+			if(interface == 0){
+			LCD_ShowString(120,65,200,16,16,(uint8_t*)"online");
+			}
+		}else{
+			if(chat_remind == 0){
+				LCD_Fill(50, 10, 100, 40, WHITE);
+				char remind[300];
+				sprintf(remind, "%s %s",friend1.name,"is online!");
+				LCD_ShowString(60,20,200,24,16,(uint8_t*) remind);
+				HAL_Delay(1000);
+				LCD_Fill(50, 10, 200, 40, WHITE);
+				chat_remind = 1;
+			}
+		}
+	}else{
+		friend1.status = 0;
+		POINT_COLOR = RED;
+		if(screen_state == CHAT){
+			LCD_ShowString(120,65,200,16,16,(uint8_t*)"offline");
+		}
+		chat_remind = 0;
+	}
+	POINT_COLOR = BLACK;
+	NRF24L01_RX_Mode();
+	check2();
+}
+
 void draw_chat_screen() {
 	LCD_Clear(WHITE);
 	POINT_COLOR = BLACK;
-	LCD_ShowString(10, 10, 200, 16, 16, (uint8_t*) "chat");
+	LCD_ShowString(70,10,200,24,24,(uint8_t*)"Contacts");
+	LCD_ShowPicture(0,40,219,80,(uint16_t *)gImage_contact);
+	LCD_ShowString(90,65,200,16,16,(uint8_t *)friend1.name);
 }
+
+
+//void chat_touch_handler(){
+//	if(interface==0){
+//		check();
+//		if (tp_dev.sta&TP_PRES_DOWN) {
+//			HAL_Delay(50);
+//			if (tp_dev.sta&TP_PRES_DOWN) {
+//				uint16_t x = tp_dev.x[0], y = tp_dev.y[0];
+//				//0,40,219,80
+//				if(x>20&&x<380&&y>40&&y<120&&friend1.status==1)
+//				{
+//					LCD_Clear(WHITE);
+//					POINT_COLOR = BLACK;
+//					interface = 1;
+//					LCD_ShowString(70,10,200,24,24,(uint8_t*)"Chat");
+//					send("INVITE");
+////					char message[300];
+////					sprintf(message, "%s: %s",user_name,test_message);
+////					LCD_ShowString(10,50,200,16,16,message);
+//				}
+//			}
+//		} else {
+//			HAL_Delay(50);
+//		}
+//	}else if(interface==1)
+//	{
+//		POINT_COLOR = BLACK;
+//		NRF24L01_RX_Mode();
+//		while(1){
+//			if(NRF24L01_RxPacket(tmp_buf)==0){
+//				tmp_buf[32]=0;//加入字符串结束符
+//				char tmp_buf_substr[6]; // 5字符 + 1 null 终止符
+//				memcpy(tmp_buf_substr, tmp_buf, 5);
+//				tmp_buf_substr[5] = '\0'; // 添加 null 终止符
+//				if (strcmp(tmp_buf_substr, "check") != 0) {
+//					char message[300];
+//					sprintf(message, "%s: %s",friend1.name,tmp_buf);
+//					LCD_ShowString(10,50+20*message_cnt,lcddev.width-1,16,16,message);
+//					message_cnt++;
+//				}
+//			}else delay_us(100);
+//		}
+//	}
+//}
+
+
+void chat_touch_handler(){
+	if(interface==0){
+//		check();
+		if (tp_dev.sta&TP_PRES_DOWN) {
+			HAL_Delay(50);
+			if (tp_dev.sta&TP_PRES_DOWN) {
+				uint16_t x = tp_dev.x[0], y = tp_dev.y[0];
+				//0,40,219,80
+				if(x>20&&x<380&&y>40&&y<120 && friend1.status ==1){
+
+					LCD_Clear(WHITE);
+					interface = 1;
+					send("INVITE");
+					LCD_ShowString(70,10,200,24,24,(uint8_t*)"Chat");
+					LCD_ShowPicture(50, 280, 30, 30, (uint16_t *) gImage_emoji_cool);
+					LCD_ShowPicture(130, 280, 30, 29, (uint16_t *) gImage_emoji_smile);
+				}
+			}
+		} else {
+			HAL_Delay(50);
+		}
+	}else if(interface==1){
+		NRF24L01_RX_Mode();
+		//返回按钮
+		POINT_COLOR = BLUE;
+		LCD_ShowString(140,10,200,24,24,(uint8_t*)"RETURN");
+		POINT_COLOR = BLACK;
+
+		//显示第一页的内容
+        for (int i = 0; i < 10; i++) {
+			char tmp_buf_substr[7]; // 5字符 + 1 null 终止符
+			memcpy(tmp_buf_substr, messages[i], 6);
+			tmp_buf_substr[6] = '\0'; // 添加 null 终止符
+
+//        	if (strcmp(tmp_buf_substr, "emoji1") == 0){
+        	if (strstr(messages[i], "emoji1") != NULL){
+//				char message[30];
+//				sprintf(message, "%s:",friend1.name);
+
+				char message[6]; // 5字符 + 1 null 终止符
+				strncpy(message, messages[i], 5);
+				message[5] = '\0'; // 添加 null 终止符
+
+				LCD_ShowString(10, 50 + 20 * i, lcddev.width - 1, 16, 16, message);
+				LCD_ShowPicture(60, 50 + 20 * i, 30, 30, (uint16_t *) gImage_emoji_cool);
+				i++;
+        	}else if (strstr(messages[i], "emoji2") != NULL){
+//				char message[30];
+//				sprintf(message, "%s:",friend1.name);
+				char message[6]; // 5字符 + 1 null 终止符
+				strncpy(message, messages[i], 5);
+				message[5] = '\0'; // 添加 null 终止符
+				LCD_ShowString(10, 50 + 20 * i, lcddev.width - 1, 16, 16, message);
+				LCD_ShowPicture(60, 50 + 20 * i, 30, 29, (uint16_t *) gImage_emoji_smile);
+				i++;
+        	}else{
+        		LCD_ShowString(10, 50 + 20 * i, lcddev.width - 1, 16, 16, (uint8_t*)messages[i]);
+        	}
+        }
+
+        message_cnt = msg_count;
+		while(1){
+		    tp_dev.scan(0);
+			if (tp_dev.sta&TP_PRES_DOWN) {
+				uint16_t x = tp_dev.x[0], y = tp_dev.y[0];
+	            uint16_t x_start, y_start, x_end, y_end;
+	            uint8_t threshold = 20; // 滑动阈值，根据实际情况进行调整
+	            x_start = x;
+	            y_start = y;
+	            //返回按钮->回到interface = 0
+	            if(x > 130 && x < lcddev.width && y > 0 && y < 40){
+	            	interface = 0;
+	            	LCD_Clear(WHITE);
+	            	POINT_COLOR = BLACK;
+	            	LCD_ShowString(70,10,200,24,24,(uint8_t*)"Contacts");
+	            	LCD_ShowPicture(0,40,219,80,(uint16_t *)gImage_contact);
+	            	LCD_ShowString(90,60,200,16,16,(uint8_t *)friend1.name);
+	            	break;
+	            }
+
+	            //点击emoji
+//				LCD_ShowPicture(50, 280, 30, 30, (uint16_t *) gImage_emoji_cool);
+//				LCD_ShowPicture(130, 280, 30, 29, (uint16_t *) gImage_emoji_smile);
+	            if(x > 50 && x < 90 && y > 280 && y < 320 && (x_start == x_end)){ //emoji1  cool
+					send("emoji1");
+	            }
+	            if(x > 130 && x < 170 && y > 280 && y < 320 && (x_start == x_end)){ //smile
+	            	send("emoji2");
+	            }
+
+	            HAL_Delay(50); // 等待一段时间，防止滑动过快导致的误触
+	            tp_dev.scan(0);
+	            if (tp_dev.sta & TP_PRES_DOWN) {
+	                x_end = tp_dev.x[0];
+	                y_end = tp_dev.y[0];
+	                // 判断滑动方向和距离
+	                if ((x_start > x_end) && (x_start - x_end > threshold)) { //翻页
+	                    // 执行翻页操作
+	                    LCD_Clear(WHITE);
+						LCD_ShowString(70,10,200,24,24,(uint8_t*)"Chat");
+						LCD_ShowPicture(50, 280, 30, 30, (uint16_t *) gImage_emoji_cool);
+						LCD_ShowPicture(130, 280, 30, 29, (uint16_t *) gImage_emoji_smile);
+						interface = 2;
+						break;
+	                }
+	            }
+			}
+
+			if(NRF24L01_RxPacket(tmp_buf)==0){ //接收到信息
+
+				tmp_buf[32]=0;//加入字符串结束符
+
+				char tmp_buf_substr[6]; // 5字符 + 1 null 终止符
+				memcpy(tmp_buf_substr, tmp_buf, 5);
+				tmp_buf_substr[5] = '\0'; // 添加 null 终止符
+
+				char tmp_buf_substr2[7]; // 5字符 + 1 null 终止符
+				memcpy(tmp_buf_substr2, tmp_buf, 6);
+				tmp_buf_substr2[6] = '\0'; // 添加 null 终止符
+
+				if (strcmp(tmp_buf_substr, "check") != 0) {
+
+					if(strcmp(tmp_buf_substr2, "emoji1") == 0){
+						char message[30];
+						sprintf(message, "%s:",friend1.name);
+						LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, message);
+						LCD_ShowPicture(60, 50 + 20 * message_cnt, 30, 30, (uint16_t *) gImage_emoji_cool);
+						message_cnt+=2;
+
+						char message_save[30];
+						sprintf(message_save, "%s: %s",friend1.name,"emoji1");
+						strncpy(messages[msg_count], message_save, MAX_MSG_LENGTH - 1);
+						messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+						msg_count+=2;
+
+					}else if(strcmp(tmp_buf_substr2, "emoji2") == 0){
+						char message[30];
+						sprintf(message, "%s:",friend1.name);
+						LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, message);
+						LCD_ShowPicture(60, 50 + 20 * message_cnt, 30, 29, (uint16_t *) gImage_emoji_smile);
+						message_cnt+=2;
+
+						char message_save[30];
+						sprintf(message_save, "%s: %s",friend1.name,"emoji2");
+						strncpy(messages[msg_count], message_save, MAX_MSG_LENGTH - 1);
+						messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+						msg_count+=2;
+
+					}else{
+						char message[300];
+						sprintf(message, "%s: %s",friend1.name,tmp_buf);
+
+						int msg_length = strlen(message);
+						int max_chars_per_line = (lcddev.width - 10) / 8; // 每行能容纳的字符数量
+						int max_lines_per_page = 10; // 每页能容纳的行数
+						int current_page = 1; // 当前显示的页数
+
+						if (msg_length > max_chars_per_line){ //需要换行
+							int start_index = 0; // 要显示的消息的起始索引
+							while (start_index < msg_length) {
+								char tmp_msg[400] = {0};
+								strncpy(tmp_msg, message + start_index, max_chars_per_line);
+								tmp_msg[max_chars_per_line] = '\0'; // 添加字符串结束符
+
+								if(message_cnt <= 10){
+									LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, tmp_msg);
+								}
+//								else{
+//									message_cnt = 0;
+//								}
+
+								strncpy(messages[msg_count], tmp_msg, MAX_MSG_LENGTH - 1);
+								messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+								msg_count++;
+
+								message_cnt++;
+								start_index += max_chars_per_line;
+								count++;
+							}
+						}else{ //不需要换行
+							LCD_ShowString(10,50+20*message_cnt,lcddev.width-1,16,16,message);
+
+							strncpy(messages[msg_count], message, MAX_MSG_LENGTH - 1);
+							messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+							msg_count++;
+
+							message_cnt++;
+							count++;
+						}
+					}
+
+				}
+			}else delay_us(100);
+		}
+	}else if (interface = 2){//新的一页
+		//返回按钮
+		POINT_COLOR = BLUE;
+		LCD_ShowString(140,10,200,24,24,(uint8_t*)"RETURN");
+		POINT_COLOR = BLACK;
+
+//		//显示之前没显示出来的消息
+//        for (int i = 10; i < msg_count; i++) {
+//            LCD_ShowString(10, 50 + 20 * (i-10), lcddev.width - 1, 16, 16, (uint8_t*)messages[i]);
+//        }
+
+		//显示之前没显示出来的消息
+        for (int i = 10; i < msg_count; i++) {
+        	int j = i-10;
+			char tmp_buf_substr[7]; // 5字符 + 1 null 终止符
+			memcpy(tmp_buf_substr, messages[i], 6);
+			tmp_buf_substr[6] = '\0'; // 添加 null 终止符
+
+//        	if (strcmp(tmp_buf_substr, "emoji1") == 0){
+        	if (strstr(messages[i], "emoji1") != NULL){
+//				char message[30];
+//				sprintf(message, "%s:",friend1.name);
+
+				char message[6]; // 5字符 + 1 null 终止符
+				strncpy(message, messages[i], 5);
+				message[5] = '\0'; // 添加 null 终止符
+
+				LCD_ShowString(10, 50 + 20 * j, lcddev.width - 1, 16, 16, message);
+				LCD_ShowPicture(60, 50 + 20 * j, 30, 30, (uint16_t *) gImage_emoji_cool);
+				i++;
+        	}else if (strstr(messages[i], "emoji2") != NULL){
+//				char message[30];
+//				sprintf(message, "%s:",friend1.name);
+				char message[6]; // 5字符 + 1 null 终止符
+				strncpy(message, messages[i], 5);
+				message[5] = '\0'; // 添加 null 终止符
+				LCD_ShowString(10, 50 + 20 * j, lcddev.width - 1, 16, 16, message);
+				LCD_ShowPicture(60, 50 + 20 * j, 30, 29, (uint16_t *) gImage_emoji_smile);
+				i++;
+        	}else{
+        		LCD_ShowString(10, 50 + 20 * j, lcddev.width - 1, 16, 16, (uint8_t*)messages[i]);
+        		//LCD_ShowString(10, 50 + 20 * i, lcddev.width - 1, 16, 16, (uint8_t*)messages[i]);
+        	}
+        }
+
+        message_cnt = msg_count-10;
+        //接收
+		NRF24L01_RX_Mode();
+		while(1){
+		    tp_dev.scan(0);
+			if (tp_dev.sta&TP_PRES_DOWN) {
+				uint16_t x = tp_dev.x[0], y = tp_dev.y[0];
+	            uint16_t x_start, y_start, x_end, y_end;
+	            uint8_t threshold = 20; // 滑动阈值，根据实际情况进行调整
+	            x_start = x;
+	            y_start = y;
+
+	            //返回按钮->回到interface = 0
+	            if(x > 130 && x < lcddev.width && y > 0 && y < 40){
+	            	interface = 0;
+	            	LCD_Clear(WHITE);
+	            	POINT_COLOR = BLACK;
+	            	LCD_ShowString(70,10,200,24,24,(uint8_t*)"Contacts");
+	            	LCD_ShowPicture(0,40,219,80,(uint16_t *)gImage_contact);
+	            	LCD_ShowString(90,60,200,16,16,(uint8_t *)friend1.name);
+	            	break;
+	            }
+
+	            //点击emoji
+//				LCD_ShowPicture(50, 280, 30, 30, (uint16_t *) gImage_emoji_cool);
+//				LCD_ShowPicture(130, 280, 30, 29, (uint16_t *) gImage_emoji_smile);
+	            if(x > 50 && x < 90 && y > 280 && y < 320 && (x_start == x_end)){ //emoji1  cool
+					send("emoji1");
+	            }
+	            if(x > 130 && x < 170 && y > 280 && y < 320 && (x_start == x_end)){ //smile
+	            	send("emoji2");
+	            }
+
+	            HAL_Delay(50); // 等待一段时间，防止滑动过快导致的误触
+	            tp_dev.scan(0);
+	            if (tp_dev.sta & TP_PRES_DOWN) {
+	                x_end = tp_dev.x[0];
+	                y_end = tp_dev.y[0];
+	                // 判断滑动方向和距离
+	                //右滑
+	                if ((x_start < x_end) && (x_end - x_start > threshold)) {
+	                    // 执行翻页操作
+	                	interface = 1;
+	            		LCD_Clear(WHITE);
+	            		LCD_ShowString(70,10,200,24,24,(uint8_t*)"Chat");
+	            		LCD_ShowPicture(50, 280, 30, 30, (uint16_t *) gImage_emoji_cool);
+	            		LCD_ShowPicture(130, 280, 30, 29, (uint16_t *) gImage_emoji_smile);
+	                	break;
+	                }
+	            }
+			}
+
+			if(NRF24L01_RxPacket(tmp_buf)==0){ //接收到信息
+				tmp_buf[32]=0;//加入字符串结束符
+
+				char tmp_buf_substr[6]; // 5字符 + 1 null 终止符
+				memcpy(tmp_buf_substr, tmp_buf, 5);
+				tmp_buf_substr[5] = '\0'; // 添加 null 终止符
+
+				char tmp_buf_substr2[7]; // 5字符 + 1 null 终止符
+				memcpy(tmp_buf_substr2, tmp_buf, 6);
+				tmp_buf_substr2[6] = '\0'; // 添加 null 终止符
+
+				if (strcmp(tmp_buf_substr, "check") != 0) {
+
+					if(strcmp(tmp_buf_substr2, "emoji1") == 0){
+						char message[30];
+						sprintf(message, "%s:",friend1.name);
+						LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, message);
+						LCD_ShowPicture(60, 50 + 20 * message_cnt, 30, 30, (uint16_t *) gImage_emoji_cool);
+						message_cnt+=2;
+
+						char message_save[30];
+						sprintf(message_save, "%s: %s",friend1.name,"emoji1");
+						strncpy(messages[msg_count], message_save, MAX_MSG_LENGTH - 1);
+
+						messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+						msg_count+=2;
+
+					}else if(strcmp(tmp_buf_substr2, "emoji2") == 0){
+						char message[30];
+						sprintf(message, "%s:",friend1.name);
+						LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, message);
+						LCD_ShowPicture(60, 50 + 20 * message_cnt, 30, 29, (uint16_t *) gImage_emoji_smile);
+						message_cnt+=2;
+
+						char message_save[30];
+						sprintf(message_save, "%s: %s",friend1.name,"emoji1");
+						strncpy(messages[msg_count], message_save, MAX_MSG_LENGTH - 1);
+
+						messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+						msg_count+=2;
+
+					}else{
+						char message[300];
+						sprintf(message, "%s: %s",friend1.name,tmp_buf);
+
+						int msg_length = strlen(message);
+						int max_chars_per_line = (lcddev.width - 10) / 8; // 每行能容纳的字符数量
+						int max_lines_per_page = 10; // 每页能容纳的行数
+						int current_page = 1; // 当前显示的页数
+
+						if (msg_length > max_chars_per_line){ //需要换行
+							int start_index = 0; // 要显示的消息的起始索引
+							while (start_index < msg_length) {
+								char tmp_msg[400] = {0};
+								strncpy(tmp_msg, message + start_index, max_chars_per_line);
+								tmp_msg[max_chars_per_line] = '\0'; // 添加字符串结束符
+
+								if(message_cnt <= 10){
+									LCD_ShowString(10, 50 + 20 * message_cnt, lcddev.width - 1, 16, 16, tmp_msg);
+								}
+//								else{
+//									message_cnt = 0;
+//								}
+								strncpy(messages[msg_count], tmp_msg, MAX_MSG_LENGTH - 1);
+								messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+								msg_count++;
+
+								message_cnt++;
+								start_index += max_chars_per_line;
+								count++;
+							}
+						}else{ //不需要换行
+							LCD_ShowString(10,50+20*message_cnt,lcddev.width-1,16,16,message);
+
+							strncpy(messages[msg_count], message, MAX_MSG_LENGTH - 1);
+							messages[msg_count][MAX_MSG_LENGTH - 1] = '\0'; // 确保字符串以'\0'结尾
+							msg_count++;
+
+							message_cnt++;
+							count++;
+						}
+					}
+				}
+			}else delay_us(100);
+		}
+	}
+}
+
+
 
 uint16_t left_up_x[5][5], left_up_y[5][5], right_down_x[5][5], right_down_y[5][5];
 uint16_t move_left_up_x[2], move_left_up_y[2], move_right_down_x[2], move_right_down_y[2];
@@ -205,7 +845,8 @@ uint8_t has_pressed;
 void draw_calc_screen() {
 	LCD_Clear(WHITE);
 	LCD_ShowPicture(0, 120, 240, 26, (uint16_t *) gImage_left_or_right);
-	LCD_ShowPicture(0, 150, 240, 165, (uint16_t *) gImage_calc_bg_DE);
+//	LCD_ShowPicture(0, 150, 240, 165, (uint16_t *) gImage_calc_bg_DE);
+	LCD_ShowPicture_black(0, 150, 240, 165, (uint8_t *) gImage_calc_bg_DE);
 	if (screen_state == CALC_D) {
 		char notice[50] = "[mode] decimal computation";
 		LCD_ShowString((240 - strlen(notice) * 8) / 2, 90, 400, 16, 16, (uint8_t*) notice);
@@ -526,6 +1167,7 @@ void calc_button_shift_handler(uint8_t press_key_id) {
 
 
 void calc_touch_screen_handler() {
+
 	if (tp_dev.sta&TP_PRES_DOWN) {
 		HAL_Delay(50);
 		if (tp_dev.sta&TP_PRES_DOWN) {

@@ -46,7 +46,7 @@
 #include "text.h"
 #include "piclib.h"
 #include "24cxx.h"
-#include "remote.h"
+//#include "remote.h"
 #include "24l01.h"
 #include <math.h>
 
@@ -56,9 +56,10 @@
 /* USER CODE BEGIN PTD */
 
 // config for the users
-unsigned char user_name[20] = "Bendan Luo";
+unsigned char user_name[20] = "Rose";
 struct TIME_SETTING time_setting = {2023, 11, 23, 0, 5, 11};
 uint16_t mark_seed = 0x1677; // used to check if the RTC is initialized (if you want to reset the RTC, change this value)
+int time24 = 0;
 
 /* USER CODE END PTD */
 
@@ -104,10 +105,11 @@ u8 pause=0;							//��ͣ���
 u16 temp;
 u32 *picoffsettbl;					//ͼƬ�ļ�offset����????
 u16 t=0;
-u8 tmp_buf[33];
+//u8 tmp_buf[33];
 
 unsigned char txBuffer[1024] = {0};
 int txLen;
+
 
 u16 pic_get_tnum(u8 *path)
 {
@@ -134,6 +136,9 @@ u16 pic_get_tnum(u8 *path)
 	return rval;
 }
 void album(){
+	NRF24L01_RX_Mode();
+	check2();
+	check();
   while(f_opendir(&picdir,"0:/PICTURE"))//��ͼƬ�ļ���
    	{
   		LCD_ShowString(10,170,240,16, 16, (uint8_t*)"/PICTURE is wrong!");
@@ -166,6 +171,8 @@ void album(){
   		curindex=0;//��ǰ����Ϊ0
   		while(1)//ȫ����ѯһ��
   		{
+  			check2();
+  			check();
   			temp=picdir.dptr;								//��¼��ǰdptrƫ��
   	        res=f_readdir(&picdir,picfileinfo);       		//��ȡĿ¼�µ�һ���ļ�
   	        if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//������/��ĩβ��,�˳�
@@ -184,6 +191,8 @@ void album(){
      	res=f_opendir(&picdir,(const TCHAR*)"0:/PICTURE"); 	//��Ŀ¼
   	while(res==FR_OK)//�򿪳ɹ�
   	{
+  		check2();
+  		check();
   		dir_sdi(&picdir,picoffsettbl[curindex]);			//�ı䵱ǰĿ¼����
           res=f_readdir(&picdir,picfileinfo);       		//��ȡĿ¼�µ�һ���ļ�
           if(res!=FR_OK||picfileinfo->fname[0]==0)break;	//������/��ĩβ��,�˳�
@@ -201,6 +210,7 @@ void album(){
   		t=0;
   		while(1)
   		{
+  			check();
   			key=KEY_Scan(0);		//ɨ�谴��
   			if(t>250)key=1;			//ģ��һ�ΰ���KEY0
   			if((t%20)==0)LED0=!LED0;//LED0��˸,��ʾ������������.
@@ -230,46 +240,86 @@ void album(){
   	myfree(pname);				//�ͷ��ڴ�
   	myfree(picoffsettbl);		//�ͷ��ڴ�
 }
+
+extern struct User friend1;
+int invite = 0;
+int chat_remind = 0;
 void rtp_test(void)
 {
 
-  HAL_UART_Transmit(&huart1, (uint8_t*)"HELLO WORLD!\r\n", 14 , 0xFFFF);
+  NRF24L01_RX_Mode();
   while (1) {
+
+
+//	check2();
+//	if(friend1.status==1){
+//		LCD_Fill(50, 10, 100, 60, WHITE);
+//		LCD_ShowString(60,20,200,24,16,(uint8_t*)"Jack is online!");
+//	}else{
+//		LCD_Fill(50, 10, 100, 60, WHITE);
+//	}
+
+	u8 check_buf[33];
+	if(NRF24L01_RxPacket(check_buf)==0){
+		char check_buf_substr[7]; // 5字符 + 1 null 终止符
+		memcpy(check_buf_substr, check_buf, 6);
+		check_buf_substr[6] = '\0'; // 添加 null 终止符
+		if (strcmp(check_buf_substr, "INVITE") == 0) {
+			LCD_Fill(50, 10, 100, 40, WHITE);
+			char invite[300];
+			POINT_COLOR = RED;
+			sprintf(invite, "%s %s",friend1.name,"invite you!");
+			LCD_ShowString(60,20,200,24,16,(uint8_t*) invite);
+			POINT_COLOR = BLACK;
+			HAL_Delay(1000);
+			LCD_Fill(50, 10, 200, 40, WHITE);
+		}
+	}
+
+	check();
+
     tp_dev.scan(0);
     if (screen_state == INITIAL) {
       if(tp_dev.sta&TP_PRES_DOWN) {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"pressed\r\n", 9 , 0xFFFF);
+//        HAL_UART_Transmit(&huart1, (uint8_t*)"pressed\r\n", 9 , 0xFFFF);
         // between (10, 150) and (10 + 60, 150 + 60) is the area of the [CHAT] button
         if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"CHAT\r\n", 6 , 0xFFFF);
+//          HAL_UART_Transmit(&huart1, (uint8_t*)"CHAT\r\n", 6 , 0xFFFF);
           screen_state = CHAT;
           draw_chat_screen();
         }
         // between (90, 150) and (90 + 60, 150 + 60) is the area of the [CALCULATOR] button
         else if (tp_dev.x[0] > 90 && tp_dev.x[0] < 150 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"CALCULATOR\r\n", 12 , 0xFFFF);
+//          HAL_UART_Transmit(&huart1, (uint8_t*)"CALCULATOR\r\n", 12 , 0xFFFF);
           screen_state = CALC_D;
           draw_calc_screen();
         }
         // between (170, 150) and (170 + 60, 150 + 60) is the area of the [PICTURE] button
         else if (tp_dev.x[0] > 170 && tp_dev.x[0] < 230 && tp_dev.y[0] > 150 && tp_dev.y[0] < 210) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
+//          HAL_UART_Transmit(&huart1, (uint8_t*)"PICTURE\r\n", 9 , 0xFFFF);
           screen_state = PIC;
           album();
         }
         // between (10, 220) and (10 + 60, 220 + 60) is the area of the [Tetris] button
         else if (tp_dev.x[0] > 10 && tp_dev.x[0] < 70 && tp_dev.y[0] > 220 && tp_dev.y[0] < 280) {
-          HAL_UART_Transmit(&huart1, (uint8_t*)"Tetris\r\n", 8 , 0xFFFF);
+//          HAL_UART_Transmit(&huart1, (uint8_t*)"Tetris\r\n", 8 , 0xFFFF);
           screen_state = Tetris;
           tetris();
         }
       }
     } else if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
+      NRF24L01_RX_Mode();
+      check2();
       calc_touch_screen_handler();
+    }else if(screen_state == CHAT){
+    	chat_touch_handler();
     }
     
   } 
 }
+
+extern int message_cnt;
+
 
 /* USER CODE END 0 */
 
@@ -325,6 +375,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   draw_initial_screen((uint8_t *) user_name);
   rtp_test();
   while (1)

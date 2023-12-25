@@ -25,6 +25,7 @@
 #include "string.h"
 #include "lcd.h"
 #include "utils.h"
+#include "24l01.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -290,6 +291,20 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+extern unsigned char user_name[20];
+extern int message_cnt;
+extern int interface;
+extern unsigned char DATA_TO_SEND[800];
+extern int mode24;
+
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
+//	time24+=1;
+//	if(time24==11){
+//		time24 = 0;
+//	}
+//}
+
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -298,8 +313,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		static unsigned char uLength = 0;
 		if(rxBuffer[0] == '\n'){
 			HAL_UART_Transmit(&huart1, uRx_Data, uLength, 0xffff);
-			//LCD_ShowString(30, 40, 200, 24, 24, (uint8_t*) uRx_Data);
 			uLength = 0;
+			if(screen_state==CHAT&&interface==1){
+				send(uRx_Data);
+//				char message[300];
+//				sprintf(message, "%s: %s",user_name,uRx_Data);
+//				LCD_ShowString(10,50+20*message_cnt,lcddev.width-1,16,16,message);
+//				message_cnt++;
+			}
 		}
 		else{
 			uRx_Data[uLength++] = rxBuffer[0];
@@ -316,7 +337,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	switch(GPIO_Pin){
 		case KEY0_Pin:
 			if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET){
-        // �? calc 界面下，按下 key0 会右移方�?
+        // �? calc 界面下，按下 key0 会右移方�?
         // if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
         //   calc_button_shift_handler(0);
         // }
@@ -324,7 +345,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			break;
 		case KEY1_Pin:
 			if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) == GPIO_PIN_RESET){
-        // �? calc 界面下，按下 key1 会左移方�?
+        // �? calc 界面下，按下 key1 会左移方�?
         // if (screen_state == CALC_B || screen_state == CALC_D || screen_state == CALC_E) {
         //   calc_button_shift_handler(1);
         // }
