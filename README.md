@@ -1,5 +1,8 @@
 # ESMP-Project
 
+
+check CS301-2023FALL-lab-project-report-GROUPNUM.docx pls.
+/*
 ## Update Log
 - [2023/11/22] Initial screen design
   
@@ -75,3 +78,4 @@ uint16_t mark_seed = 0x1674; // used to check if the RTC is initialized (if you 
 2. [left]/[right] button for sliding the equation window (if the equation is very long, you can use it moving left or right to see the whole input equation).
 3. You can use "change" button to switch the function of the calculator. ***i.e.*** decimal computation / equation solving / binary computation.
 4. In the decimal or binary computation part, once you click the "=" button, the result will be calculated, while in the equation solving part, when you input the second "=", the equation will be solved.
+*/
