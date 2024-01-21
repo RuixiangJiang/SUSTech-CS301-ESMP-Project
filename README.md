@@ -8,7 +8,7 @@ please refer to report.pdf.
 /*
 
 check CS301-2023FALL-lab-project-report-GROUPNUM.docx pls.
-/*
+*/
 ## Update Log
 - [2023/11/22] Initial screen design
   
